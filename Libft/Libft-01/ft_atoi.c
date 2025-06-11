@@ -21,12 +21,20 @@ int	ft_isdigit(char c)
 		return (0);
 }
 
+int	ft_issign_orspace(char c)
+{
+	if (c == ' ' || c == '+' || c == '-')
+		return (1);
+	else
+		return (0);
+}
+
 int	ft_strlen(const char *str)
 {
 	size_t	i;
 
 	i = 0;
-	while (str[0])
+	while (str[i])
 		i++;
 	return (i);
 }
@@ -43,19 +51,25 @@ int	ft_atoi(const char *nptr)
 	nbr = 0;
 	len = ft_strlen(nptr);
 	while (i < len)
-	{
+	{		
+		if (!ft_isdigit(nptr[i]) && nbr)
+			return (nbr);
+		if (ft_issign_orspace(nptr[i]) && sign)
+			return (nbr);
 		if (nptr[i] == '+' && !(sign))
 			sign = 1;
-		else if (nptr[i] == '-' && !(sign))
+		if (nptr[i] == '-' && !(sign))
 			sign = -1;
-		else if (nptr[i] ==
-
-		if (ft_isdigit(nptr[i])
+		if (ft_isdigit(nptr[i]))
 		{
-			Umrechnung
+			nbr = nbr * 10 + nptr[i] - 48;
 		}
 		else
-			return (0);
+			return (nbr);
+		i++;	
+	}
+	return (nbr);
+}
 
 
 int	main()
@@ -67,7 +81,10 @@ int	main()
 	char str4[] = "-   123";
 	char str5[] = "-123ad5";
 
-	printf("%s: %d\n %s: %d\n %s: %d\n %s: %d\n %s: %d\n%s: %d\n", str,
+	printf("%s: %d\n %s: %d\n %s: %d\n %s: %d\n %s: %d\n%s: %d\n\n", str,
 	atoi(str), str1, atoi(str1), str2, atoi(str2), str3, atoi(str3), 
+	str4, atoi(str4), str5, atoi(str5));
+	printf("%s: %d\n %s: %d\n %s: %d\n %s: %d\n %s: %d\n%s: %d\n", str,
+	ft_atoi(str), str1, ft_atoi(str1), str2, ft_atoi(str2), str3, atoi(str3), 
 	str4, atoi(str4), str5, atoi(str5));
 }
