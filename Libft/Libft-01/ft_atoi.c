@@ -21,53 +21,43 @@ int	ft_isdigit(char c)
 		return (0);
 }
 
-int	ft_issign_orspace(char c)
+int	ft_issign(char c)
 {
-	if (c == ' ' || c == '+' || c == '-')
+	if (c == '+' || c == '-')
 		return (1);
 	else
 		return (0);
 }
 
-int	ft_strlen(const char *str)
+int	ft_isspace(char c)
 {
-	size_t	i;
-
-	i = 0;
-	while (str[i])
-		i++;
-	return (i);
+	if (c == ' ' || c == '\f' || c == '\n' || c == '\r' || c == '\t' || c == '\v')
+		return (1);
+	else
+		return (0);
 }
 
 int	ft_atoi(const char *nptr)
 {
 	int	sign;
 	int	nbr;
-	int	i;
-	int 	len;
 
-	i = 0;
-	sign = 0;
+	sign = 1;
 	nbr = 0;
-	len = ft_strlen(nptr);
-	while (i < len)
-	{		
-		if (!ft_isdigit(nptr[i]) && nbr)
-			return (nbr);
-		if (ft_issign_orspace(nptr[i]) && sign)
-			return (nbr);
-		if (nptr[i] == '+' && !(sign))
-			sign = 1;
-		if (nptr[i] == '-' && !(sign))
+	while (ft_isspace(*nptr))
+		nptr++;
+	if(ft_issign(*nptr))
+	{
+		if(*nptr == '-')
 			sign = -1;
-		if (ft_isdigit(nptr[i]))
-		{
-			nbr = nbr * 10 + nptr[i] - 48;
-		}
-		else
-			return (nbr);
-		i++;	
+		nptr++;
 	}
+	while(ft_isdigit(*nptr))
+	{
+		nbr = nbr * 10 + *nptr - 48;
+		nptr++;
+	}
+	nbr = nbr * sign;
 	return (nbr);
 }
 
