@@ -1,37 +1,45 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_calloc.c                                        :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sgavrilo <sgavrilo@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/12 20:44:58 by sgavrilo          #+#    #+#             */
-/*   Updated: 2025/06/12 20:45:06 by sgavrilo         ###   ########.fr       */
+/*   Created: 2025/06/13 19:57:09 by sgavrilo          #+#    #+#             */
+/*   Updated: 2025/06/13 19:57:11 by sgavrilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdint.h>
 #include <stdlib.h>
 
-void	*ft_memset(void *s, int c, size_t n)
+size_t	ft_strlen(const char *str)
 {
-	unsigned char *ptr;
+	size_t	len;
 
-	ptr = (unsigned char *)s;
-	while (n--)
-		*ptr++ = (unsigned char)c;
-	return (s);
+	len = 0;
+	while (str[len])
+		len++;
+	return (len);
 }
 
-void	*ft_calloc(size_t nmemb, size_t size)
+char 	*ft_strdup(const char *s)
 {
-	void	*ptr;
-
-	if (size && nmemb > SIZE_MAX/size) // overflow check with division
+	char	*dup;
+	size_t	len;
+	size_t	i;
+	
+	i = 0;
+	len = ft_strlen(s);
+	dup = malloc(len + 1); // +1 for the \0
+	if (!dup) // always check alloc
 		return (NULL);
-	ptr = malloc(nmemb * size);
-	if (ptr == NULL)
-		return (NULL);
-	ft_memset(ptr, 0, nmemb * size);
-	return (ptr);
+	while (i < len)
+	{
+		dup[i] = s[i];
+		i++;
+	}
+	dup[i] = '\0'; //end of the string
+	return (dup);
 }
+
+
