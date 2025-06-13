@@ -21,3 +21,5 @@ void *calloc(size_t nmemb, size_t size)
 	if (ptr == NULL)
 		return (NULL);
 //check for SIZE_MAX and the hints on the exercise pdfs
+	//
+	//
