@@ -9,6 +9,7 @@
 /*   Updated: 2025/06/05 18:39:11 by sgavrilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+/*   memchr - Memory Character Search                                         */
 
 #include <string.h>
 #include <stdio.h>
@@ -20,8 +21,11 @@ void	*ft_memchr(const void *s, int c, size_t n)
 
 	i = 0;
 	ptr = (unsigned char *)s;
-	while (i++ < n - 1 || *ptr != 0 || *ptr != (unsigned char )c)
+	while (i < n || *ptr != (unsigned char )c)
+	{
 		ptr++;
+		i++;
+	}
 	if (*ptr == (unsigned char )c)
 		return (ptr);
 	else

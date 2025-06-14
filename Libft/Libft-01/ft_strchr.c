@@ -9,6 +9,7 @@
 /*   Updated: 2025/06/03 19:11:38 by sgavrilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+/*   strchr - String Character Search                                         */
 
 #include <stdio.h>
 #include <string.h>
@@ -18,7 +19,7 @@ char	*ft_strchr(const char *s, char c)
 	const char	*ptr;
 
 	ptr = s;
-	while (*ptr != c)
+	while (*ptr != c && *ptr)
 		ptr++;
 	if (*ptr == c)
 		return ((char *)ptr);

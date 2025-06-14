@@ -12,7 +12,7 @@
 
 #include <unistd.h>
 
-char	*ft_strlcpy(char *dst, const char *src, unsigned int size)
+char	*ft_strlcpy(char *dst, const char *src, size_t size)
 {
 	dst[--size] = 0;
 	while (size--)

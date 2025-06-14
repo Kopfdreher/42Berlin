@@ -9,17 +9,17 @@
 /*   Updated: 2025/06/03 19:13:04 by sgavrilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+/*   strlcat - String Limited Concatenate                                     */
 
-char	*ft_strlcat(char *dst, const char *src, unsigned int size)
+char	*ft_strlcat(char *dst, const char *src, size_t size)
 {
-	unsigned int	i;
+	size_t		i;
 	unsigned int	start;
 
 	i = 0;
 	start = 0;
-	while (dst[start++] != 0)
-	{
-	}
+	while (dst[start] != 0)
+		start++;
 	while (i + start < size && i + start < sizeof (dst))
 		dst[start + i] = src[i++];
 	return (dst);
