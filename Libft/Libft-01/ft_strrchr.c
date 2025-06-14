@@ -9,6 +9,7 @@
 /*   Updated: 2025/06/03 19:17:01 by sgavrilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+/*   strrchr - String Character Search (points to the last accurance)         */
 
 char	*ft_strrchr(const char *s, char c)
 {

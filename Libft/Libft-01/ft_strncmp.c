@@ -9,6 +9,7 @@
 /*   Updated: 2025/06/05 19:59:57 by sgavrilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+/*   strncmp - String Compare till n                                          */
 
 #include <string.h>
 #include <stdio.h>

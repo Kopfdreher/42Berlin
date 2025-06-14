@@ -12,9 +12,9 @@
 
 #include <string.h>
 
-unsigned long	ft_strlen(char *str)
+size_t	ft_strlen(char *str)
 {
-	int	i;
+	i;
 
 	i = 0;
 	while (str[i])
@@ -44,7 +44,8 @@ char	*ft_strnstr(const char *big, const char *little, size_t len)
 	size_t	little_len;
 
 	i = 0;
-	if (little[0] == 0)
+	little_len = ft_strlen(little);
+	if (!little[0])
 		return ((char *)big);
 	if (little_len > len)
 		return (0);
