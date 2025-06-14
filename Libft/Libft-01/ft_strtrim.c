@@ -43,7 +43,6 @@ size_t	ft_isset(char	c, char const *set)
 char	*ft_strchr(const char *s, char c)
 {
 	const char	*ptr;
-
 	ptr = s;
 	while (*ptr != c && *ptr)
 		ptr++;
@@ -93,9 +92,9 @@ char	*ft_strtrim(char const *s1, char const *set)
 
 	start = 0;
 	end = ft_strlen(s1);
-	while (ft_isset(s1[start], set))
+	while (ft_strchr(set, s1[start]))
 		start++;
-	while (ft_isset(s1[end], set))
+	while (ft_strchr(set, s1[end]))
 		end--;
 	n_s1 = ft_substr(s1, start, end - start);
 	return (n_s1);
