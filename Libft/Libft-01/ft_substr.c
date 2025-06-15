@@ -30,8 +30,6 @@ char 	*ft_substr(char const *s, unsigned int start, size_t len)
 	size_t	i;
 	size_t	mem_len;
 
-	if (!s)		// checks if Input is NULL
-		return (NULL);	
 	if (start >= ft_strlen(s))
 	{
 		sub = malloc(sizeof(char));
@@ -55,7 +53,7 @@ char 	*ft_substr(char const *s, unsigned int start, size_t len)
 	sub[i] = '\0';
 	return (sub);
 }
-/*
+
 int	main()
 {
 	char	*str = malloc(11 * sizeof(char));
@@ -71,4 +69,4 @@ int	main()
 	free(str);
 	free(sub);
 }
-*/
+
