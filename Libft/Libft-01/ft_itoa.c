@@ -16,10 +16,8 @@ size_t	ft_intlen(int nbr)
 {
 	size_t	len;
 
-	if (nbr == 0)
-		return (1);
 	len = 0;
-	if (nbr < 0)
+	if (nbr <= 0)
 		len++;
 	while (nbr)
 	{
@@ -48,7 +46,7 @@ char	*ft_itoa(int n)
 	else
 		nb = n;
 	if (n == 0)
-		str[0] = '\0';
+		str[0] = '0';
 	while (nb)
 	{
 		str[--len] = (nb % 10) + '0';
