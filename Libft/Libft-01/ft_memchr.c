@@ -11,34 +11,20 @@
 /* ************************************************************************** */
 /*   memchr - Memory Character Search                                         */
 
-#include <string.h>
-#include <stdio.h>
+#include "libft.h"
 
 void	*ft_memchr(const void *s, int c, size_t n)
 {
-	unsigned char	*ptr;
-	size_t			i;
+	const unsigned char	*ptr;
+	size_t				i;
 
+	ptr = (const unsigned char *)s;
 	i = 0;
-	ptr = (unsigned char *)s;
-	while (i < n || *ptr != (unsigned char )c)
+	while (i < n)
 	{
-		ptr++;
+		if (ptr[i] == (unsigned char)c)
+			return ((void *)ptr + i);
 		i++;
 	}
-	if (*ptr == (unsigned char )c)
-		return (ptr);
-	else
-		return (0);
+	return (NULL);
 }
-/*
-int	main()
-{
-	char	str[] = "Hello World!";
-	char	c = 'l';
-	char	*ptr;
-
-	ptr = memchr(str, c, 4);
-	ptr = ft_memchr(str, c, 4);
-}
-*/

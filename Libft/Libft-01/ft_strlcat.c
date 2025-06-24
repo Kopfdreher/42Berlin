@@ -11,34 +11,25 @@
 /* ************************************************************************** */
 /*   strlcat - String Limited Concatenate                                     */
 
-char	*ft_strlcat(char *dst, const char *src, size_t size)
-{
-	size_t		i;
-	unsigned int	start;
+#include "libft.h"
 
+size_t	ft_strlcat(char *dst, const char *src, size_t size)
+{
+	size_t	i;
+	size_t	src_len;
+	size_t	dst_len;
+
+	src_len = ft_strlen(src);
+	dst_len = ft_strlen(dst);
+	if (size <= dst_len)
+		return (size + src_len);
 	i = 0;
-	start = 0;
-	while (dst[start] != 0)
-		start++;
-	while (i + start < size && i + start < sizeof (dst))
-		dst[start + i] = src[i++];
-	return (dst);
+	while (src[i] && dst_len + i + 1 < size)
+	{
+		dst[dst_len + i] = src[i];
+		i++;
+	}
+	if (dst_len < size)
+		dst[dst_len + i] = 0;
+	return (dst_len + src_len);
 }
-/*
-int	main(void)
-{
-	char	src[] = "World";
-	char	dst[11];
-	int	i = 0;
-
-	while(i < 11)
-		dst[i++] = 0;
-	dst[0] = 'H';
-	dst[1] = 'e';
-	dst[2] = 'l';
-	dst[3] = 'l';
-	dst[4] = 'o';
-	dst[5] = ' ';
-	ft_strlcat(dst, src, 11);
-}
-*/

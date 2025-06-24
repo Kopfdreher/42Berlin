@@ -11,21 +11,20 @@
 /* ************************************************************************** */
 /*   strrchr - String Character Search (points to the last accurance)         */
 
-char	*ft_strrchr(const char *s, char c)
-{
-	const char	*ptr;
-	const char	*save;
+#include "libft.h"
 
-	ptr = s;
-	save = s;
-	while (*ptr != 0)
+char	*ft_strrchr(const char *s, int c)
+{
+	const char	*chr;
+
+	chr = NULL;
+	while (1)
 	{
-		if (*ptr == c)
-			save = ptr;
-		ptr++;
+		if (*s == (char)c)
+			chr = s;
+		if (!*s)
+			break ;
+		s++;
 	}
-	if (*save == c)
-		return ((char *)save);
-	else
-		return (0);
+	return ((char *)chr);
 }

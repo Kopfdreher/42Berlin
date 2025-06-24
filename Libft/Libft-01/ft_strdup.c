@@ -10,36 +10,26 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
+#include "libft.h"
+// +1 for the \0
+//end of the string
 
-size_t	ft_strlen(const char *str)
-{
-	size_t	len;
-
-	len = 0;
-	while (str[len])
-		len++;
-	return (len);
-}
-
-char 	*ft_strdup(const char *s)
+char	*ft_strdup(const char *s)
 {
 	char	*dup;
 	size_t	len;
 	size_t	i;
-	
+
 	i = 0;
 	len = ft_strlen(s);
-	dup = malloc(len + 1); // +1 for the \0
-	if (!dup) // always check alloc
+	dup = malloc(len + 1);
+	if (!dup)
 		return (NULL);
 	while (i < len)
 	{
 		dup[i] = s[i];
 		i++;
 	}
-	dup[i] = '\0'; //end of the string
+	dup[i] = '\0';
 	return (dup);
 }
-
-

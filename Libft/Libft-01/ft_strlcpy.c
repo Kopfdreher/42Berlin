@@ -10,14 +10,24 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
+#include "libft.h"
 
-char	*ft_strlcpy(char *dst, const char *src, size_t size)
+size_t	ft_strlcpy(char *dst, const char *src, size_t size)
 {
-	dst[--size] = 0;
-	while (size--)
-		dst[size] = src[size];
-	return (dst);
+	size_t	i;
+	size_t	len;
+
+	len = ft_strlen(src);
+	if (size == 0)
+		return (len);
+	i = 0;
+	while (i < size - 1 && src[i])
+	{
+		dst[i] = src[i];
+		i++;
+	}
+	dst[i] = 0;
+	return (len);
 }
 /*
 int	main(void)

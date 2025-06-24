@@ -10,9 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdint.h>
-#include <stdlib.h>
-
+#include "libft.h"
+/*
 void	*ft_memset(void *s, int c, size_t n)
 {
 	unsigned char *ptr;
@@ -22,12 +21,12 @@ void	*ft_memset(void *s, int c, size_t n)
 		*ptr++ = (unsigned char)c;
 	return (s);
 }
-
+*/
 void	*ft_calloc(size_t nmemb, size_t size)
 {
 	void	*ptr;
 
-	if (size && nmemb > SIZE_MAX/size) // overflow check with division
+	if (size && nmemb > SIZE_MAX / size)
 		return (NULL);
 	ptr = malloc(nmemb * size);
 	if (ptr == NULL)
