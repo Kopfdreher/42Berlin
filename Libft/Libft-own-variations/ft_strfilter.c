@@ -19,7 +19,7 @@ char	*ft_strfilter(char const *s1, char const *set)
 	char	*s1_1;		// s1 first-part
 	char	*s1_2;		// s1 second-part
 
-	s1_2 = ft_strnstr(s1, set, ft_strlen(set))
+	s1_2 = ft_strnstr(s1, set, ft_strlen(set)) + ft_strlen(set);
 	s1_1 = substr(s1, 0, ft_strlen(s1) - ft_strlen(s1_2));
 	n_s1 = ft_strjoin(s1_1, s1_2);
 	free (s1_1);

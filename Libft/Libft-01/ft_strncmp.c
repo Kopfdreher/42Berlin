@@ -11,25 +11,25 @@
 /* ************************************************************************** */
 /*   strncmp - String Compare till n                                          */
 
-#include <string.h>
-#include <stdio.h>
+#include "libft.h"
 
 int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-	size_t	i;
+	size_t			i;
+	unsigned char	compare1;
+	unsigned char	compare2;
 
 	i = 0;
-	while (i < n && s1[i] && s2[i])
+	while (i < n)
 	{
-		if (s1[i] != s2[i])
-			return (s1[i] - s2[i]);
+		compare1 = (unsigned char)s1[i];
+		compare2 = (unsigned char)s2[i];
+		if (compare1 != compare2 || !compare1 || !compare2)
+			return (compare1 - compare2);
 		i++;
 	}
-	if (i < n)
-		return (s1[i] - s2[i]);
 	return (0);
 }
-
 /*
 int	main()
 {

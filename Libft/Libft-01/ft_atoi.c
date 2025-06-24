@@ -10,16 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <stdlib.h>
-
-int	ft_isdigit(char c)
-{
-	if (c >= '0' && c <= '9')
-		return (1);
-	else
-		return (0);
-}
+#include "libft.h"
 
 int	ft_issign(char c)
 {
@@ -31,7 +22,8 @@ int	ft_issign(char c)
 
 int	ft_isspace(char c)
 {
-	if (c == ' ' || c == '\f' || c == '\n' || c == '\r' || c == '\t' || c == '\v')
+	if (c == ' ' || c == '\f' || c == '\n'
+		|| c == '\r' || c == '\t' || c == '\v')
 		return (1);
 	else
 		return (0);
@@ -46,13 +38,13 @@ int	ft_atoi(const char *nptr)
 	nbr = 0;
 	while (ft_isspace(*nptr))
 		nptr++;
-	if(ft_issign(*nptr))
+	if (ft_issign(*nptr))
 	{
-		if(*nptr == '-')
+		if (*nptr == '-')
 			sign = -1;
 		nptr++;
 	}
-	while(ft_isdigit(*nptr))
+	while (ft_isdigit((int)*nptr))
 	{
 		nbr = nbr * 10 + *nptr - 48;
 		nptr++;
@@ -60,8 +52,7 @@ int	ft_atoi(const char *nptr)
 	nbr = nbr * sign;
 	return (nbr);
 }
-
-
+/*
 int	main()
 {
 	char str[] = "123";
@@ -78,3 +69,4 @@ int	main()
 	ft_atoi(str), str1, ft_atoi(str1), str2, ft_atoi(str2), str3, atoi(str3), 
 	str4, atoi(str4), str5, atoi(str5));
 }
+*/

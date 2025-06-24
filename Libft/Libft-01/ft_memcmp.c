@@ -10,8 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <string.h>
-#include <stdio.h>
+#include "libft.h"
 
 int	ft_memcmp(const void *s1, const void *s2, size_t n)
 {
@@ -22,25 +21,11 @@ int	ft_memcmp(const void *s1, const void *s2, size_t n)
 	i = 0;
 	ptr1 = (unsigned char *)s1;
 	ptr2 = (unsigned char *)s2;
-	while (i < n - 1)
+	while (i < n)
 	{
 		if (ptr1[i] != ptr2[i])
 			return (ptr1[i] - ptr2[i]);
 		i++;
 	}
-	return (ptr1[i] - ptr2[i]);
+	return (0);
 }
-/*
-int     main()
-{
-        char    s1[] = "";
-        char    s2[] = "";
-	int	difference;
-
-	difference = 0;
-	difference = memcmp(s1, s2, 3);
-	printf("memcmp: %d", difference);
-	difference = ft_memcmp(s1, s2, 3);
-	printf("ft_memcmp: %d", difference);
-}
-*/
