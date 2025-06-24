@@ -21,7 +21,7 @@ char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 	if (!needle_len)
 		return ((char *)haystack);
 	i = 0;
-	while (i + needle_len < len && haystack[i])
+	while (haystack[i] && i + needle_len <= len)
 	{
 		if (!ft_strncmp(&haystack[i], needle, needle_len))
 			return ((char *)&haystack[i]);
@@ -29,3 +29,7 @@ char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 	}
 	return (NULL);
 }
+/*
+int	main()
+ft_strnstr(((void*)0), "fake", 3);
+*/

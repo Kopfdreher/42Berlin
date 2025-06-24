@@ -77,7 +77,7 @@ static char	**ft_fill_split(char **split, char const *words, char space)
 			j++;
 		}
 	}
-	split[i] = NULL;
+	split[j] = NULL;
 	return (split);
 }
 
