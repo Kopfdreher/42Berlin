@@ -31,31 +31,28 @@ size_t	ft_intlen(int nbr)
 
 char	*ft_itoa(int n)
 {
-	char			*nbr;
-	size_t			intlen;
-	size_t			i;
-	unsigned int	number;
+	char			*str;
+	size_t			len;
+	unsigned int	nb;
 
-	intlen = ft_intlen(n);
-	nbr = malloc(sizeof(char) * intlen + 1);
-	if (!nbr)
+	len = ft_intlen(n);
+	str = malloc(sizeof(char) * len + 1);
+	if (!str)
 		return (NULL);
-	nbr[intlen] = '\0';
-	i = intlen - 1;
+	str[len] = '\0';
 	if (n < 0)
 	{
-		nbr[0] = '-';
-		number = n * -1;
+		str[0] = '-';
+		nb = n * -1;
 	}
 	else
-		number = n;
+		nb = n;
 	if (n == 0)
-		nbr[0] = '0';
-	while (number)
+		str[0] = '\0';
+	while (nb)
 	{
-		nbr[i] = (number % 10) + 48;
-		number = number / 10;
-		i--;
+		str[--len] = (nb % 10) + '0';
+		nb /= 10;
 	}
-	return (nbr);
+	return (str);
 }
