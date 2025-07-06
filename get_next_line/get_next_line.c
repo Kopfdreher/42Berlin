@@ -10,4 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+char	*get_next_line(int fd)
+{
+	static char*	pos;
+	static char[1]	buffer;
 
+
+	while (pos != /n)
+	{
+	
+}
