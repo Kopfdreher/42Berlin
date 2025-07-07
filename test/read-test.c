@@ -17,8 +17,8 @@
 
 int	main()
 {
-	int	fd;
-	char* filename = "test.txt";
+	int		fd;
+	char*	filename = "test.txt";
 	char	buffer[10];
 	size_t	bytes_read;
 	char*	ptr;
@@ -26,7 +26,7 @@ int	main()
 	fd = open(filename, O_RDWR);
 	if	(fd == -1)
 		printf("no file found\n");
-	else 
+	else
 		printf("file opened\n");
 	printf("%s", get_next_line(fd));
 }
@@ -36,16 +36,21 @@ char*	get_next_line(int fd)
 	char	buffer[10];
 	size_t	bytes_read;
 	char*	ptr;
-	char*	rtrn;
-
+	char*	line;
+	size_t	line_len;
+	
+	line_len = 0;
 	while(1)
 	{
+		bytes_read = read(fd, buffer, 10);
 		ptr = buffer;
 		while (*ptr != '\n' && *ptr)
 		{
 			write(1, ptr, 1);
 			ptr++;
+			line_len++;
 		}
+
 		if (*ptr == '\n')
 			break;
 	}
