@@ -33,6 +33,8 @@ size_t	ft_strlen(const char* str)
 	size_t	len;
 
 	len = 0;
+	if (!str)
+		return (0);
 	while (str[len])
 		len++;
 	return (len);
@@ -94,14 +96,14 @@ char*	get_next_line(int fd)
 	static char*	buffer;
 	size_t			bytes_read;
 	char*			line;
-	char*			line_add;
+	char*			tmp;
 
+	line = NULL;
 	if (!buffer)
 	{
 		buffer = malloc(sizeof(char*) * (10 + 1));
 		if (!buffer)
 			return (NULL);
-		line = NULL;
 		bytes_read = read(fd, buffer, 10);
 		if (!bytes_read)
 			return (line);
@@ -111,18 +113,32 @@ char*	get_next_line(int fd)
 	{
 		if (*buffer == '\n')
 		{
+			tmp = line;
 			line = ft_strjoin(line, "\n");
+			if (tmp)
+				free(tmp);
+			tmp = buffer;
+			buffer = ft_strpardup(&buffer[1], ft_strlen(&buffer[ft_linelen(buffer)]));
+			free(tmp);
 			break;
 		}
 		if (*buffer && !line)
 		{
+			tmp = line;
 			line = ft_strpardup(buffer, ft_linelen(buffer));
+			free(tmp);
+			tmp = buffer;
 			buffer = ft_strpardup(&buffer[ft_linelen(buffer)], ft_strlen(&buffer[ft_linelen(buffer)]));
+			free(tmp);
 		}
 		if (*buffer && line)
 		{
+			tmp = line;
 			line = ft_strjoin(line, ft_strpardup(buffer, ft_linelen(buffer)));
+			free(tmp);
+			tmp = buffer;
 			buffer = ft_strpardup(&buffer[ft_linelen(buffer)], ft_strlen(&buffer[ft_linelen(buffer)]));
+			free(tmp);
 		}
 		if (!*buffer)
 		{
@@ -138,15 +154,26 @@ int	main()
 { 
 	int		fd; 
 	char*	filename = "test.txt";
-	char	buffer[10];
-	size_t	bytes_read;
-	char*	ptr;
-
+	char*	line;
+	
 	fd = open(filename, O_RDONLY);
 	if	(fd == -1)
 		printf("no file found\n");
 	else
 		printf("file opened\n");
-	printf("%s", get_next_line(fd));
-	printf("%s", get_next_line(fd));
+	line = get_next_line(fd);
+	printf("%s", line);
+	free(line);
+	line = get_next_line(fd);
+	printf("%s", line);
+	free(line);
+	line = get_next_line(fd);
+	printf("%s", line);
+	free(line);
+	line = get_next_line(fd);
+	printf("%s", line);
+	free(line);
+	line = get_next_line(fd);
+	printf("%s", line);
+	free(line);
 }
