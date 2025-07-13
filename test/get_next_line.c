@@ -20,6 +20,8 @@ char	*get_next_line(int fd)
 	char			*tmp;
 
 	line = NULL;
+	if (fd < 0 || BUFFER_SIZE <= 0)
+		return (line);
 	if (!buffer)
 	{
 		buffer = malloc(sizeof(char *) * (BUFFER_SIZE + 1));
@@ -27,7 +29,11 @@ char	*get_next_line(int fd)
 			return (NULL);
 		bytes_read = read(fd, buffer, BUFFER_SIZE * sizeof(char));
 		if (!bytes_read)
+		{
+			free(buffer);
+			buffer = NULL;
 			return (line);
+		}
 		buffer[bytes_read] = '\0';
 	}
 	while (1)
@@ -81,7 +87,7 @@ char	*get_next_line(int fd)
 	}
 	return (line);
 }
-
+/*
 int	main(void)
 {
 	int		fd; 
@@ -102,4 +108,4 @@ int	main(void)
 		i++;
 	}
 }
-
+*/
