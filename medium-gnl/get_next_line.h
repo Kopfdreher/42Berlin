@@ -19,6 +19,10 @@
 # include <stdlib.h>
 # include <stdint.h>
 
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE = 3
+# endif
+
 char	*get_next_line(int fd);
 void	*ft_calloc(size_t nmemb, size_t size);
 void	*ft_memset(void *s, int c, size_t n);
