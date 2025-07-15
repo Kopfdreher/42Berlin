@@ -25,12 +25,15 @@ void	*ft_memset(void *s, int c, size_t n)
 void	*ft_calloc(size_t nmemb, size_t size)
 {
 	void	*ptr;
+	size_t	bytes;
 
 	if (size && nmemb > SIZE_MAX / size)
 		return (NULL);
 	ptr = malloc(nmemb * size);
 	if (ptr == NULL)
 		return (NULL);
-	ft_memset(ptr, 0, nmemb * size);
+	bytes = nmemb * size;
+	while (bytes--)
+		*ptr++ = 0;
 	return (ptr);
 }
