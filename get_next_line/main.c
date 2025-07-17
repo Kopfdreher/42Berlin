@@ -18,7 +18,6 @@ int	main(void)
 	size_t	i;
 	char	*line;
 
-	line = "";
 	fd = open("test.txt", O_RDONLY);
 	if (fd == -1)
 	{
@@ -27,11 +26,11 @@ int	main(void)
 	}
 	else
 		printf("Opening successful\n");
-	i = 0;
-	while (line)
+	i = 1;
+	while (i < 13)
 	{
 		line = get_next_line(fd);
-		printf("[%zu] - %s -\n", i++, line);
+		printf("[%zu] - %s", i++, line);
+		free(line);
 	}
 }
-

@@ -12,12 +12,14 @@
 
 #include "get_next_line.h"
 
-size_t	ft_strlen(char *str)
+size_t	ft_strlen(const char *str)
 {
 	size_t	len;
 
 	len = 0;
-	while(str[len])
+	if (!str)
+		return (len);
+	while (str[len])
 		len++;
 	return (len);
 }
@@ -27,7 +29,7 @@ char	*ft_strchr(const char *s, char c)
 	const char	*ptr;
 
 	ptr = s;
-	while (*ptr != c && *ptr)
+	while (*ptr != c && *ptr && ptr)
 		ptr++;
 	if (*ptr == c)
 		return ((char *)ptr);
@@ -35,39 +37,11 @@ char	*ft_strchr(const char *s, char c)
 		return (0);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
-{
-	size_t	s1_len;
-	size_t	join_len;
-	size_t	i;
-	char	*s_join;
-
-	s1_len = ft_strlen(s1);
-	if (s1_len > SIZE_MAX - ft_strlen(s2))
-		return (NULL);
-	join_len = s1_len + ft_strlen(s2);
-	s_join = malloc(join_len * sizeof(char) + 1);
-	if (!s_join)
-		return (NULL);
-	i = 0;
-	while (i < s1_len)
-	{
-		s_join[i] = s1[i];
-		i++;
-	}
-	while (i < join_len)
-	{
-		s_join[i] = s2[i - s1_len];
-		i++;
-	}
-	s_join[i] = '\0';
-	return (s_join);
-}
-
 void	*ft_calloc(size_t nmemb, size_t size)
 {
-	void	*ptr;
-	size_t	bytes;
+	unsigned char	*ptr;
+	size_t			bytes;
+	size_t			i;
 
 	if (size && nmemb > SIZE_MAX / size)
 		return (NULL);
@@ -75,7 +49,61 @@ void	*ft_calloc(size_t nmemb, size_t size)
 	if (ptr == NULL)
 		return (NULL);
 	bytes = nmemb * size;
-	while (bytes--)
-		*ptr++ = 0;
+	i = 0;
+	while (i < bytes)
+	{
+		ptr[i] = '\0';
+		i++;
+	}
 	return (ptr);
+}
+
+char	*ft_strjoin(char *stash, char *buffer)
+{
+	size_t	stash_len;
+	size_t	join_len;
+	size_t	i;
+	char	*join;
+
+	stash_len = ft_strlen(stash);
+	if (stash_len > SIZE_MAX - ft_strlen(buffer))
+		return (NULL);
+	join_len = stash_len + ft_strlen(buffer);
+	join = ft_calloc(1, join_len * sizeof(char) + 1);
+	if (!join)
+		return (NULL);
+	i = 0;
+	while (i < stash_len)
+	{
+		join[i] = stash[i];
+		i++;
+	}
+	while (i < join_len)
+	{
+		join[i] = buffer[i - stash_len];
+		i++;
+	}
+	return (free(stash), join);
+}
+
+char	*ft_strpardup(const char *s, size_t end)
+{
+	char	*dup;
+	size_t	len;
+	size_t	i;
+
+	i = 0;
+	len = ft_strlen(s);
+	if (len > end)
+		len = end;
+	dup = malloc(len + 1);
+	if (!dup)
+		return (NULL);
+	while (i < len)
+	{
+		dup[i] = s[i];
+		i++;
+	}
+	dup[i] = '\0';
+	return (dup);
 }
