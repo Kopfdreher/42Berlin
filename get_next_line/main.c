@@ -27,7 +27,7 @@ int	main(void)
 	else
 		printf("Opening successful\n");
 	i = 1;
-	while (i < 13)
+	while (i < 15)
 	{
 		line = get_next_line(fd);
 		printf("[%zu] - %s", i++, line);

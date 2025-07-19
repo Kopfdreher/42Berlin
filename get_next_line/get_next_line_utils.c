@@ -70,8 +70,6 @@ char	*ft_strjoin(char *stash, char *buffer)
 		return (NULL);
 	join_len = stash_len + ft_strlen(buffer);
 	join = ft_calloc(1, join_len * sizeof(char) + 1);
-	if (!join)
-		return (NULL);
 	i = 0;
 	while (i < stash_len)
 	{
@@ -86,7 +84,7 @@ char	*ft_strjoin(char *stash, char *buffer)
 	return (free(stash), join);
 }
 
-char	*ft_strpardup(const char *s, size_t end)
+char	*ft_strpardup(char *s, size_t end)
 {
 	char	*dup;
 	size_t	len;
