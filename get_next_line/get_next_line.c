@@ -42,7 +42,7 @@ char	*ft_get_line(char *stash)
 
 char	*ft_get_rest(char *stash)
 {
-	char *rest;
+	char	*rest;
 
 	rest = ft_strpardup(&stash[ft_linelen(stash)],
 			ft_strlen(stash) - ft_linelen(stash));
@@ -83,11 +83,6 @@ char	*get_next_line(int fd)
 	line = ft_get_line(stash);
 	stash = ft_get_rest(stash);
 	if (!*line)
-	{
-		free(line);
-		free(stash);
-		stash = NULL;
-		return (NULL);
-	}
+		return (free(line), free(stash), stash = NULL, NULL);
 	return (line);
 }
