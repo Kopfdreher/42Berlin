@@ -1,93 +1,107 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sgavrilo <sgavrilo@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/15 17:21:33 by sgavrilo          #+#    #+#             */
-/*   Updated: 2025/07/15 17:21:34 by sgavrilo         ###   ########.fr       */
+/*   Created: 2025/07/15 18:42:34 by sgavrilo          #+#    #+#             */
+/*   Updated: 2025/07/15 18:42:37 by sgavrilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	*read_ft(int fd, char *stash)
-{
-	int		bytes_read;
-	char	*buffer;
-
-	buffer = malloc(sizeof(char) * BUFFER_SIZE + 1);
-	if (!buffer)
-		return (NULL);
-	bytes_read = 1;
-	while (bytes_read)
-	{
-		bytes_read = read(fd, buffer, BUFFER_SIZE);
-		if (bytes_read == -1)
-			return (free(buffer), free(stash), NULL);
-		buffer[bytes_read] = '\0';
-		stash = ft_strjoin(stash, buffer);
-		if (!stash || ft_strchr(buffer, '\n'))
-			break ;
-	}
-	free(buffer);
-	return (stash);
-}
-
-char	*ft_get_line(char *stash)
-{
-	return (ft_strpardup(stash, ft_linelen(stash)));
-}
-
-char	*ft_get_rest(char *stash)
-{
-	char *rest;
-
-	rest = ft_strpardup(&stash[ft_linelen(stash)],
-			ft_strlen(stash) - ft_linelen(stash));
-	return (free(stash), rest);
-}
-
-size_t	ft_linelen(const char *str)
+size_t	ft_strlen(const char *str)
 {
 	size_t	len;
 
 	len = 0;
-	while (str[len] && str[len] != '\n')
-		len++;
-	if (str[len] == '\n')
+	if (!str)
+		return (len);
+	while (str[len])
 		len++;
 	return (len);
 }
 
-char	*get_next_line(int fd)
+char	*ft_strchr(const char *s, char c)
 {
-	static char	*stash;
-	char		*line;
+	const char	*ptr;
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
-	{
-		if (stash)
-			free(stash);
+	ptr = s;
+	while (*ptr != c && *ptr && ptr)
+		ptr++;
+	if (*ptr == c)
+		return ((char *)ptr);
+	else
+		return (0);
+}
+
+void	*ft_calloc(size_t nmemb, size_t size)
+{
+	unsigned char	*ptr;
+	size_t			bytes;
+	size_t			i;
+
+	if (size && nmemb > SIZE_MAX / size)
 		return (NULL);
-	}
-	if (!stash)
-		stash = ft_calloc(1, 1);
-	if (!ft_strchr(stash, '\n'))
-	{
-		stash = read_ft(fd, stash);
-		if (!stash)
-			return (NULL);
-	}
-	line = ft_get_line(stash);
-	stash = ft_get_rest(stash);
-	if (!*line)
-	{
-		free(line);
-		free(stash);
-		stash = NULL;
+	ptr = malloc(nmemb * size);
+	if (ptr == NULL)
 		return (NULL);
+	bytes = nmemb * size;
+	i = 0;
+	while (i < bytes)
+	{
+		ptr[i] = '\0';
+		i++;
 	}
-	return (line);
+	return (ptr);
+}
+
+char	*ft_strjoin(char *stash, char *buffer)
+{
+	size_t	stash_len;
+	size_t	join_len;
+	size_t	i;
+	char	*join;
+
+	stash_len = ft_strlen(stash);
+	if (stash_len > SIZE_MAX - ft_strlen(buffer))
+		return (NULL);
+	join_len = stash_len + ft_strlen(buffer);
+	join = ft_calloc(1, join_len * sizeof(char) + 1);
+	i = 0;
+	while (i < stash_len)
+	{
+		join[i] = stash[i];
+		i++;
+	}
+	while (i < join_len)
+	{
+		join[i] = buffer[i - stash_len];
+		i++;
+	}
+	return (free(stash), join);
+}
+
+char	*ft_strpardup(char *s, size_t end)
+{
+	char	*dup;
+	size_t	len;
+	size_t	i;
+
+	i = 0;
+	len = ft_strlen(s);
+	if (len > end)
+		len = end;
+	dup = malloc(len + 1);
+	if (!dup)
+		return (NULL);
+	while (i < len)
+	{
+		dup[i] = s[i];
+		i++;
+	}
+	dup[i] = '\0';
+	return (dup);
 }

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 char	*read_ft(int fd, char *stash)
 {
@@ -42,7 +42,7 @@ char	*ft_get_line(char *stash)
 
 char	*ft_get_rest(char *stash)
 {
-	char *rest;
+	char	*rest;
 
 	rest = ft_strpardup(&stash[ft_linelen(stash)],
 			ft_strlen(stash) - ft_linelen(stash));
@@ -63,31 +63,26 @@ size_t	ft_linelen(const char *str)
 
 char	*get_next_line(int fd)
 {
-	static char	*stash;
+	static char	*stash[1024];
 	char		*line;
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	if (fd < 0 || BUFFER_SIZE <= 0 || fd > 1024)
 	{
-		if (stash)
-			free(stash);
+		if (stash[fd])
+			free(stash[fd]);
 		return (NULL);
 	}
-	if (!stash)
-		stash = ft_calloc(1, 1);
-	if (!ft_strchr(stash, '\n'))
+	if (!stash[fd])
+		stash[fd] = ft_calloc(1, 1);
+	if (!ft_strchr(stash[fd], '\n'))
 	{
-		stash = read_ft(fd, stash);
-		if (!stash)
+		stash[fd] = read_ft(fd, stash[fd]);
+		if (!stash[fd])
 			return (NULL);
 	}
-	line = ft_get_line(stash);
-	stash = ft_get_rest(stash);
+	line = ft_get_line(stash[fd]);
+	stash[fd] = ft_get_rest(stash[fd]);
 	if (!*line)
-	{
-		free(line);
-		free(stash);
-		stash = NULL;
-		return (NULL);
-	}
+		return (free(line), free(stash[fd]), stash[fd] = NULL, NULL);
 	return (line);
 }
