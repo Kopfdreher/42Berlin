@@ -19,18 +19,14 @@
 # include <unistd.h>
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 1
+#  define BUFFER_SIZE 1024
 # endif
 
 char	*get_next_line(int fd);
-char	*ft_get_line(char *stash);
-char	*ft_get_rest(char *stash);
-char	*read_ft(int fd, char *stash);
 
 void	*ft_calloc(size_t nmemb, size_t size);
 char	*ft_strchr(const char *s, char c);
 size_t	ft_strlen(const char *str);
-size_t	ft_linelen(const char *str);
 char	*ft_strjoin(char *stash, char *buffer);
 char	*ft_strpardup(char *s, size_t end);
 

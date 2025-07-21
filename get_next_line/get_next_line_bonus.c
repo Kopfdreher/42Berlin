@@ -12,7 +12,12 @@
 
 #include "get_next_line_bonus.h"
 
-char	*read_ft(int fd, char *stash)
+static char	*ft_get_line(char *stash);
+static char	*ft_get_rest(char *stash);
+static char	*read_ft(int fd, char *stash);
+static size_t	ft_linelen(const char *str);
+
+static char	*read_ft(int fd, char *stash)
 {
 	int		bytes_read;
 	char	*buffer;
@@ -35,12 +40,12 @@ char	*read_ft(int fd, char *stash)
 	return (stash);
 }
 
-char	*ft_get_line(char *stash)
+static char	*ft_get_line(char *stash)
 {
 	return (ft_strpardup(stash, ft_linelen(stash)));
 }
 
-char	*ft_get_rest(char *stash)
+static char	*ft_get_rest(char *stash)
 {
 	char	*rest;
 
@@ -49,7 +54,7 @@ char	*ft_get_rest(char *stash)
 	return (free(stash), rest);
 }
 
-size_t	ft_linelen(const char *str)
+static size_t	ft_linelen(const char *str)
 {
 	size_t	len;
 
@@ -66,7 +71,7 @@ char	*get_next_line(int fd)
 	static char	*stash[1024];
 	char		*line;
 
-	if (fd < 0 || BUFFER_SIZE <= 0 || fd > 1024)
+	if (fd < 0 || BUFFER_SIZE <= 0 || fd >= 1024)
 	{
 		if (stash[fd])
 			free(stash[fd]);

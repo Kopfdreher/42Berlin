@@ -1,33 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_calloc.c                                        :+:      :+:    :+:   */
+/*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sgavrilo <sgavrilo@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/12 20:44:58 by sgavrilo          #+#    #+#             */
-/*   Updated: 2025/06/12 20:45:06 by sgavrilo         ###   ########.fr       */
+/*   Created: 2025/07/21 18:51:57 by sgavrilo          #+#    #+#             */
+/*   Updated: 2025/07/21 18:51:58 by sgavrilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
-void	*ft_calloc(size_t nmemb, size_t size)
+int	ft_printf(const char *format, ...)
 {
-	unsigned char	*ptr;
-	size_t			bytes;
-	size_t			i;
-	if (size && nmemb > SIZE_MAX / size)
-		return (NULL);
-	ptr = malloc(nmemb * size);
-	if (ptr == NULL)
-		return (NULL);
-	bytes = nmemb * size;
-	i = 0;
-	while (i < bytes)
-	{
-		ptr[i] = '\0';
-		i++;
-	}
-	return (ptr);
+	
+}
+
+int	main(void)
+{
+	char	c = 'W';
+
+	ft_printf("Hello %corld!", c);
 }
