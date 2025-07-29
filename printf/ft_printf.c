@@ -10,8 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <stdarg.h>
+#include "ft_printf.h"
 
 size_t	ft_strlen(const	char *str)
 {
@@ -23,43 +22,36 @@ size_t	ft_strlen(const	char *str)
 	return (len);
 }
 
-void	put_char(char c)
-{
-	write(1, &c, 1);
-}
-
-void	put_string(char *str)
-{
-	write(1, str, ft_strlen(str));
-}
-
-int		is_print(char c)
+int	is_print(char c)
 {
 	return (c >= 32 && c <= 126);
 }
 
 void	check_format(const char *format, va_list args)
 {
-	if (format[1] && format[1] == 'c')
+	format++;
+	switch (*format) {
+		case 'c':
 			put_char(va_arg(args, int));
-	if (format[1] && format[1] == 's')
+		case 's':
 			put_string(va_arg(args,char *));
-	/*
-	if (format[1] && format[1] == 'p')
+/*
+		case 'p':
 			put_voidp(va_arg(args, void *));
-	if (format[1] && format[1] == 'd')
+		case 'd':
 			put_decimal_num(va_arg(args, char *));
-	if (format[1] && format[1] == 'i')
+		case 'i':
 			put_int(va_arg(args, char *));
-	if (format[1] && format[1] == 'u')
+		case 'u':
 			put_unsigned_int(va_arg(args, char *));
-	if (format[1] && format[1] == 'x')
+		case 'x':
 			put_hexdec_num_low(va_arg(args, char *));
-	if (format[1] && format[1] == 'X')
+		case 'X':
 			put_hexdec_num_high(va_arg(args, char *));
-	*/
-	if (format[1] && format[1] == '%')
-			put_char(format[1]);
+*/
+		case '%':
+			put_char('%');
+	}
 }
 
 void	ft_printf(const char *format, ...)
@@ -83,13 +75,4 @@ void	ft_printf(const char *format, ...)
 			put_char(format[i]);
 	}
 	va_end(args);
-}
-
-
-int	main(void)
-{
-	char	hello[] = "Hello";
-	char	world[] = "World";
-
-	ft_printf("%s %s!", hello, world);
 }
