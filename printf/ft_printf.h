@@ -14,10 +14,16 @@
 # define PRINTF_H
 # include <unistd.h>
 # include <stdarg.h>
+# include <limits.h>
+# include <stdio.h>
+# include <stdlib.h>
 
 size_t	ft_strlen(const	char *str);
 void	put_char(char c);
 void	put_string(char *str);
+void	put_int(int n);
 void	ft_printf(const char *format, ...);
+size_t	ft_intlen(int nbr);
+char	*ft_itoa(int n);
 
 #endif
