@@ -10,4 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ft_printf.h"
 
+void	put_int(int n)
+{
+	char	*nbr;
+
+	printf("put_int");
+//	nbr = ft_itoa(n);
+//	write(1, nbr, ft_strlen(nbr));
+}

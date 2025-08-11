@@ -11,11 +11,17 @@
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+#include <limits.h>
+#include <stdlib.h>
 
 int	main(void)
 {
 	char	hello[] = "Hello";
 	char	world[] = "World";
+	int		n = INT_MIN;
+	char	*nbr;
 
-	ft_printf("%s %s!", hello, world);
+	ft_printf("%s %s! %i", hello, world, n);
+	nbr = ft_itoa(n);
+	write(1, nbr, ft_strlen(nbr));
 }
