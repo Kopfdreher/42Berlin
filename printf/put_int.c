@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-void	put_int(long int n)
+void	put_int(int n)
 {
 	char	*nbr;
 	nbr = ft_itoa(n);
