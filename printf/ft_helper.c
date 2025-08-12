@@ -22,7 +22,7 @@ size_t	ft_strlen(const char *str)
 	return (len);
 }
 
-size_t	ft_intlen(long int nbr)
+size_t	ft_intlen(int nbr)
 {
 	size_t	len;
 
@@ -37,7 +37,7 @@ size_t	ft_intlen(long int nbr)
 	return (len);
 }
 
-char	*ft_itoa(long int n)
+char	*ft_itoa(int n)
 {
 	char			*str;
 	size_t			len;

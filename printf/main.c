@@ -18,7 +18,7 @@ int	main(void)
 {
 	char	hello[] = "Hello";
 	char	world[] = "World";
-	int		n = INT_MIN;
+	int		n = 1;
 	unsigned int	u = UINT_MAX;
 	char	*nbr;
 	
