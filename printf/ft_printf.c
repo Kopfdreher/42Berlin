@@ -28,15 +28,15 @@ void	check_format(const char *format, va_list args)
 			put_string(va_arg(args, char *));
 			break;
 		case 'i':
-			put_int(va_arg(args, int));
+		case 'd':
+		case 'u':
+			put_int(va_arg(args, long int));
 			break;
 /*
+		case 'u':
+			put_unsigned_int(va_arg(args, int));
 		case 'p':
 			put_voidp(va_arg(args, void *));
-		case 'd':
-			put_decimal_num(va_arg(args, char *));
-		case 'u':
-			put_unsigned_int(va_arg(args, char *));
 		case 'x':
 			put_hexdec_num_lower(va_arg(args, char *));
 		case 'X':
@@ -61,7 +61,7 @@ void	ft_printf(const char *format, ...)
 	{
 		if (format[i] == '%')
 		{
-			check_format(format, args);
+			check_format(&format[i], args);
 			i += 2;
 		}
 		if (is_print(format[i]))
