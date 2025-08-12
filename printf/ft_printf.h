@@ -21,9 +21,9 @@
 size_t	ft_strlen(const	char *str);
 void	put_char(char c);
 void	put_string(char *str);
-void	put_int(int n);
+void	put_int(long int n);
 void	ft_printf(const char *format, ...);
-size_t	ft_intlen(int nbr);
-char	*ft_itoa(int n);
+size_t	ft_intlen(long int nbr);
+char	*ft_itoa(long int n);
 
 #endif
