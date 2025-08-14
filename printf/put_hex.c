@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-static size_t	ft_hexlen(unsigned int hex)
+static size_t	ft_hexlen(unsigned long hex)
 {
 	size_t	len;
 
@@ -25,21 +25,21 @@ static size_t	ft_hexlen(unsigned int hex)
 	return (len);
 }
 
-static char	ft_hexconversion(unsigned int hex, char x)
+static char	ft_hexconversion(unsigned long hex, char x)
 {
 	hex %= 16;
 	if (hex < 10)
 		return (hex + '0');
 	else
 	{
-		if (x == 'x')
+		if (x == 'x' || x == 'p')
 			return (hex + 87);
 		else
 			return (hex + 55);
 	}
 }
 
-static char	*ft_hextoa(unsigned int hex, char x)
+static char	*ft_hextoa(unsigned long hex, char x)
 {
 	char	*nbr;
 	size_t	len;
@@ -57,11 +57,20 @@ static char	*ft_hextoa(unsigned int hex, char x)
 	return (nbr);
 }
 
-void	put_hex(unsigned int hex, char x)
+int	put_hex(unsigned long hex, char x)
 {
 	char	*nbr;
+	int		output_len;
 
+	output_len = 0;
 	nbr = ft_hextoa(hex, x);
+	if (x == 'p')
+	{
+		write(1, "0x", 2);
+		output_len += 2;
+	}
 	write(1, nbr, ft_hexlen(hex));
+	output_len += ft_hexlen(hex);
 	free(nbr);
+	return (output_len);
 }

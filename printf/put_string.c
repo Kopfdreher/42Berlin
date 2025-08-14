@@ -12,7 +12,8 @@
 
 #include "ft_printf.h"
 
-void	put_string(char *str)
+int	put_string(char *str)
 {
 	write(1, str, ft_strlen(str));
+	return (ft_strlen(str));
 }

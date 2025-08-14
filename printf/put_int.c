@@ -12,10 +12,14 @@
 
 #include "ft_printf.h"
 
-void	put_int(int n)
+int	put_int(int n)
 {
 	char	*nbr;
+	int		len;
+
 	nbr = ft_itoa(n);
-	write(1, nbr, ft_strlen(nbr));
+	len = ft_strlen(nbr);
+	write(1, nbr, len);
 	free(nbr);
+	return (len);
 }
