@@ -43,11 +43,14 @@ static char	*ft_utoa(unsigned int u)
 	return (nbr);
 }
 
-void	put_unsigned_int(unsigned int u)
+int	put_unsigned_int(unsigned int u)
 {
 	char	*nbr;
+	int		output_len;
 
 	nbr = ft_utoa(u);
-	write(1, nbr, ft_strlen(nbr));
+	output_len = ft_strlen(nbr);
+	write(1, nbr, output_len);
 	free(nbr);
+	return (output_len);
 }

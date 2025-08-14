@@ -12,7 +12,8 @@
 
 #include "ft_printf.h"
 
-void	put_char(char c)
+int	put_char(char c)
 {
 	write(1, &c, 1);
+	return (1);
 }

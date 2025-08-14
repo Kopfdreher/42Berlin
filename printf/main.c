@@ -21,6 +21,10 @@ int	main(void)
 	int		n = 0x12A;
 	unsigned int	u = 0x12A;
 	char	*nbr;
+	int		output;
 	
-	ft_printf("%s %s! %i + %u, %X", hello, world, n, u, u);
+	output = ft_printf("%s, %p, %u, %i", hello, &n, u, n);
+	printf("\n%i\n", output);
+	output = printf("%s, %p, %u, %i", hello, &n, u, n);
+	printf("\n%i\n", output);
 }
