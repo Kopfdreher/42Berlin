@@ -32,17 +32,15 @@ void	check_format(const char *format, va_list args)
 			put_int(va_arg(args, int));
 			break;
 		case 'u':
-			put_unsigned_int(va_arg(args, long int));
+			put_unsigned_int(va_arg(args, unsigned int));
+			break;
+		case 'x':
+		case 'X':
+			put_hex(va_arg(args, unsigned int), *format);
 			break;
 /*
 		case 'p':
 			put_voidp(va_arg(args, void *));
-			break;
-		case 'x':
-			put_hexdec_num_lower(va_arg(args, char *));
-			break;
-		case 'X':
-			put_hexdec_num_upper(va_arg(args, char *));
 			break;
 */
 		case '%':
