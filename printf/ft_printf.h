@@ -26,5 +26,6 @@ void	ft_printf(const char *format, ...);
 size_t	ft_intlen(int nbr);
 char	*ft_itoa(int n);
 void	put_unsigned_int(unsigned int u);
+void	put_hex(unsigned int hex, char x);
 
 #endif

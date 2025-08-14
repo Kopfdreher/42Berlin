@@ -18,9 +18,9 @@ int	main(void)
 {
 	char	hello[] = "Hello";
 	char	world[] = "World";
-	int		n = 1;
-	unsigned int	u = UINT_MAX;
+	int		n = 0x12A;
+	unsigned int	u = 0x12A;
 	char	*nbr;
 	
-	ft_printf("%s %s! %i + %u", hello, world, n, u);
+	ft_printf("%s %s! %i + %u, %X", hello, world, n, u, u);
 }
