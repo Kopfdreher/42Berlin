@@ -19,7 +19,7 @@ int	main(void)
 	char	hello[] = "Hello";
 	char	world[] = "World";
 	int		n = 0x12A;
-	unsigned int	u = 0x12A;
+	unsigned int	u = 0;
 	char	*nbr;
 	int		output;
 	

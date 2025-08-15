@@ -48,6 +48,11 @@ int	put_unsigned_int(unsigned int u)
 	char	*nbr;
 	int		output_len;
 
+	if (u == 0)
+	{
+		write(1, "0", 1);
+		return (1);
+	}
 	nbr = ft_utoa(u);
 	output_len = ft_strlen(nbr);
 	write(1, nbr, output_len);

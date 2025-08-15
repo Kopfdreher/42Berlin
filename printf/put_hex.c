@@ -63,6 +63,11 @@ int	put_hex(unsigned long hex, char x)
 	int		output_len;
 
 	output_len = 0;
+	if (hex == 0)
+	{
+		write(1, "0", 1);
+		return (1);
+	}
 	nbr = ft_hextoa(hex, x);
 	if (x == 'p')
 	{
