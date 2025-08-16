@@ -23,8 +23,8 @@ int	main(void)
 	char	*nbr;
 	int		output;
 	
-	output = ft_printf("%s, %p, %u, %i", hello, &n, u, n);
+	output = ft_printf("%p", 0);
 	printf("\n%i\n", output);
-	output = printf("%s, %p, %u, %i", hello, &n, u, n);
+	output = printf("%p", &n);
 	printf("\n%i\n", output);
 }
