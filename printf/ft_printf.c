@@ -20,28 +20,18 @@ int	is_print(char c)
 int	check_format(const char *format, va_list args, int output_len)
 {
 	format++;
-	switch (*format) {
-		case 'c':
+	if (*format == 'c')
 			output_len += put_char(va_arg(args, int));
-			break;
-		case 's':
+	else if (*format == 's')
 			output_len += put_string(va_arg(args, char *));
-			break;
-		case 'i':
-		case 'd':
+	else if (*format == 'i' || *format == 'd')
 			output_len += put_int(va_arg(args, int));
-			break;
-		case 'u':
+	else if (*format == 'u')
 			output_len += put_unsigned_int(va_arg(args, unsigned int));
-			break;
-		case 'x':
-		case 'X':
-		case 'p':
+	else if (*format == 'x' || *format == 'X' || *format == 'p')
 			output_len += put_hex(va_arg(args, unsigned long), *format);
-			break;
-		case '%':
+	else if (*format == '%')
 			output_len += put_char('%');
-	}
 	return (output_len);
 }
 
@@ -62,9 +52,9 @@ int	ft_printf(const char *format, ...)
 		if (format[i] == '%')
 		{
 			output_len += check_format(&format[i], args, 0);
-			i += 2;
+			i += 1;
 		}
-		if (is_print(format[i]))
+		else if (is_print(format[i]))
 			output_len += put_char(format[i]);
 	}
 	va_end(args);
