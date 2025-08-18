@@ -10,15 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PRINTF_H
-# define PRINTF_H
+#ifndef FT_PRINTF_H
+# define FT_PRINTF_H
 # include <unistd.h>
 # include <stdarg.h>
 # include <limits.h>
 # include <stdio.h>
 # include <stdlib.h>
 
-int	ft_printf(const char *format, ...);
+int		ft_printf(const char *format, ...);
 size_t	ft_strlen(const	char *str);
 int		put_char(char c);
 int		put_string(char *str);

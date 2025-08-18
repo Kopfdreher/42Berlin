@@ -1,14 +1,14 @@
 NAME = libftprintf.a
 
-SRC = $(addsuffix .c, ft_helper ft_printf put_char put_hex put_int put_string put_unsigned_int put_voidp)
+SRC = $(addsuffix .c, ft_helper ft_printf put_char put_hex put_int put_string put_unsigned_int)
 
 OBJS := $(SRC:%.c=%.o)
 
-CC = gcc
+CC := gcc
 
-CCFLAGS = -Wall -Werror -Wextra
+CCFLAGS := -Wall -Werror -Wextra
 
-RM = rm -f
+RM := rm -f
 
 all: $(NAME)
 
