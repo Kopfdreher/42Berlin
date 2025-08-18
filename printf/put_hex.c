@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-static size_t	ft_hexlen(unsigned long hex, char x)
+static size_t	ft_hexlen(unsigned long hex)
 {
 	size_t	len;
 
@@ -44,7 +44,7 @@ static char	*ft_hextoa(unsigned long hex, char x)
 	char	*nbr;
 	size_t	len;
 
-	len = ft_hexlen(hex, x);
+	len = ft_hexlen(hex);
 	nbr = malloc(sizeof(char) * len + 1);
 	if (!nbr)
 		return (NULL);
@@ -75,8 +75,8 @@ int	put_hex(unsigned long hex, char x)
 	if (!hex)
 		return (write(1, "0", 1), 1);
 	nbr = ft_hextoa(hex, x);
-	write(1, nbr, ft_hexlen(hex, x));
-	output_len += ft_hexlen(hex, x);
+	write(1, nbr, ft_hexlen(hex));
+	output_len += ft_hexlen(hex);
 	free(nbr);
 	return (output_len);
 }
