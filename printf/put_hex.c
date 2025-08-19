@@ -45,6 +45,7 @@ static char	*ft_hextoa(unsigned long hex, char x)
 	size_t	len;
 
 	len = ft_hexlen(hex);
+	printf("HEX-LEN:%zi\n", len);
 	nbr = malloc(sizeof(char) * len + 1);
 	if (!nbr)
 		return (NULL);
