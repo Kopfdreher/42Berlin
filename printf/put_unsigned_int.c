@@ -31,6 +31,7 @@ static char	*ft_utoa(unsigned int u)
 	char	*nbr;
 
 	len = ft_ulen(u);
+	printf("UINT-LEN:%zi\n", len);
 	nbr = malloc(sizeof(char) * (len + 1));
 	if (!nbr)
 		return (NULL);

@@ -23,8 +23,6 @@ size_t	ft_strlen(const	char *str);
 int		put_char(char c);
 int		put_string(char *str);
 int		put_int(int n);
-size_t	ft_intlen(int nbr);
-char	*ft_itoa(int n);
 int		put_unsigned_int(unsigned int u);
 int		put_hex(unsigned long hex, char x);
 

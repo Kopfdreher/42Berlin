@@ -15,7 +15,6 @@
 int	main()
 {
 //	printf("Hello World!");
-	ft_printf("Hello World!\n");
-	ft_printf("Hello World!\n");
-	ft_printf("Hello World!\n");
+	printf("**Original**\nINT:%i\nHEX:%x\nUINT:%u\n", -4444, -4444, -4444);
+	ft_printf("**Cheap Version**\nINT:%i\nHEX:%x\nUINT:%u\n", -4444, -4444, -4444);
 }
