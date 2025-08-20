@@ -14,7 +14,10 @@
 
 int	main()
 {
-//	printf("Hello World!");
-	printf("**Original**\nINT:%i\nHEX:%x\nUINT:%u\n", -4444, -4444, -4444);
-	ft_printf("**Cheap Version**\nINT:%i\nHEX:%x\nUINT:%u\n", -4444, -4444, -4444);
+	int	n = -4444;
+	char	*p = NULL;
+	printf("%i\n", ft_printf("%c%s%p%d%i%u%x%X%% %%%% %%  \n", '\0', p, "", n, n, n, n, n));
+	ft_printf("%i\n", printf("%c%s%p%d%i%u%x%X%% %%%% %%  \n", '\0', p, "", n, n, n, n, n));
+	printf("\n%i\n", ft_printf("%i%i%i%i%i", INT_MIN, INT_MAX, 0, -42, UINT_MAX));
+	ft_printf("\n%i\n", printf("%i%i%i%i%i", INT_MIN, INT_MAX, 0, -42, UINT_MAX));
 }

@@ -29,11 +29,14 @@ static size_t	ft_intlen(int nbr)
 
 static char	*ft_itoa(int n)
 {
-	char			str[ft_intlen(n) + 1];
+	char			*str;
 	size_t			len;
 	unsigned int	nb;
 
 	len = ft_intlen(n);
+	str = malloc(sizeof(char) * len + 1);
+	if (!str)
+		return (NULL);
 	str[len] = '\0';
 	if (n < 0)
 	{
@@ -54,5 +57,11 @@ static char	*ft_itoa(int n)
 
 int	put_int(int n)
 {
-	return ((int)write(1, ft_itoa(n), ft_strlen(nbr)));
+	int		len;
+	char	*nbr;
+
+	nbr = ft_itoa(n);
+	len = write(1, nbr, ft_intlen(n));
+	free(nbr);
+	return (len);
 }
