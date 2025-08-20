@@ -49,7 +49,7 @@ int	ft_printf(const char *format, ...)
 		{
 			i++;
 			if (!format[i])
-				break;
+				break ;
 			written += check_format(format[i], args);
 		}
 		else
