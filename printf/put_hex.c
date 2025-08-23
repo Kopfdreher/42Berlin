@@ -66,17 +66,16 @@ int	put_hex(unsigned long hex, char x)
 	if (x == 'p')
 	{
 		if (!hex)
-			return (write(1, "(nil)", 5), 5);
-		write(1, "0x", 2);
+			return ((int)write(1, "(nil)", 5));
+		if (!(int)write(1, "0x", 2))
+			return (-1);
 		output_len += 2;
 	}
-	else
-		hex = (unsigned int)hex;
 	if (!hex)
-		return (write(1, "0", 1), 1);
+		return ((int)write(1, "0", 1));
 	nbr = ft_hextoa(hex, x);
-	write(1, nbr, ft_hexlen(hex));
+	if (!(int)write(1, nbr, ft_hexlen(hex)))
+		return (free(nbr), -1);
 	output_len += ft_hexlen(hex);
-	free(nbr);
-	return (output_len);
+	return (free(nbr), output_len);
 }

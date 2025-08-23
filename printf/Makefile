@@ -4,7 +4,7 @@ SRC = $(addsuffix .c, ft_helper ft_printf put_char put_hex put_int put_string pu
 
 OBJS := $(SRC:%.c=%.o)
 
-CC := gcc
+CC := cc
 
 CCFLAGS := -Wall -Werror -Wextra
 

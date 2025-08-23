@@ -15,9 +15,6 @@
 int	put_string(char *str)
 {
 	if (!str)
-	{
-		write(1, "(null)", 6);
-		return (6);
-	}
+		return ((int)write(1, "(null)", 6));
 	return ((int)write(1, str, ft_strlen(str)));
 }

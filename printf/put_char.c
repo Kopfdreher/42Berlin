@@ -14,6 +14,5 @@
 
 int	put_char(char c)
 {
-	write(1, &c, 1);
-	return (1);
+	return ((int)write(1, &c, 1));
 }
