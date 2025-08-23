@@ -14,6 +14,8 @@
 
 static int	check_format(const char format, va_list args)
 {
+	if (!format)
+		return (0);
 	if (format == 'c')
 		return (put_char(va_arg(args, int)));
 	if (format == 's')
@@ -28,34 +30,31 @@ static int	check_format(const char format, va_list args)
 		return (put_hex(va_arg(args, unsigned long), format));
 	if (format == '%')
 		return (put_char('%'));
-	write(1, "%", 1);
-	return (1 + (int)write(1, &format, 1));
+	return (-1);
 }
 
 int	ft_printf(const char *format, ...)
 {
 	va_list	args;
 	int		i;
-	int		written;
+	int		output_len;
+	int		printed;
 
 	if (!format)
 		return (-1);
 	va_start(args, format);
-	i = 0;
-	written = 0;
-	while (format[i])
+	i = -1;
+	output_len = 0;
+	printed = 0;
+	while (format[++i] && printed != -1)
 	{
 		if (format[i] == '%')
-		{
-			i++;
-			if (!format[i])
-				break ;
-			written += check_format(format[i], args);
-		}
+			printed = check_format(format[++i], args);
 		else
-			written += put_char(format[i]);
-		i++;
+			printed = put_char(format[i]);
+		output_len += printed;
+		if (printed == -1)
+			output_len = printed;
 	}
-	va_end(args);
-	return (written);
+	return (va_end(args), output_len);
 }
