@@ -37,24 +37,19 @@ int	ft_printf(const char *format, ...)
 {
 	va_list	args;
 	int		i;
-	int		output_len;
-	int		printed;
+	int		written;
 
 	if (!format)
 		return (-1);
 	va_start(args, format);
 	i = -1;
-	output_len = 0;
-	printed = 0;
-	while (format[++i] && printed != -1)
+	written = 0;
+	while (format[++i] && written != -1)
 	{
 		if (format[i] == '%')
-			printed = check_format(format[++i], args);
+			written += check_format(format[++i], args);
 		else
-			printed = put_char(format[i]);
-		output_len += printed;
-		if (printed == -1)
-			output_len = printed;
+			written += put_char(format[i]);
 	}
-	return (va_end(args), output_len);
+	return (va_end(args), written);
 }
