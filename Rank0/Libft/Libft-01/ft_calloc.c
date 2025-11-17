@@ -9,6 +9,7 @@
 /*   Updated: 2025/06/12 20:45:06 by sgavrilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+/* contiguously allocates space for count objects that are size bytes         */
 
 #include "libft.h"
 
