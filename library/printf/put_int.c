@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-static size_t	ft_intlen(int nbr)
+static size_t	print_ft_intlen(int nbr)
 {
 	size_t	len;
 
@@ -27,24 +27,20 @@ static size_t	ft_intlen(int nbr)
 	return (len);
 }
 
-static char	*ft_itoa(int n)
+static char	*print_ft_itoa(int n)
 {
 	char			*str;
 	size_t			len;
 	unsigned int	nb;
 
-	len = ft_intlen(n);
+	len = print_ft_intlen(n);
 	str = malloc(sizeof(char) * len + 1);
 	if (!str)
 		return (NULL);
-	str[len] = '\0';
 	if (n < 0)
 	{
 		str[0] = '-';
-		if (n = INT_MIN)
-			nb = (unsigned)INT_MAX + 1;
-		else
-			nb = -n;
+		nb = -n;
 	}
 	else
 		nb = n;
@@ -55,18 +51,18 @@ static char	*ft_itoa(int n)
 		str[--len] = (nb % 10) + '0';
 		nb /= 10;
 	}
-	return (str);
+	return (str[len] = '\0', str);
 }
 
-int	put_int(int n)
+int	print_put_int(int n)
 {
 	int		len;
 	char	*nbr;
 
-	nbr = ft_itoa(n);
+	nbr = print_ft_itoa(n);
 	if (!nbr)
-		return (NULL);
-	len = write(1, nbr, ft_intlen(n));
+		return (0);
+	len = write(1, nbr, print_ft_intlen(n));
 	free(nbr);
 	return (len);
 }

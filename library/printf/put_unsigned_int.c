@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-static size_t	ft_ulen(unsigned int u)
+static size_t	print_ft_ulen(unsigned int u)
 {
 	size_t	len;
 
@@ -25,12 +25,12 @@ static size_t	ft_ulen(unsigned int u)
 	return (len);
 }
 
-static char	*ft_utoa(unsigned int u)
+static char	*print_ft_utoa(unsigned int u)
 {
 	size_t	len;
 	char	*nbr;
 
-	len = ft_ulen(u);
+	len = print_ft_ulen(u);
 	nbr = malloc(sizeof(char) * (len + 1));
 	if (!nbr)
 		return (NULL);
@@ -43,15 +43,15 @@ static char	*ft_utoa(unsigned int u)
 	return (nbr);
 }
 
-int	put_unsigned_int(unsigned int u)
+int	print_put_unsigned_int(unsigned int u)
 {
 	char	*nbr;
 	int		output_len;
 
 	if (u == 0)
 		return (write(1, "0", 1));
-	nbr = ft_utoa(u);
-	output_len = (int)write(1, nbr, ft_strlen(nbr));
+	nbr = print_ft_utoa(u);
+	output_len = (int)write(1, nbr, print_ft_strlen(nbr));
 	free(nbr);
 	return (output_len);
 }
