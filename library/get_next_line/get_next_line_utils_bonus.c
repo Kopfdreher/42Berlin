@@ -12,7 +12,7 @@
 
 #include "get_next_line_bonus.h"
 
-size_t	ft_strlen(const char *str)
+size_t	ft_strlen_gnl(const char *str)
 {
 	size_t	len;
 
@@ -24,7 +24,7 @@ size_t	ft_strlen(const char *str)
 	return (len);
 }
 
-char	*ft_strchr(const char *s, char c)
+char	*ft_strchr_gnl(const char *s, char c)
 {
 	const char	*ptr;
 
@@ -37,7 +37,7 @@ char	*ft_strchr(const char *s, char c)
 		return (0);
 }
 
-void	*ft_calloc(size_t nmemb, size_t size)
+void	*ft_calloc_gnl(size_t nmemb, size_t size)
 {
 	unsigned char	*ptr;
 	size_t			bytes;
@@ -58,18 +58,18 @@ void	*ft_calloc(size_t nmemb, size_t size)
 	return (ptr);
 }
 
-char	*ft_strjoin(char *stash, char *buffer)
+char	*ft_strjoin_gnl(char *stash, char *buffer)
 {
 	size_t	stash_len;
 	size_t	join_len;
 	size_t	i;
 	char	*join;
 
-	stash_len = ft_strlen(stash);
-	if (stash_len > SIZE_MAX - ft_strlen(buffer))
+	stash_len = ft_strlen_gnl(stash);
+	if (stash_len > SIZE_MAX - ft_strlen_gnl(buffer))
 		return (NULL);
-	join_len = stash_len + ft_strlen(buffer);
-	join = ft_calloc(1, join_len * sizeof(char) + 1);
+	join_len = stash_len + ft_strlen_gnl(buffer);
+	join = ft_calloc_gnl(1, join_len * sizeof(char) + 1);
 	i = 0;
 	while (i < stash_len)
 	{
@@ -84,14 +84,14 @@ char	*ft_strjoin(char *stash, char *buffer)
 	return (free(stash), join);
 }
 
-char	*ft_strpardup(char *s, size_t end)
+char	*ft_strpardup_gnl(char *s, size_t end)
 {
 	char	*dup;
 	size_t	len;
 	size_t	i;
 
 	i = 0;
-	len = ft_strlen(s);
+	len = ft_strlen_gnl(s);
 	if (len > end)
 		len = end;
 	dup = malloc(len + 1);

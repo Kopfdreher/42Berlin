@@ -12,24 +12,24 @@
 
 #include "ft_printf.h"
 
-static int	check_format(const char format, va_list args)
+static int	print_check_format(const char format, va_list args)
 {
 	if (!format)
 		return (0);
 	if (format == 'c')
-		return (put_char(va_arg(args, int)));
+		return (print_put_char(va_arg(args, int)));
 	if (format == 's')
-		return (put_string(va_arg(args, char *)));
+		return (print_put_string(va_arg(args, char *)));
 	if (format == 'i' || format == 'd')
-		return (put_int(va_arg(args, int)));
+		return (print_put_int(va_arg(args, int)));
 	if (format == 'u')
-		return (put_unsigned_int(va_arg(args, unsigned int)));
+		return (print_put_unsigned_int(va_arg(args, unsigned int)));
 	if (format == 'x' || format == 'X')
-		return (put_hex(va_arg(args, unsigned int), format));
+		return (print_put_hex(va_arg(args, unsigned int), format));
 	if (format == 'p')
-		return (put_hex(va_arg(args, unsigned long), format));
+		return (print_put_hex(va_arg(args, unsigned long), format));
 	if (format == '%')
-		return (put_char('%'));
+		return (print_put_char('%'));
 	return (-1);
 }
 
@@ -47,9 +47,9 @@ int	ft_printf(const char *format, ...)
 	while (format[++i] && written != -1)
 	{
 		if (format[i] == '%')
-			written += check_format(format[++i], args);
+			written += print_check_format(format[++i], args);
 		else
-			written += put_char(format[i]);
+			written += print_put_char(format[i]);
 	}
 	return (va_end(args), written);
 }

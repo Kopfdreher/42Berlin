@@ -41,7 +41,7 @@ static char	*ft_itoa(int n)
 	if (n < 0)
 	{
 		str[0] = '-';
-		if (n = INT_MIN)
+		if (n == INT_MIN)
 			nb = (unsigned)INT_MAX + 1;
 		else
 			nb = -n;
@@ -65,7 +65,7 @@ int	put_int(int n)
 
 	nbr = ft_itoa(n);
 	if (!nbr)
-		return (NULL);
+		return (0);
 	len = write(1, nbr, ft_intlen(n));
 	free(nbr);
 	return (len);

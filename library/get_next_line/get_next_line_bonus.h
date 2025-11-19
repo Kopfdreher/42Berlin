@@ -24,10 +24,10 @@
 
 char	*get_next_line(int fd);
 
-void	*ft_calloc(size_t nmemb, size_t size);
-char	*ft_strchr(const char *s, char c);
-size_t	ft_strlen(const char *str);
-char	*ft_strjoin(char *stash, char *buffer);
-char	*ft_strpardup(char *s, size_t end);
+void	*ft_calloc_gnl(size_t nmemb, size_t size);
+char	*ft_strchr_gnl(const char *s, char c);
+size_t	ft_strlen_gnl(const char *str);
+char	*ft_strjoin_gnl(char *stash, char *buffer);
+char	*ft_strpardup_gnl(char *s, size_t end);
 
 #endif

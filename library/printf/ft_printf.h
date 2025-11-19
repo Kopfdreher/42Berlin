@@ -19,11 +19,11 @@
 # include <stdlib.h>
 
 int		ft_printf(const char *format, ...);
-size_t	ft_strlen(const	char *str);
-int		put_char(char c);
-int		put_string(char *str);
-int		put_int(int n);
-int		put_unsigned_int(unsigned int u);
-int		put_hex(unsigned long hex, char x);
+size_t	print_ft_strlen(const	char *str);
+int		print_put_char(char c);
+int		print_put_string(char *str);
+int		print_put_int(int n);
+int		print_put_unsigned_int(unsigned int u);
+int		print_put_hex(unsigned long hex, char x);
 
 #endif

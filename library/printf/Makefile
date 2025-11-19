@@ -1,4 +1,4 @@
-NAME = libtprintf.a
+NAME = libftprintf.a
 
 SRC = $(addsuffix .c, ft_helper ft_printf put_char put_hex put_int put_string put_unsigned_int)
 
