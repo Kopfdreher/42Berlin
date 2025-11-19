@@ -1,29 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   input_check.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sgavrilo <sgavrilo@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/22 17:58:39 by sgavrilo          #+#    #+#             */
-/*   Updated: 2025/07/22 17:58:41 by sgavrilo         ###   ########.fr       */
+/*   Created: 2025/11/19 19:53:47 by sgavrilo          #+#    #+#             */
+/*   Updated: 2025/11/19 19:53:49 by sgavrilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
-# include <unistd.h>
-# include <stdarg.h>
-# include <limits.h>
-# include <stdio.h>
-# include <stdlib.h>
+#include "libft.h"
+#include "push_swap.h"
 
-int		ft_printf(const char *format, ...);
-size_t	ft_strlen(const	char *str);
-int		put_char(char c);
-int		put_string(char *str);
-int		put_int(int n);
-int		put_unsigned_int(unsigned int u);
-int		put_hex(unsigned long hex, char x);
+int	input_check(int argc, char *argv[])
+{
+	int	i;
 
-#endif
+	i = 1;
+	while (i < argc)
+	{
+		if (!str_is_digit(argv[argc]))
+			return (0);
+	}
+}
+
+static int	str_is_digit(char *str)
+{
+	int	i;
+
+		
+}
+
+static int	ft_strcmp(const char *s1, const char *s2)
+{
+}

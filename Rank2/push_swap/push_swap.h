@@ -1,31 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_push_swap.c                                     :+:      :+:    :+:   */
+/*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgavrilo <sgavrilo@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: sgavrilo <sgavrilo@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/15 11:41:02 by sgavrilo          #+#    #+#             */
-/*   Updated: 2025/11/19 19:55:38 by sgavrilo         ###   ########.fr       */
+/*   Created: 2025/11/19 19:55:46 by sgavrilo          #+#    #+#             */
+/*   Updated: 2025/11/19 19:55:47 by sgavrilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include "push_swap.h"
-
-void	ft_error();
-
-int	main(int argc, char *argv[])
-{
-	if (argc < 3 || !input_check(argc, argv))
-		ft_error();
-}
+#ifndef PUSH_SWAP_H
+# define PUSH_SWAP_H
 
 
 
-void	ft_error()
-{
-	ft_printf("%s", "Error\n");
-	exit(0);
-}
-
+#endif
