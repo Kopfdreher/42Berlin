@@ -6,7 +6,7 @@
 /*   By: sgavrilo <sgavrilo@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/15 11:41:02 by sgavrilo          #+#    #+#             */
-/*   Updated: 2025/11/19 19:55:38 by sgavrilo         ###   ########.fr       */
+/*   Updated: 2025/11/20 12:46:11 by sgavrilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,12 @@ void	ft_error();
 
 int	main(int argc, char *argv[])
 {
-	if (argc < 3 || !input_check(argc, argv))
+	if (argc < 3/* || !input_has_errors(argc, argv)*/)
 		ft_error();
 }
-
-
 
 void	ft_error()
 {
 	ft_printf("%s", "Error\n");
 	exit(0);
 }
-
