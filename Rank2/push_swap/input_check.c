@@ -26,6 +26,7 @@ int	input_has_errors(int argc, char *argv[])
 	{
 		if (args_have_dups(argv))
 			return (1);
+		i++;
 	}
 	return (0);
 }
@@ -35,10 +36,10 @@ static int	args_have_dups(char *argv[])
 	int	i;
 	int	j;
 
-	i = 0;
-	j = 0;
+	i = 1;
 	while (argv[i])
 	{
+		j = i + 1;
 		while (argv[j])
 		{
 			if (!ft_strcmp(argv[i], argv[j]))
@@ -55,7 +56,7 @@ static int	ft_strcmp(const char *s1, const char *s2)
 	int	i;
 
 	i = 0;
-	while (s1[i] & s2[i] || s1[i] == s2[i])
+	while (s1[i] && s2[i] && s1[i] == s2[i])
 		i++;
 	return (s1[i] - s2[i]);
 }
