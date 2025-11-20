@@ -13,6 +13,6 @@
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 
-
+int	input_has_errors(int argc, char *argv[]);
 
 #endif
