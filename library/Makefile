@@ -10,7 +10,9 @@ SRCS = $(LIBFT) $(GNL) $(PRINTF)
 
 OBJS = $(SRCS:%.c=%.o)
 
-CCFLAGS = cc -Wall -Werror -Wextra
+CC = cc -Wall -Werror -Wextra -fPIC
+
+GCC = gcc -Wall -Werror -Wextra -fPIC -g
 
 RM = rm -f
 
@@ -20,7 +22,7 @@ $(NAME): $(OBJS)
 	ar rc $(NAME) $(OBJS)
 
 %.o: %.c
-	$(CCFLAGS) -c $< -o $@
+	$(GCC) -c $< -o $@
 
 clean:
 	$(RM) $(OBJS)
