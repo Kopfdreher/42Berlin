@@ -6,14 +6,14 @@
 /*   By: sgavrilo <sgavrilo@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/21 12:01:57 by sgavrilo          #+#    #+#             */
-/*   Updated: 2025/11/21 12:37:13 by sgavrilo         ###   ########.fr       */
+/*   Updated: 2025/11/21 21:48:42 by sgavrilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "push_swap.h"
 
-static int	ft_push(t_list **stack_b, t_list **stack_a)
+static int	ft_push(t_list **stack_a, t_list **stack_b)
 {
 	t_list	*a_new_first;
 	t_list	*b_new_first;

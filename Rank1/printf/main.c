@@ -14,8 +14,8 @@
 
 int	main()
 {
-	int	n = INT_MAX;
-	unsigned int	*ptr = &n;
+	int	n = 100;
+	unsigned int	*ptr = (unsigned int *)&n;
 	unsigned int	*nullptr = NULL;
 	char			*str = "Hello World";
 	char			*emptystr = "";
