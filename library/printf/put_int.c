@@ -37,6 +37,7 @@ static char	*print_ft_itoa(int n)
 	str = malloc(sizeof(char) * len + 1);
 	if (!str)
 		return (NULL);
+	str[len] = '\0';
 	if (n < 0)
 	{
 		str[0] = '-';
@@ -51,7 +52,7 @@ static char	*print_ft_itoa(int n)
 		str[--len] = (nb % 10) + '0';
 		nb /= 10;
 	}
-	return (str[len] = '\0', str);
+	return (str);
 }
 
 int	print_put_int(int n)

@@ -6,7 +6,7 @@
 /*   By: sgavrilo <sgavrilo@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 18:11:49 by sgavrilo          #+#    #+#             */
-/*   Updated: 2025/11/21 13:53:56 by sgavrilo         ###   ########.fr       */
+/*   Updated: 2025/11/21 21:49:23 by sgavrilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,27 +27,27 @@ int	main(int argc, char *argv[])
 	if (argc < 3 || input_has_errors(argc, argv))
 		ft_error();
 	args_to_stack(argv, &a);
-	//ft_printf("test: %i\n", *(int *)(a->content));
 	print_stacks(a, b);
 	ft_sa(&a);
-	print_stacks(a, b);
 	ft_rr(&a, &b);
-	print_stacks(a, b);
 	ft_rb(&b);
-	print_stacks(a, b);
 	ft_ra(&a);
-	print_stacks(a, b);
 	ft_rra(&a);
-	print_stacks(a, b);
 	ft_rrr(&a, &b);
-	print_stacks(a, b);
-	ft_pb(&b, &a);
-	print_stacks(a, b);
-	ft_pb(&b, &a);
-	print_stacks(a, b);
+	ft_pb(&a, &b);
+	ft_pb(&a, &b);
 	ft_rra(&a);
-	print_stacks(a, b);
 	ft_ss(&a, &b);
+	ft_pb(&a, &b);
+	ft_pb(&a, &b);
+	ft_pb(&a, &b);
+	ft_ra(&a);
+	ft_ra(&a);
+	ft_pa(&b, &a);
+	ft_pa(&b, &a);
+	ft_pa(&b, &a);
+	ft_pa(&b, &a);
+	ft_pa(&b, &a);
 	print_stacks(a, b);
 	ft_lstclear(&a, free);
 }
