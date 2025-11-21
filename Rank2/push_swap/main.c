@@ -6,7 +6,7 @@
 /*   By: sgavrilo <sgavrilo@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 18:11:49 by sgavrilo          #+#    #+#             */
-/*   Updated: 2025/11/20 18:25:14 by sgavrilo         ###   ########.fr       */
+/*   Updated: 2025/11/21 13:53:56 by sgavrilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,29 @@ int	main(int argc, char *argv[])
 	if (argc < 3 || input_has_errors(argc, argv))
 		ft_error();
 	args_to_stack(argv, &a);
-	ft_printf("%i", *(int *)(a->content));
-	//print_stacks(a, b);
-
+	//ft_printf("test: %i\n", *(int *)(a->content));
+	print_stacks(a, b);
+	ft_sa(&a);
+	print_stacks(a, b);
+	ft_rr(&a, &b);
+	print_stacks(a, b);
+	ft_rb(&b);
+	print_stacks(a, b);
+	ft_ra(&a);
+	print_stacks(a, b);
+	ft_rra(&a);
+	print_stacks(a, b);
+	ft_rrr(&a, &b);
+	print_stacks(a, b);
+	ft_pb(&b, &a);
+	print_stacks(a, b);
+	ft_pb(&b, &a);
+	print_stacks(a, b);
+	ft_rra(&a);
+	print_stacks(a, b);
+	ft_ss(&a, &b);
+	print_stacks(a, b);
+	ft_lstclear(&a, free);
 }
 
 void	print_stacks(t_list *a, t_list *b)
@@ -42,19 +62,20 @@ void	print_stacks(t_list *a, t_list *b)
 	{
 		if (a)
 		{
-			ft_printf("|   %i   |  ", *(int *)a->content);
+			ft_printf("|   %i   |  ", *(int *)(a->content));
 			a = a->next;
 		}
 		else
-			ft_printf("|        |  ");
+			ft_printf("|   x   |  ");
 		if (b)
 		{
-			ft_printf("|   %i   |\n", *(int *)b->content);
+			ft_printf("|   %i   |\n", *(int *)(b->content));
 			b = b->next;
 		}
 		else
-			ft_printf("|        |\n");
+			ft_printf("|   x   |\n");
 	}
+	ft_printf("|-------|  |-------|\n");
 }
 void	args_to_stack(char *argv[], t_list **stack)
 {

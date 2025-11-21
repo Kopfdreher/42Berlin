@@ -13,7 +13,25 @@
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 
+/* Helper Functions */
 void	*safe_malloc(size_t size, t_list *stack);
-int	input_has_errors(int argc, char *argv[]);
+int		input_has_errors(int argc, char *argv[]);
+
+/* Swap Functions */
+void	ft_ss(t_list **stack_a, t_list **stack_b);
+void	ft_sb(t_list **stack);
+void	ft_sa(t_list **stack);
+
+/* Push Functions */
+void	ft_pa(t_list **stack_a, t_list **stack_b);
+void	ft_pb(t_list **stack_a, t_list **stack_b);
+
+/* Rotate Functions */
+void	ft_ra(t_list **stack);
+void	ft_rb(t_list **stack);
+void	ft_rr(t_list **stack_a, t_list **stack_b);
+void	ft_rra(t_list **stack);
+void	ft_rrb(t_list **stack);
+void	ft_rrr(t_list **stack_a, t_list **stack_b);
 
 #endif
