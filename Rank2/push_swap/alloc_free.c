@@ -13,7 +13,6 @@
 #include "libft.h"
 #include "push_swap.h"
 
-
 void	*safe_malloc(size_t size, t_list *stack)
 {
 	void	*ptr;
