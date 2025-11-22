@@ -15,18 +15,20 @@
 
 typedef struct s_path
 {
-	int				value;
-	int				cost;
-	int				ra;
-	int				rb;
-	int				rra;
-	int				rrb;
-	struct s_path	*next;
+	int	num;
+	int	cost;
+	int	ra;
+	int	rb;
+	int	rra;
+	int	rrb;
+	int	size_a;
+	int	size_b;
 }	t_path;
 
 /* Helper Functions */
 void	*safe_malloc(size_t size, t_list *stack);
 int		input_has_errors(int argc, char *argv[]);
+void	movement_table(t_path *path, t_list **a, t_list **b);
 
 /* Swap Functions */
 void	ft_ss(t_list **stack_a, t_list **stack_b);

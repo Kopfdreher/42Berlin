@@ -6,7 +6,7 @@
 /*   By: sgavrilo <sgavrilo@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 18:11:49 by sgavrilo          #+#    #+#             */
-/*   Updated: 2025/11/21 21:49:23 by sgavrilo         ###   ########.fr       */
+/*   Updated: 2025/11/22 22:33:57 by sgavrilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ void	print_stacks(t_list *a, t_list *b)
 	}
 	ft_printf("|-------|  |-------|\n");
 }
+
 void	args_to_stack(char *argv[], t_list **stack)
 {
 	int	i;
