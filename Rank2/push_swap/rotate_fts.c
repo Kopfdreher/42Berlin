@@ -6,7 +6,7 @@
 /*   By: sgavrilo <sgavrilo@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/21 12:39:18 by sgavrilo          #+#    #+#             */
-/*   Updated: 2025/11/23 18:58:51 by sgavrilo         ###   ########.fr       */
+/*   Updated: 2025/11/23 19:34:21 by sgavrilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,21 +35,19 @@ void	ft_ra(t_list **stack)
 {
 	if (ft_rotate(stack))
 		ft_printf("ra");
-	ft_printf(" ");
+	ft_printf("\n");
 }
 
 void	ft_rb(t_list **stack)
 {
 	if (ft_rotate(stack))
 		ft_printf("rb");
-	ft_printf(" ");
+	ft_printf("\n");
 }
 
 void	ft_rr(t_list **stack_a, t_list **stack_b)
 {
-	if (ft_rotate(stack_a))
-		ft_printf("r");
-	if (ft_rotate(stack_b))
-		ft_printf("r");
-	ft_printf(" ");
+	ft_rotate(stack_a);
+	ft_rotate(stack_b);
+	ft_printf("rr\n");
 }

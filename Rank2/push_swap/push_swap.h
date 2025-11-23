@@ -28,13 +28,19 @@ typedef struct s_path
 	int	size_b;
 }	t_path;
 
+/* Input Handling */
+int		input_has_errors(int argc, char *argv[]);
+int		nums_have_dups(t_list **a);
+long	num_too_big(long num);
+int		nums_sorted(t_list **a);
+
 /* Helper Functions */
 void	*safe_malloc(size_t size, t_list *stack);
-int		input_has_errors(int argc, char *argv[]);
 void	movement_table(t_path *path, t_list **a, t_list **b);
 void	sort_to_b(t_list **a, t_list **b);
 int		find_rotations(int num, t_list **a);
 void	back_to_a(t_list **a, t_list **b);
+t_path	*new_path();
 
 /* Swap Functions */
 void	ft_ss(t_list **stack_a, t_list **stack_b);
