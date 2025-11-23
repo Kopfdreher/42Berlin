@@ -6,7 +6,7 @@
 /*   By: sgavrilo <sgavrilo@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 18:11:49 by sgavrilo          #+#    #+#             */
-/*   Updated: 2025/11/22 22:33:57 by sgavrilo         ###   ########.fr       */
+/*   Updated: 2025/11/23 18:59:53 by sgavrilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,27 +27,11 @@ int	main(int argc, char *argv[])
 	if (argc < 3 || input_has_errors(argc, argv))
 		ft_error();
 	args_to_stack(argv, &a);
-	print_stacks(a, b);
-	ft_sa(&a);
-	ft_rr(&a, &b);
-	ft_rb(&b);
-	ft_ra(&a);
-	ft_rra(&a);
-	ft_rrr(&a, &b);
-	ft_pb(&a, &b);
-	ft_pb(&a, &b);
-	ft_rra(&a);
-	ft_ss(&a, &b);
-	ft_pb(&a, &b);
-	ft_pb(&a, &b);
-	ft_pb(&a, &b);
-	ft_ra(&a);
-	ft_ra(&a);
-	ft_pa(&b, &a);
-	ft_pa(&b, &a);
-	ft_pa(&b, &a);
-	ft_pa(&b, &a);
-	ft_pa(&b, &a);
+	//if (nums_are_sorted(&a) || num_dups_in(
+	//print_stacks(a, b);
+	sort_to_b(&a, &b);
+	//print_stacks(a, b);
+	back_to_a(&a, &b);
 	print_stacks(a, b);
 	ft_lstclear(&a, free);
 }

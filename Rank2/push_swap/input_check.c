@@ -39,6 +39,8 @@ static int	strs_not_digits(char *argv[])
 	j = 0;
 	while (argv[i])
 	{
+		if (argv[i][0] == '-')
+			j++;
 		while (argv[i][j])
 		{
 			if (!ft_isdigit(argv[i][j]))

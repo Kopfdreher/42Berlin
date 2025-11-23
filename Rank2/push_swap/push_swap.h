@@ -13,6 +13,9 @@
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 
+# include <stdio.h>
+
+
 typedef struct s_path
 {
 	int	num;
@@ -29,6 +32,9 @@ typedef struct s_path
 void	*safe_malloc(size_t size, t_list *stack);
 int		input_has_errors(int argc, char *argv[]);
 void	movement_table(t_path *path, t_list **a, t_list **b);
+void	sort_to_b(t_list **a, t_list **b);
+int		find_rotations(int num, t_list **a);
+void	back_to_a(t_list **a, t_list **b);
 
 /* Swap Functions */
 void	ft_ss(t_list **stack_a, t_list **stack_b);

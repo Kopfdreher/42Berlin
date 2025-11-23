@@ -6,7 +6,7 @@
 /*   By: sgavrilo <sgavrilo@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/21 12:57:10 by sgavrilo          #+#    #+#             */
-/*   Updated: 2025/11/21 13:29:17 by sgavrilo         ###   ########.fr       */
+/*   Updated: 2025/11/23 18:59:23 by sgavrilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static int	ft_reverse_rotate(t_list **stack)
 
 	if (!(*stack) || !(*stack)->next)
 	{
-		ft_printf("NRR");
+		// ft_printf("NRR");
 		return (0);
 	}
 	new_first = ft_lstlast(*stack);
@@ -44,14 +44,14 @@ void	ft_rra(t_list **stack)
 {
 	if (ft_reverse_rotate(stack))
 		ft_printf("rra");
-	ft_printf("\n");
+	ft_printf(" ");
 }
 
 void	ft_rrb(t_list **stack)
 {
 	if (ft_reverse_rotate(stack))
 		ft_printf("rrb");
-	ft_printf("\n");
+	ft_printf(" ");
 }
 
 void	ft_rrr(t_list **stack_a, t_list **stack_b)
@@ -60,5 +60,5 @@ void	ft_rrr(t_list **stack_a, t_list **stack_b)
 		ft_printf("r");
 	if (ft_reverse_rotate(stack_b))
 		ft_printf("r");
-	ft_printf("r\n");
+	ft_printf("r ");
 }
