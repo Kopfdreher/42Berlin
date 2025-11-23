@@ -35,6 +35,7 @@ static int	str_too_long(char *str)
 {
 	int	len;
 
+	len = 0;
 	while (str[len])
 		len++;
 	return (len > 11);
@@ -51,7 +52,7 @@ static int	strs_not_digits(char *argv[])
 	{
 		if (str_too_long(argv[i]))
 			return (1);
-		if (argv[i][0] == '-')
+		if (argv[i][0] == '-' || argv[i][0] == '+')
 			j++;
 		while (argv[i][j])
 		{
