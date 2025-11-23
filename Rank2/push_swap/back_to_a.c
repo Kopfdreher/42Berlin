@@ -6,7 +6,7 @@
 /*   By: sgavrilo <sgavrilo@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/23 16:16:59 by sgavrilo          #+#    #+#             */
-/*   Updated: 2025/11/23 16:47:37 by sgavrilo         ###   ########.fr       */
+/*   Updated: 2025/11/23 19:57:22 by sgavrilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	back_to_a(t_list **a, t_list **b)
 {
 	t_path *path;
 	
-	path = malloc(sizeof(t_path));
+	path = new_path();
 	if (!path)
 		return ;
 	path->size_b = ft_lstsize(*b);

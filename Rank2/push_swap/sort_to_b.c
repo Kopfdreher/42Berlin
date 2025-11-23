@@ -6,7 +6,7 @@
 /*   By: sgavrilo <sgavrilo@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/22 16:10:03 by sgavrilo          #+#    #+#             */
-/*   Updated: 2025/11/23 16:53:06 by sgavrilo         ###   ########.fr       */
+/*   Updated: 2025/11/23 19:56:51 by sgavrilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	sort_to_b(t_list **a, t_list **b)
 {
 	t_path	*cheapest_path;
 
-	cheapest_path = malloc(sizeof(t_path));
+	cheapest_path = new_path();
 	if (!cheapest_path)
 		return ;
 	ft_pb(a, b);

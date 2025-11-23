@@ -15,6 +15,7 @@
 static int	ft_strcmp(const char *s1, const char *s2);
 static int	args_have_dups(char *argv[]);
 static int	strs_not_digits(char *argv[]);
+static int	str_too_long(char *str);
 
 int	input_has_errors(int argc, char *argv[])
 {
@@ -30,6 +31,15 @@ int	input_has_errors(int argc, char *argv[])
 	return (0);
 }
 
+static int	str_too_long(char *str)
+{
+	int	len;
+
+	while (str[len])
+		len++;
+	return (len > 11);
+}
+
 static int	strs_not_digits(char *argv[])
 {
 	int	i;
@@ -39,6 +49,8 @@ static int	strs_not_digits(char *argv[])
 	j = 0;
 	while (argv[i])
 	{
+		if (str_too_long(argv[i]))
+			return (1);
 		if (argv[i][0] == '-')
 			j++;
 		while (argv[i][j])
