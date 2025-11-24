@@ -6,7 +6,7 @@
 /*   By: sgavrilo <sgavrilo@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/24 11:49:05 by sgavrilo          #+#    #+#             */
-/*   Updated: 2025/11/24 15:33:29 by sgavrilo         ###   ########.fr       */
+/*   Updated: 2025/11/24 17:21:47 by sgavrilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,11 @@ void	min_to_top(t_list **a);
 void	sort_three(t_list **a);
 int		find_min(t_list **a);
 
-void dump_sort(t_list **a, t_list **b)
+void	dump_sort(t_list **a, t_list **b)
 {
 	int	size;
 
 	size = ft_lstsize(*a);
-	print_stacks(*a, *b);
 	if (size == 2)
 		ft_ra(a);
 	else if (size == 3)
@@ -31,9 +30,7 @@ void dump_sort(t_list **a, t_list **b)
 	{
 		while (ft_lstsize(*a) > 3)
 		{
-			print_stacks(*a, *b);
 			min_to_top(a);
-			print_stacks(*a, *b);
 			ft_pb(a, b);
 		}
 		sort_three(a);
@@ -67,16 +64,17 @@ void	min_to_top(t_list **a)
 	}
 }
 
-int		find_min(t_list **a)
+int	find_min(t_list **a)
 {
 	t_list	*current;
 	int		min_num;
-	int 	current_num;
+	int		current_num;
 
 	min_num = INT_MAX;
+	current = *a;
 	while (current)
 	{
-		current_num = *(int *)((*a)->content);
+		current_num = *(int *)(current->content);
 		if (min_num > current_num)
 			min_num = current_num;
 		current = current->next;

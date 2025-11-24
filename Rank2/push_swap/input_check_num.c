@@ -6,12 +6,33 @@
 /*   By: sgavrilo <sgavrilo@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/23 20:13:56 by sgavrilo          #+#    #+#             */
-/*   Updated: 2025/11/24 14:47:02 by sgavrilo         ###   ########.fr       */
+/*   Updated: 2025/11/24 17:53:35 by sgavrilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "push_swap.h"
+
+void	input_check(char *argv[], t_list **a, int args_allocated)
+{
+	int	argc;
+
+	argc = 0;
+	while (argv[argc])
+		argc++;
+	if (!argc || input_has_errors(argc, argv))
+	{
+		if (args_allocated)
+			free_strarr(argv);
+		ft_error(a);
+	}
+	if (!(args_to_stack(argv, a)) || nums_have_dups(a))
+	{
+		if (args_allocated)
+			free_strarr(argv);
+		ft_error(a);
+	}
+}
 
 int	nums_have_dups(t_list **a)
 {
@@ -59,4 +80,3 @@ int	nums_sorted(t_list **a)
 	}
 	return (1);
 }
-

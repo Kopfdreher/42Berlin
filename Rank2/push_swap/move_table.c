@@ -6,19 +6,12 @@
 /*   By: sgavrilo <sgavrilo@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/22 18:24:59 by sgavrilo          #+#    #+#             */
-/*   Updated: 2025/11/24 14:32:41 by sgavrilo         ###   ########.fr       */
+/*   Updated: 2025/11/24 17:59:04 by sgavrilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "push_swap.h"
-
-void	move_rr(t_path *path, t_list **a, t_list **b);
-void	move_ra(t_path *path, t_list **a, t_list **b);
-void	move_rb(t_path *path, t_list **a, t_list **b);
-void	move_rrr(t_path *path, t_list **a, t_list **b);
-void	move_rra(t_path *path, t_list **a, t_list **b);
-void	move_rrb(t_path *path, t_list **a, t_list **b);
 
 void	movement_table(t_path *path, t_list **a, t_list **b)
 {
@@ -36,40 +29,35 @@ void	movement_table(t_path *path, t_list **a, t_list **b)
 		move_rrb(path, a, b);
 }
 
-void	move_rr(t_path *path, t_list **a, t_list **b)
+t_path	*new_path(void)
 {
-	ft_rr(a, b);
-	path->ra--;
-	path->rb--;
+	t_path	*new_path;
+
+	new_path = malloc(sizeof(t_path));
+	if (!new_path)
+		return (NULL);
+	new_path->num = 0;
+	new_path->cost = 0;
+	new_path->ra = 0;
+	new_path->rb = 0;
+	new_path->rra = 0;
+	new_path->rrb = 0;
+	new_path->size_a = 0;
+	new_path->size_b = 0;
+	return (new_path);
 }
 
-void	move_ra(t_path *path, t_list **a, t_list **b)
+int	find_rotations(int num, t_list **a)
 {
-	ft_ra(a);
-	path->ra--;
-}
+	t_list	*find_moves;
+	int		rotations;
 
-void	move_rb(t_path *path, t_list **a, t_list **b)
-{
-	ft_rb(b);
-	path->rb--;
-}
-
-void	move_rrr(t_path *path, t_list **a, t_list **b)
-{
-	ft_rrr(a, b);
-	path->rra--;
-	path->rrb--;
-}
-
-void	move_rra(t_path *path, t_list **a, t_list **b)
-{
-	ft_rra(a);
-	path->rra--;
-}
-
-void	move_rrb(t_path *path, t_list **a, t_list **b)
-{
-	ft_rrb(b);
-	path->rrb--;
+	find_moves = *a;
+	rotations = 0;
+	while (*(int *)(find_moves->content) != num)
+	{
+		rotations++;
+		find_moves = find_moves->next;
+	}
+	return (rotations);
 }

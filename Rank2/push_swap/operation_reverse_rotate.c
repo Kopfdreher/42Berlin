@@ -6,7 +6,7 @@
 /*   By: sgavrilo <sgavrilo@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/21 12:57:10 by sgavrilo          #+#    #+#             */
-/*   Updated: 2025/11/23 19:32:37 by sgavrilo         ###   ########.fr       */
+/*   Updated: 2025/11/24 17:33:05 by sgavrilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,7 @@ static int	ft_reverse_rotate(t_list **stack)
 	t_list	*new_first;
 
 	if (!(*stack) || !(*stack)->next)
-	{
-		// ft_printf("NRR");
 		return (0);
-	}
 	new_first = ft_lstlast(*stack);
 	new_last = ft_lst2ndlast(*stack);
 	new_first->next = *stack;

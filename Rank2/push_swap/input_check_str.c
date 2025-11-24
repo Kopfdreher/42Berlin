@@ -2,10 +2,11 @@
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   input_check.c                                      :+:      :+:    :+:   */
-/*   By: sgavrilo <sgavrilo@student.42berlin.d      +#+  +:+       +#+        */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sgavrilo <sgavrilo@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/19 19:53:47 by sgavrilo          #+#    #+#             */
-/*   Updated: 2025/11/19 19:53:49 by sgavrilo         ###   ########.fr       */
+/*   Created: 2025/11/24 17:38:07 by sgavrilo          #+#    #+#             */
+/*   Updated: 2025/11/24 17:38:10 by sgavrilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +47,7 @@ static int	strs_not_digits(char *argv[])
 	int	i;
 	int	j;
 
-	i = 1;
+	i = 0;
 	j = 0;
 	while (argv[i])
 	{
