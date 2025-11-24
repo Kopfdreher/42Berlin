@@ -6,7 +6,7 @@
 /*   By: sgavrilo <sgavrilo@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 18:11:49 by sgavrilo          #+#    #+#             */
-/*   Updated: 2025/11/23 22:10:37 by sgavrilo         ###   ########.fr       */
+/*   Updated: 2025/11/24 12:02:35 by sgavrilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,39 +16,69 @@
 void	ft_error();
 int		args_to_stack(char *argv[], t_list **stack);
 void	print_stacks(t_list *a, t_list *b);
-static void	turk_sort(t_list **a, t_list **b);
-static void dump_sort(t_list **a, t_list **b);
+void	free_strarr(char *argv[]);
+void	input_check(char *argv[], t_list **a, int args_allocated);
 
 int	main(int argc, char *argv[])
 {
 	t_list	*a;
 	t_list	*b;
+	char	**one_arg;
 
 	a = NULL;
 	b = NULL;
-	if (argc < 3 || input_has_errors(argc, argv))
-		ft_error();
-	
-	if (!(args_to_stack(argv, &a)) || nums_have_dups(&a))
+	one_arg = NULL;
+	if (argc == 2)
+	{
+		one_arg = ft_split(argv[1], ' ');
+		input_check(one_arg, &a, 1);
+	}
+	else if (argc > 3)
+		input_check(&argv[1], &a, 0);
+	else
 		ft_error();
 	if (!(nums_sorted(&a)))
 	{
-		if (argc <= 6)
+		if (ft_lstsize(a) <= 5)
 			dump_sort(&a, &b);
 		else
 			turk_sort(&a, &b);
 	}
+	if (one_arg)
+		free_strarr(one_arg);
 	ft_lstclear(&a, free);
 }
 
-static void dump_sort(t_list **a, t_list **b)
+void	free_strarr(char *argv[])
 {
+	int	i;
+	
+	i = 0;
+	while (argv[i])
+	{
+		free(argv[i]);
+		i++;
+	}
+	free(argv);
 }
 
-static void	turk_sort(t_list **a, t_list **b)
+void	input_check(char *argv[], t_list **a, int args_allocated)
 {
-	sort_to_b(a, b);
-	back_to_a(a, b);
+	int	argc;
+
+	argc = 0;
+	while (argv[argc])
+		argc++;
+	if (argc < 2 || input_has_errors(argc, argv))
+	{
+		if (args_allocated)
+			free_strarr(argv);
+		ft_error();
+	}
+	if (!(args_to_stack(argv, a)) || nums_have_dups(a))
+		if (args_allocated)
+			free_strarr(argv);
+		ft_error();
 }
 
 void	print_stacks(t_list *a, t_list *b)
@@ -84,7 +114,7 @@ int	args_to_stack(char *argv[], t_list **stack)
 	int 	*content;
 	long	check;
 
-	i = 1;
+	i = 0;
 	while (argv[i])
 	{
 		content = safe_malloc(sizeof(int), *stack);
@@ -102,7 +132,7 @@ int	args_to_stack(char *argv[], t_list **stack)
 void	ft_error()
 {
 	ft_printf("%s", "Error\n");
-	exit(0);
+	exit(1);
 }
 
 t_path	*new_path()

@@ -28,11 +28,21 @@ typedef struct s_path
 	int	size_b;
 }	t_path;
 
+/* Sorting Functions */
+void	turk_sort(t_list **a, t_list **b);
+void 	dump_sort(t_list **a, t_list **b);
+
 /* Input Handling */
 int		input_has_errors(int argc, char *argv[]);
 int		nums_have_dups(t_list **a);
 long	num_too_big(long num);
 int		nums_sorted(t_list **a);
+void	print_stacks(t_list *a, t_list *b);
+void	ft_error();
+int		args_to_stack(char *argv[], t_list **stack);
+void	print_stacks(t_list *a, t_list *b);
+void	free_strarr(char *argv[]);
+void	input_check(char *argv[], t_list **a, int args_allocated);
 
 /* Helper Functions */
 void	*safe_malloc(size_t size, t_list *stack);

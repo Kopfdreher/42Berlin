@@ -21,7 +21,7 @@ int	input_has_errors(int argc, char *argv[])
 {
 	int	i;
 
-	i = 1;
+	i = 0;
 	while (i < argc)
 	{
 		if (strs_not_digits(argv) || args_have_dups(argv))
