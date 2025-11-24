@@ -6,7 +6,7 @@
 /*   By: sgavrilo <sgavrilo@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 21:02:15 by sgavrilo          #+#    #+#             */
-/*   Updated: 2025/11/23 19:34:23 by sgavrilo         ###   ########.fr       */
+/*   Updated: 2025/11/24 17:39:52 by sgavrilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,9 @@ static int	ft_swap(t_list **stack)
 {
 	t_list	*first;
 	t_list	*second;
-	
+
 	if (!(*stack) || !((*stack)->next))
 	{
-		// ft_printf("NS");
 		return (0);
 	}
 	first = *stack;

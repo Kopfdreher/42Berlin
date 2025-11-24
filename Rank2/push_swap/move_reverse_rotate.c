@@ -1,29 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   alloc_free.c                                       :+:      :+:    :+:   */
+/*   move_reverse_rotate.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgavrilo <sgavrilo@student.42berlin.d      +#+  +:+       +#+        */
+/*   By: sgavrilo <sgavrilo@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/20 16:54:14 by sgavrilo          #+#    #+#             */
-/*   Updated: 2025/11/20 16:54:15 by sgavrilo         ###   ########.fr       */
+/*   Created: 2025/11/24 17:49:14 by sgavrilo          #+#    #+#             */
+/*   Updated: 2025/11/24 17:50:36 by sgavrilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "push_swap.h"
 
-void	*safe_malloc(size_t size, t_list *stack)
+void	move_rrr(t_path *path, t_list **a, t_list **b)
 {
-	void	*ptr;
-
-	ptr = malloc(size);
-	if (!ptr)
-	{
-		ft_putstr_fd("Fatal Error: Memory allocation failed\n", 2);
-		ft_lstclear(&stack, free);
-		exit(1);
-	}
-	return (ptr);
+	ft_rrr(a, b);
+	path->rra--;
+	path->rrb--;
 }
 
+void	move_rra(t_path *path, t_list **a, t_list **b)
+{
+	ft_rra(a);
+	path->rra--;
+}
+
+void	move_rrb(t_path *path, t_list **a, t_list **b)
+{
+	ft_rrb(b);
+	path->rrb--;
+}

@@ -6,20 +6,20 @@
 /*   By: sgavrilo <sgavrilo@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/23 16:16:59 by sgavrilo          #+#    #+#             */
-/*   Updated: 2025/11/23 19:57:22 by sgavrilo         ###   ########.fr       */
+/*   Updated: 2025/11/24 17:41:33 by sgavrilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "push_swap.h"
 
-static int	max_in(t_list *stack);
+static int		max_in(t_list *stack);
 static t_path	to_a(t_path path);
 
 void	back_to_a(t_list **a, t_list **b)
 {
-	t_path *path;
-	
+	t_path	*path;
+
 	path = new_path();
 	if (!path)
 		return ;

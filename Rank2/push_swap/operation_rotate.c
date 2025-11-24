@@ -1,46 +1,52 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_fts.c                                         :+:      :+:    :+:   */
+/*   rotate_fts.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sgavrilo <sgavrilo@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/21 12:01:57 by sgavrilo          #+#    #+#             */
-/*   Updated: 2025/11/23 19:31:41 by sgavrilo         ###   ########.fr       */
+/*   Created: 2025/11/21 12:39:18 by sgavrilo          #+#    #+#             */
+/*   Updated: 2025/11/24 17:38:50 by sgavrilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "push_swap.h"
 
-static int	ft_push(t_list **stack_a, t_list **stack_b)
+static	int	ft_rotate(t_list **stack)
 {
-	t_list	*a_new_first;
-	t_list	*b_new_first;
+	t_list	*new_end;
+	t_list	*new_first;
 
-	if (!(*stack_a))
+	if (!(*stack))
 	{
-		//ft_printf("NP");
 		return (0);
 	}
-	a_new_first = (*stack_a)->next;
-	b_new_first = (*stack_a);
-	b_new_first->next = *stack_b;
-	*stack_a = a_new_first;
-	*stack_b = b_new_first;
+	new_end = *stack;
+	new_first = (*stack)->next;
+	*stack = new_first;
+	ft_lstadd_back(&new_first, new_end);
+	new_end->next = NULL;
 	return (1);
 }
 
-void	ft_pb(t_list **stack_a, t_list **stack_b)
+void	ft_ra(t_list **stack)
 {
-	if (ft_push(stack_a, stack_b))
-		ft_printf("pb");
+	if (ft_rotate(stack))
+		ft_printf("ra");
 	ft_printf("\n");
 }
 
-void	ft_pa(t_list **stack_b, t_list **stack_a)
+void	ft_rb(t_list **stack)
 {
-	if (ft_push(stack_b, stack_a))
-		ft_printf("pa");
+	if (ft_rotate(stack))
+		ft_printf("rb");
 	ft_printf("\n");
+}
+
+void	ft_rr(t_list **stack_a, t_list **stack_b)
+{
+	ft_rotate(stack_a);
+	ft_rotate(stack_b);
+	ft_printf("rr\n");
 }

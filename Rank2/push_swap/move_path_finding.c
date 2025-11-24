@@ -1,66 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sort_to_b.c                                        :+:      :+:    :+:   */
+/*   move_path_finding.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sgavrilo <sgavrilo@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/22 16:10:03 by sgavrilo          #+#    #+#             */
-/*   Updated: 2025/11/24 14:32:45 by sgavrilo         ###   ########.fr       */
+/*   Created: 2025/11/24 18:01:33 by sgavrilo          #+#    #+#             */
+/*   Updated: 2025/11/24 18:03:00 by sgavrilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "push_swap.h"
 
-
-static t_path	get_cheapest(t_list **a, t_list **b);
-static t_path	path_finding_of(t_path path, t_list **a, t_list **b);
-static int	nxt_smllst_to(int num, t_list *b);
-//static int	find_rb(t_path path, t_list **b);
+static int		nxt_smllst_to(int num, t_list *b);
 static t_path	cost_of(t_path path);
 static t_path	set_path_type(t_path path, int type);
-static int	max_of(int	x, int y);
+static int		max_of(int x, int y);
 
-void	sort_to_b(t_list **a, t_list **b)
-{
-	t_path	*cheapest_path;
-
-	cheapest_path = new_path();
-	if (!cheapest_path)
-		return ;
-	ft_pb(a, b);
-	while (*a)
-	{
-		*cheapest_path = get_cheapest(a, b);
-		movement_table(cheapest_path, a, b);
-		ft_pb(a, b);
-	}
-	free(cheapest_path);
-}
-
-static t_path	get_cheapest(t_list **a, t_list **b)
-{
-	t_list	*num_in_a;
-	t_path	current_path;
-	t_path	cheapest_path;
-
-	current_path.size_a = ft_lstsize(*a);
-	current_path.size_b = ft_lstsize(*b);
-	cheapest_path.cost = INT_MAX;
-	num_in_a = *a;
-	while (num_in_a)
-	{
-		current_path.num = *(int *)(num_in_a->content);
-		current_path = path_finding_of(current_path, a, b);
-		if (cheapest_path.cost > current_path.cost)
-			cheapest_path = current_path;
-		num_in_a = num_in_a->next;
-	}
-	return (cheapest_path);
-}
-
-static t_path	path_finding_of(t_path path, t_list **a, t_list **b)
+t_path	path_finding_of(t_path path, t_list **a, t_list **b)
 {
 	path.ra = 0;
 	path.rra = 0;
@@ -72,45 +30,6 @@ static t_path	path_finding_of(t_path path, t_list **a, t_list **b)
 	path.rrb = path.size_b - path.rb;
 	return (cost_of(path));
 }
-
-int	find_rotations(int num, t_list **a)
-{
-	t_list	*find_moves;
-	int		rotations;
-
-	find_moves = *a;
-	rotations = 0;
-	while (*(int *)(find_moves->content) != num)
-	{
-		rotations++;
-		find_moves = find_moves->next;
-	}
-	return (rotations);
-}
-/*
-static int	find_rb(t_path path, t_list **b)
-{
-	t_list	*current;
-	t_list	*next;
-
-	if (!((*b)->next))
-		return (0);
-	current = *b;
-	next = (*b)->next;
-	while (path.rb < path.size_b)
-	{
-		if (*(int *)(current->content) > path.num 
-			&& path.num > *(int *)(next->content))
-			return (path.rb);
-		current = next;
-		if (!next->next)
-			next = *b;
-		else
-			next = next->next;
-		path.rb++;
-	}
-	return (path.rb);
-}*/
 
 static int	nxt_smllst_to(int num, t_list *b)
 {
@@ -173,7 +92,7 @@ static t_path	set_path_type(t_path path, int type)
 	return (path);
 }
 
-static int	max_of(int	x, int y)
+static int	max_of(int x, int y)
 {
 	if (x > y)
 		return (x);
