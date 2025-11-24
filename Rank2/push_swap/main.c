@@ -6,7 +6,7 @@
 /*   By: sgavrilo <sgavrilo@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 18:11:49 by sgavrilo          #+#    #+#             */
-/*   Updated: 2025/11/24 12:02:35 by sgavrilo         ###   ########.fr       */
+/*   Updated: 2025/11/24 15:11:17 by sgavrilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	main(int argc, char *argv[])
 		one_arg = ft_split(argv[1], ' ');
 		input_check(one_arg, &a, 1);
 	}
-	else if (argc > 3)
+	else if (argc > 2)
 		input_check(&argv[1], &a, 0);
 	else
 		ft_error();
@@ -76,9 +76,11 @@ void	input_check(char *argv[], t_list **a, int args_allocated)
 		ft_error();
 	}
 	if (!(args_to_stack(argv, a)) || nums_have_dups(a))
+	{
 		if (args_allocated)
 			free_strarr(argv);
 		ft_error();
+	}
 }
 
 void	print_stacks(t_list *a, t_list *b)
