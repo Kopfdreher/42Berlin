@@ -42,9 +42,6 @@ void	free_strarr(char *argv[])
 
 void	print_stacks(t_list *a, t_list *b)
 {
-	int	i;
-
-	i = 0;
 	ft_printf("|---a---|  |---b---|\n");
 	while (a || b)
 	{
@@ -68,7 +65,8 @@ void	print_stacks(t_list *a, t_list *b)
 
 void	ft_exit(t_list **a)
 {
-	ft_lstclear(a, free);
+	if (*a)
+		ft_lstclear(a, free);
 	exit(0);
 }
 

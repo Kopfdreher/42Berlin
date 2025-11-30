@@ -20,16 +20,13 @@
 # include <fcntl.h>
 # include <stdarg.h>
 
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 1024
-# endif
-
 typedef struct s_list
 {
 	void			*content;
 	struct s_list	*next;
 }		t_list;
 
+/* Linked Lists */
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 void	ft_lstiter(t_list *lst, void (*f)(void *));
 void	ft_lstclear(t_list **lst, void (*del)(void *));
@@ -39,6 +36,8 @@ t_list	*ft_lstlast(t_list *lst);
 int		ft_lstsize(t_list *lst);
 void	ft_lstadd_front(t_list **lst, t_list *new);
 t_list	*ft_lstnew(void *content);
+
+/* Original LIBFT */
 int		ft_atoi(const char *nptr);
 long	ft_atol(const char *str);
 void	ft_bzero(void *s, size_t n);
@@ -74,12 +73,8 @@ char	*ft_strtrim(char const *s1, char const *set);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 int		ft_tolower(int c);
 int		ft_toupper(int c);
-char	*get_next_line(int fd);
-void	*ft_calloc_gnl(size_t nmemb, size_t size);
-char	*ft_strchr_gnl(const char *s, char c);
-size_t	ft_strlen_gnl(const char *str);
-char	*ft_strjoin_gnl(char *stash, char *buffer);
-char	*ft_strpardup_gnl(char *s, size_t end);
+
+/* PRINTF */
 int		ft_printf(const char *format, ...);
 size_t	print_ft_strlen(const	char *str);
 int		print_put_char(char c);

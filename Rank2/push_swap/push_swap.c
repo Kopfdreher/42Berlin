@@ -6,7 +6,7 @@
 /*   By: sgavrilo <sgavrilo@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 18:11:49 by sgavrilo          #+#    #+#             */
-/*   Updated: 2025/11/24 17:56:40 by sgavrilo         ###   ########.fr       */
+/*   Updated: 2025/11/24 20:32:19 by sgavrilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	main(int argc, char *argv[])
 	}
 	else if (argc > 2)
 		input_check(&argv[1], &a, 0);
-	if (!(nums_sorted(&a)))
+	if (a && !(nums_sorted(&a)))
 	{
 		if (ft_lstsize(a) <= 5)
 			dump_sort(&a, &b);
