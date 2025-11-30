@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-int	ft_issign(char c)
+static int	ft_issign(char c)
 {
 	if (c == '+' || c == '-')
 		return (1);
@@ -20,7 +20,7 @@ int	ft_issign(char c)
 		return (0);
 }
 
-int	ft_isspace(char c)
+static int	ft_isspace(char c)
 {
 	if (c == ' ' || c == '\f' || c == '\n'
 		|| c == '\r' || c == '\t' || c == '\v')
