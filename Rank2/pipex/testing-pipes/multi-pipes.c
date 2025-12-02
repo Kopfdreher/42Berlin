@@ -6,7 +6,7 @@
 /*   By: sgavrilo <sgavrilo@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/26 18:38:45 by sgavrilo          #+#    #+#             */
-/*   Updated: 2025/11/30 19:17:24 by sgavrilo         ###   ########.fr       */
+/*   Updated: 2025/12/02 16:56:58 by sgavrilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,19 +22,40 @@ void	set_in_out(int fd[2])
 	close(fd[0][0]);
 	close(fd[0][1]);
 }
-void	single_cmd(char *cmd, int cmd_id)
+
+void	first_cmd(char *cmd_arg, int *pipe[2])
 {
+	int	cmd_id;
+
+	if (pipe(*pipe) == -1)
+		return (100);
 	cmd_id = fork();
 	if (cmd_id < 0)
-		exit(1);
+		return (200);
 	if (cmd_id == 0)
 	{
-		execlp(cmd, cmd, NULL);
+		dup2(*pipe[1], STDOUT_FILENO);
+		close(*pipe[1]);
+		execlp(cmd_arg, cmd_arg, NULL);
 	}
 }
-void	mid_cmd(char *cmd, )
+
+void	mid_cmd(char *cmd_arg, int *pipe_a[2], int *pipe_b[2])
 {
-	if
+	int	cmd_id;
+
+	if (pipe(*pipe_b) == -1)
+		return (100);
+	cmd_id = fork();
+	if (cmd_id < 0)
+		return (200);
+	if (cmd_id == 0)
+	{
+		dup2(*pipe_a[0], STDIN_FILENO);
+		close(*pipe_a[0]);
+		dup2(*pipe_b[1], STDOUT_FILENO);
+		close(*pipe_b[1]);
+		execlp(cmd_arg, cmd_arg, NULL);
 }
 
 void	last_cmd()
@@ -46,28 +67,21 @@ int	main(int argc, char *argv[])
 	int		cmd_count = argc - 3;
 	int		fd[cmd_count][2];
 	int		i;
-	char	*cmd[cmd_count];
-	int		*cmd_id[cmd_count];
+	char	*cmd_arg[cmd_count];
 
-	
+	if (get_cmd_count(argc, argv))
+		return (1);
 	set_in_out(fd[0]);
 	i = 0;
-	if (cmd_count == 1)
-		single_cmd(argv[2], cmd_id[i]);
 	if (cmd_count > 1)
 	{
-	while (i < cmd_count)
-	{
-		if (i == 0)
-		if (pipe(fd[i]) == -1)
-			return (100 + i);
-		cmd[i] = fork();
-		if (cmd[i] < 0)
-			return (200 + i);
-	if (cmd[i] == 0)
-	{
-		execlp(argv[1], argv[1], NULL);
-	}
+		while (i < cmd_count)
+		{
+			if (i == 0)
+				first_cmd(cmd_arg[i], &fd[i]);
+			else if (
+			else
+				middle_cmd(cmd_arg[i], &fd[i-1], &fd[i]);
 		}
 	}
 	close(pipe_a[0]);
