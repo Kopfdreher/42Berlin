@@ -6,7 +6,7 @@
 /*   By: sgavrilo <sgavrilo@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/05 15:34:01 by sgavrilo          #+#    #+#             */
-/*   Updated: 2025/12/05 16:51:53 by sgavrilo         ###   ########.fr       */
+/*   Updated: 2025/12/05 20:03:19 by sgavrilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,5 @@ char	*path_finding(char *cmd, char **envp)
 		free(exec_path);
 		return (NULL);
 	}
-	ft_printf("%s\n", exec_path);
-	ft_printf("Path for: %s\n", cmd);
 	return (exec_path);
 }
