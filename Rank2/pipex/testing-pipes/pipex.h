@@ -6,7 +6,7 @@
 /*   By: sgavrilo <sgavrilo@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/05 15:20:41 by sgavrilo          #+#    #+#             */
-/*   Updated: 2025/12/05 15:43:38 by sgavrilo         ###   ########.fr       */
+/*   Updated: 2025/12/05 18:17:12 by sgavrilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 # include <sys/wait.h>
 # include <fcntl.h>
 # include <stdlib.h>
-
 
 char	*path_finding(char *cmd, char **envp);
 
