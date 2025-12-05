@@ -29,8 +29,16 @@ int	set_in_out(char *infile, char *outfile)
 	return (0);
 }
 
-int	first_cmd(int *child, char *cmd, int pipe_in)
+int	first_cmd(int *child, char *cmd, int pipe_in, char **envp)
 {
+	char	*path;
+
+	path = path_finding(cmd, envp);
+	if (!path)
+	{
+		free(path);
+		return (-1);
+	}
 	child[0] = fork();
 	if (child[0] == -1)
 		return (-1);
@@ -39,7 +47,7 @@ int	first_cmd(int *child, char *cmd, int pipe_in)
 		dup2(pipe_in, STDOUT_FILENO);
 		close(pipe_in);
 		free(child);
-		execlp(cmd, cmd, NULL);
+		execve("/usr/bin/cat", &cmd, NULL);
 	}
 	close(pipe_in);
 	return (0);
@@ -75,7 +83,7 @@ int	main(int argc, char	*argv[], char **envp)
 			return (1);
 		if (pipe(fd) == -1)
 			return (1);
-		if (first_cmd(child_id, argv[2], fd[1]) == -1)
+		if (first_cmd(child_id, argv[2], fd[1], envp) == -1)
 			return (1);
 		if (second_cmd(child_id, argv[3], fd[0]) == -1)
 			return (1);

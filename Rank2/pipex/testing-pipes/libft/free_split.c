@@ -1,23 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   free_split.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sgavrilo <sgavrilo@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/05 15:20:41 by sgavrilo          #+#    #+#             */
-/*   Updated: 2025/12/05 15:43:38 by sgavrilo         ###   ########.fr       */
+/*   Created: 2025/12/05 16:25:15 by sgavrilo          #+#    #+#             */
+/*   Updated: 2025/12/05 16:26:20 by sgavrilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
-# define PIPEX_H
-# include <unistd.h>
-# include <sys/wait.h>
-# include <fcntl.h>
-# include <stdlib.h>
+#include "libft.h"
 
+void	free_split(char **split)
+{
+	int	i;
 
-char	*path_finding(char *cmd, char **envp);
-
-#endif
+	i = 0;
+	while (split[i])
+	{
+		free(split[i]);
+		i++;
+	}
+	free(split);
+}
