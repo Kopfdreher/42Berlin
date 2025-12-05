@@ -13,6 +13,7 @@
 #include "pipex.h"
 #include "libft.h"
 
+/*
 static int	set_in_out(char *infile, char *outfile)
 {
 	int	fd[2];
@@ -29,6 +30,7 @@ static int	set_in_out(char *infile, char *outfile)
 	close(fd[1]);
 	return (0);
 }
+*/
 
 static int	first_cmd(char *infile, int *child, char **cmd, int fd[2], char **envp)
 {
@@ -56,7 +58,7 @@ static int	first_cmd(char *infile, int *child, char **cmd, int fd[2], char **env
 	return (free(path), 0);
 }
 
-static int	second_cmd(int *child, char **cmd, int fd[2], char **envp)
+static int	second_cmd(char *outfile, int *child, char **cmd, int fd[2], char **envp)
 {
 	char	*path;
 	int		fd_out;
@@ -99,7 +101,7 @@ int	main(int argc, char	*argv[], char **envp)
 			return (free(cmds[0]), free(cmds[1]), free(child_id), 1);
 		if (first_cmd(argv[1], child_id, cmds[0], fd, envp) == -1)
 			close(fd[0]);
-		if (second_cmd(child_id, cmds[1], fd, envp) == -1)
+		if (second_cmd(argv[4], child_id, cmds[1], fd, envp) == -1)
 			return (1);
 		waitpid(child_id[0], NULL, 0);
 		waitpid(child_id[1], NULL, 0);
