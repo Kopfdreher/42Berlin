@@ -1,7 +1,7 @@
 # |--- Variables --------------------------------|
 
-NAME		= push_swap
-CC			= gcc
+NAME		= pipex
+CC			= cc
 CFLAGS		= -Wall -Wextra -Werror
 
 # Paths
@@ -12,7 +12,7 @@ LIBFT		= $(LIBFT_DIR)/libft.a
 INCLUDES	= -I. -I$(LIBFT_DIR)
 
 # Source files
-SRCS 		= $(addsuffix .c, helper input_check_num input_check_str move_path_finding move_reverse_rotate move_rotate move_table operation_push operation_reverse_rotate operation_rotate operation_swap_fts push_swap sort_dump sort_turk_to_a sort_turk_to_b)
+SRCS 		= $(addsuffix .c, pipex path_finding)
 
 # Object files
 OBJS		= $(SRCS:.c=.o)
