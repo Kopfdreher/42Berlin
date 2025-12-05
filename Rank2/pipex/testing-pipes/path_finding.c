@@ -6,7 +6,7 @@
 /*   By: sgavrilo <sgavrilo@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/05 15:34:01 by sgavrilo          #+#    #+#             */
-/*   Updated: 2025/12/05 20:03:19 by sgavrilo         ###   ########.fr       */
+/*   Updated: 2025/12/05 20:56:24 by sgavrilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,15 @@ char	*path_finding(char *cmd, char **envp)
 	exec_path = create_path(paths[i], cmd); 
 	while (paths[i] && access(exec_path, F_OK | X_OK))
 	{
-		i++;
 		free(exec_path);
 		exec_path = create_path(paths[i], cmd); 
+		i++;
 	}
 	free_split(paths);
 	if (access(exec_path, F_OK | X_OK))
 	{
+		ft_putstr_fd(cmd, 2);
+		ft_putstr_fd(": command not found\n", 2);
 		free(exec_path);
 		return (NULL);
 	}
