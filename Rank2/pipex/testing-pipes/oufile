@@ -1,0 +1,14 @@
+Makefile
+free_initialize.c
+free_initialize.o
+infile
+libft
+locked_file
+oufile
+outfile
+path_finding.c
+path_finding.o
+pipex
+pipex.c
+pipex.h
+pipex.o
