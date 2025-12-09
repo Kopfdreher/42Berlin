@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   two-pipes.c                                        :+:      :+:    :+:   */
+/*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sgavrilo <sgavrilo@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/05 13:10:08 by sgavrilo          #+#    #+#             */
-/*   Updated: 2025/12/05 13:10:08 by sgavrilo         ###   ########.fr       */
+/*   Updated: 2025/12/09 15:23:02 by sgavrilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ static int	set_in_out(char *infile, char *outfile)
 }
 */
 
-static int	first_cmd(char *infile, int *child, char **cmd, int fd[2], char **envp)
+
+static int	first_cmd(t_cmds cmds)
 {
 	char	*path;
 	int		fd_in;
@@ -84,22 +85,17 @@ static int	second_cmd(char *outfile, int *child, char **cmd, int fd[2], char **e
 	return (free(path), 0);
 }
 
-int	main(int argc, char	*argv[], char **envp)
+int	main(int argc, char *argv[], char **envp)
 {
+	t_cmds	cmds;
 	int		fd[2];
 	int		*child_id;
-	char	**cmds[2];
 
 	if (argc == 5)
 	{
-		cmds[0] = ft_split(argv[2], ' ');
-		cmds[1] = ft_split(argv[3], ' ');
-		child_id = malloc(sizeof(int) * 2);
-		if (!child_id)
-			return (free(cmds[0]), free(cmds[1]), 1);
-		if (pipe(fd) == -1)
-			return (free(cmds[0]), free(cmds[1]), free(child_id), 1);
-		if (first_cmd(argv[1], child_id, cmds[0], fd, envp) == -1)
+		if (initialize(cmds, argv, envp))
+			return (1);
+		if (first_cmd(cmds))
 			close(fd[0]);
 		if (second_cmd(argv[4], child_id, cmds[1], fd, envp) == -1)
 			return (1);

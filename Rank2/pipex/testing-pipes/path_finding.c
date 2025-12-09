@@ -6,7 +6,7 @@
 /*   By: sgavrilo <sgavrilo@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/05 15:34:01 by sgavrilo          #+#    #+#             */
-/*   Updated: 2025/12/05 20:56:24 by sgavrilo         ###   ########.fr       */
+/*   Updated: 2025/12/09 15:06:17 by sgavrilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ char	*path_finding(char *cmd, char **envp)
 	while (paths[i] && access(exec_path, F_OK | X_OK))
 	{
 		free(exec_path);
-		exec_path = create_path(paths[i], cmd); 
+		exec_path = create_path(paths[i], cmd);
 		i++;
 	}
 	free_split(paths);
