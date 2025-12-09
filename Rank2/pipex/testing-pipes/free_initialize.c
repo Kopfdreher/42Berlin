@@ -6,7 +6,7 @@
 /*   By: sgavrilo <sgavrilo@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/09 15:06:55 by sgavrilo          #+#    #+#             */
-/*   Updated: 2025/12/09 15:23:05 by sgavrilo         ###   ########.fr       */
+/*   Updated: 2025/12/09 18:32:45 by sgavrilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,10 @@ int	initialize(t_cmds *cmds, char **argv, char **envp)
 	cmds->value[0] = ft_split(argv[2], ' ');
 	if (!cmds->value[0])
 		return (free_all(cmds), 1);
-	cmds.value[1] = ft_split(argv[3], ' ');
+	cmds->value[1] = ft_split(argv[3], ' ');
 	if (!cmds->value[1])
 		return (free_all(cmds), 1);
-	if (pipe(cmds.fd) == -1)
+	if (pipe(cmds->fd) == -1)
 		return (free_all(cmds), 1);
+	return (0);
 }

@@ -12,7 +12,7 @@ LIBFT		= $(LIBFT_DIR)/libft.a
 INCLUDES	= -I. -I$(LIBFT_DIR)
 
 # Source files
-SRCS 		= $(addsuffix .c, pipex path_finding)
+SRCS 		= $(addsuffix .c, pipex path_finding free_initialize)
 
 # Object files
 OBJS		= $(SRCS:.c=.o)
