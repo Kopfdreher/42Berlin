@@ -20,6 +20,10 @@
 # include <fcntl.h>
 # include <stdarg.h>
 
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 1024
+# endif
+
 typedef struct s_list
 {
 	void			*content;
@@ -83,5 +87,13 @@ int		print_put_string(char *str);
 int		print_put_int(int n);
 int		print_put_unsigned_int(unsigned int u);
 int		print_put_hex(unsigned long hex, char x);
+
+/* GET_NEXT_LINE */
+char	*get_next_line(int fd);
+void	*ft_calloc_gnl(size_t nmemb, size_t size);
+char	*ft_strchr_gnl(const char *s, char c);
+size_t	ft_strlen_gnl(const char *str);
+char	*ft_strjoin_gnl(char *stash, char *buffer);
+char	*ft_strpardup_gnl(char *s, size_t end);
 
 #endif
