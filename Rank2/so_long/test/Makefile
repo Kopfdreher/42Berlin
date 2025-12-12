@@ -25,7 +25,7 @@ LDFLAGS		= -L$(LIBFT_DIR) -lft \
 			  -L/usr/lib -lXext -lX11 -lm -lz
 
 # Source files
-SRCS 		= $(addsuffix .c, main)
+SRCS 		= $(addsuffix .c, main my_mlx draw_helper key_press free_exit)
 
 # Object files
 OBJS		= $(SRCS:.c=.o)
@@ -36,18 +36,18 @@ all: $(NAME)
 
 # Main Traget
 $(NAME): $(OBJS) $(LIBFT) $(MLX_LIB)
-		@echo "$(BLUE)Linking $(NAME)...$(RESET)"
+		@echo "$(BLUE)|--Linking $(NAME)------------------|$(RESET)"
 		@$(CC) $(CFLAGS) $(OBJS) $(LDFLAGS) -o $(NAME)
-		@echo "$(GREEN)$(NAME) created successfully!$(RESET)"
+		@echo "$(GREEN)|--$(NAME) created successfully!----|$(RESET)"
 
 # Libft
 $(LIBFT):
-		@echo "$(BLUE)Building Libft...$(RESET)"
+		@echo "$(BLUE)|--Building Libft-------------------|$(RESET)"
 		@make -C $(LIBFT_DIR) > /dev/null
 
 # MLX
 $(MLX_LIB):
-		@echo "$(BLUE)Building MiniLibX...$(RESET)"
+		@echo "$(BLUE)|--Building MiniLibX ---------------|$(RESET)"
 		@make -C $(MLX_DIR) > /dev/null 2>&1
 
 # Compiling .c to .o
@@ -58,21 +58,24 @@ $(MLX_LIB):
 
 # Remove all Object-Files
 clean:
-		@echo "$(BLUE)Cleaning Objects...$(RESET)"
+		@echo "$(BLUE)|--Cleaning Objects-----------------|$(RESET)"
 		@rm -f $(OBJS)
 		@make clean -C $(LIBFT_DIR) > /dev/null
 		@make clean -C $(MLX_DIR) > /dev/null
-		@echo "$(GREEN)Cleaned successfully!$(RESET)"
+		@echo "$(GREEN)|--Cleaned successfully!------------|$(RESET)"
 
 # Remove all Object- and Archive-Files
 fclean: clean
-		@echo "$(BLUE)Cleaning Executables...$(RESET)"
+		@echo "$(BLUE)|--Cleaning Executables-------------|$(RESET)"
 		@rm -f $(NAME)
 		@rm -f $(MLX_LIB)
 		@make fclean -C $(LIBFT_DIR) > /dev/null
-		@echo "$(GREEN)Cleaned successfully!$(RESET)"
+		@echo "$(GREEN)|--Cleaned successfully!------------|$(RESET)"
 
 # Rebuild
 re: fclean all
 
-.PHONY: clean all re fclean
+flush: re
+		@make clean > /dev/null
+
+.PHONY: clean all re fclean flush

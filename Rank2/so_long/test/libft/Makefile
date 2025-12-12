@@ -6,6 +6,7 @@ BONUS = $(addsuffix .c, ft_lstadd_back ft_lstadd_front ft_lstclear ft_lstdelone 
 
 PRINTF = $(addsuffix .c, ft_helper ft_printf put_char put_hex put_int put_string put_unsigned_int)
 
+GNL = $(addsuffix .c, get_next_line_bonus get_next_line_utils_bonus)
 OBJS = ${SRCS:.c=.o}
 
 OBJS_BONUS = ${BONUS:.c=.o}
