@@ -1,23 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_isalpha.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgavrilo <sgavrilo@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: sgavrilo <sgavrilo@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/12 16:26:46 by sgavrilo          #+#    #+#             */
-/*   Updated: 2025/12/12 16:33:51 by sgavrilo         ###   ########.fr       */
+/*   Created: 2025/05/12 13:00:41 by sgavrilo          #+#    #+#             */
+/*   Updated: 2025/05/12 13:27:29 by sgavrilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "libft.h"
 
+int	ft_isalpha(int c)
+{
+	if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'))
+		return (1);
+	else
+		return (0);
+}
+
+/*
 int	main(void)
 {
-	void	*mlx;
-	void	*mlx_win;
+	char	c = 'a';
 
-	mlx = mlx_init();
-	mlx_win = mlx_new_window(mlx, 1920, 1080, "Hello world!");
-	mlx_loop(mlx);
+	printf("ft_isalpha: 	%c is %d\n", c, ft_isalpha(c));
+	printf("isalpha: 	%c is %d\n", c, isalpha(c));
 }
+*/

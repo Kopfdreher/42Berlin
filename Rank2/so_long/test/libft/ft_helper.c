@@ -1,23 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_helper.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgavrilo <sgavrilo@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: sgavrilo <sgavrilo@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/12 16:26:46 by sgavrilo          #+#    #+#             */
-/*   Updated: 2025/12/12 16:33:51 by sgavrilo         ###   ########.fr       */
+/*   Created: 2025/08/07 15:57:05 by sgavrilo          #+#    #+#             */
+/*   Updated: 2025/08/07 15:57:07 by sgavrilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "libft.h"
 
-int	main(void)
+size_t	print_ft_strlen(const char *str)
 {
-	void	*mlx;
-	void	*mlx_win;
+	size_t	len;
 
-	mlx = mlx_init();
-	mlx_win = mlx_new_window(mlx, 1920, 1080, "Hello world!");
-	mlx_loop(mlx);
+	len = 0;
+	while (str[len])
+		len++;
+	return (len);
 }
