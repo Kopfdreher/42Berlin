@@ -2,7 +2,7 @@
 
 NAME		= so_long
 CC			= cc
-CFLAGS		= -Wall -Wextra -Werror -g -03
+CFLAGS		= -Wall -Wextra -Werror -g -O3
 
 # Colors
 GREEN		= \033[0;32m
@@ -42,12 +42,12 @@ $(NAME): $(OBJS) $(LIBFT) $(MLX_LIB)
 # Libft
 $(LIBFT):
 		@echo "$(GREEN)Building Libft...$(RESET)"
-		@make -C $(LIBFT_DIR) > /dev/null 2>&1
+		@make -C $(LIBFT_DIR) > /dev/null
 
 # MLX
 $(MLX_LIB):
 		@echo "$(GREEN)Building MiniLibX...$(RESET)"
-		@make -C $(MLX_DIR) > /dev/null 2>&1
+		@make -C $(MLX_DIR) > /dev/null
 
 # Compiling .c to .o
 %.o: %.c $(HEADERS)
@@ -59,17 +59,17 @@ $(MLX_LIB):
 clean:
 		@echo "$(GREEN)Cleaning Objects...$(RESET)"
 		@rm -f $(OBJS)
-		@make clean -C $(LIBFT_DIR) > /dev/null 2>&1
-		@make clean -C $(MLX_DIR) > /dev/null 2>&1
+		@make clean -C $(LIBFT_DIR) > /dev/null
+		@make clean -C $(MLX_DIR) > /dev/null
 
 # Remove all Object- and Archive-Files
 fclean: clean
 		@echo "$(GREEN)Cleaning Executables...$(RESET)"
 		@rm -f $(NAME)
-		@make fclean -C $(LIBFT_DIR) > /dev/null 2>&1
-		@make fclean -C $(MLX_DIR) > /dev/null 2>&1
+		@make fclean -C $(LIBFT_DIR) > /dev/null
+		@rm -f $(MLX_LIB)
 
 # Rebuild
 re: fclean all
 
-.PHONY: clean all re fclean
+B.PHONY: clean all re fclean
