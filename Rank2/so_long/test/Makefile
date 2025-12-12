@@ -2,10 +2,11 @@
 
 NAME		= so_long
 CC			= cc
-CFLAGS		= -Wall -Wextra -Werror -g -O3
+CFLAGS		= -Wall -Wextra -Werror -O3
 
 # Colors
 GREEN		= \033[0;32m
+BLUE		= \033[0;36m
 RESET		= \033[0m
 
 # Paths
@@ -35,19 +36,19 @@ all: $(NAME)
 
 # Main Traget
 $(NAME): $(OBJS) $(LIBFT) $(MLX_LIB)
-		@echo "$(GREEN)Linking $(NAME)...$(RESET)"
+		@echo "$(BLUE)Linking $(NAME)...$(RESET)"
 		@$(CC) $(CFLAGS) $(OBJS) $(LDFLAGS) -o $(NAME)
 		@echo "$(GREEN)$(NAME) created successfully!$(RESET)"
 
 # Libft
 $(LIBFT):
-		@echo "$(GREEN)Building Libft...$(RESET)"
+		@echo "$(BLUE)Building Libft...$(RESET)"
 		@make -C $(LIBFT_DIR) > /dev/null
 
 # MLX
 $(MLX_LIB):
-		@echo "$(GREEN)Building MiniLibX...$(RESET)"
-		@make -C $(MLX_DIR) > /dev/null
+		@echo "$(BLUE)Building MiniLibX...$(RESET)"
+		@make -C $(MLX_DIR) > /dev/null 2>&1
 
 # Compiling .c to .o
 %.o: %.c $(HEADERS)
@@ -57,19 +58,21 @@ $(MLX_LIB):
 
 # Remove all Object-Files
 clean:
-		@echo "$(GREEN)Cleaning Objects...$(RESET)"
+		@echo "$(BLUE)Cleaning Objects...$(RESET)"
 		@rm -f $(OBJS)
 		@make clean -C $(LIBFT_DIR) > /dev/null
 		@make clean -C $(MLX_DIR) > /dev/null
+		@echo "$(GREEN)Cleaned successfully!$(RESET)"
 
 # Remove all Object- and Archive-Files
 fclean: clean
-		@echo "$(GREEN)Cleaning Executables...$(RESET)"
+		@echo "$(BLUE)Cleaning Executables...$(RESET)"
 		@rm -f $(NAME)
-		@make fclean -C $(LIBFT_DIR) > /dev/null
 		@rm -f $(MLX_LIB)
+		@make fclean -C $(LIBFT_DIR) > /dev/null
+		@echo "$(GREEN)Cleaned successfully!$(RESET)"
 
 # Rebuild
 re: fclean all
 
-B.PHONY: clean all re fclean
+.PHONY: clean all re fclean
