@@ -7,11 +7,14 @@ BONUS = $(addsuffix .c, ft_lstadd_back ft_lstadd_front ft_lstclear ft_lstdelone 
 PRINTF = $(addsuffix .c, ft_helper ft_printf put_char put_hex put_int put_string put_unsigned_int)
 
 GNL = $(addsuffix .c, get_next_line_bonus get_next_line_utils_bonus)
+
 OBJS = ${SRCS:.c=.o}
 
 OBJS_BONUS = ${BONUS:.c=.o}
 
 OBJS_PRINTF = ${PRINTF:.c=.o}
+
+OBJS_GNL = ${GNL:.c=.o}
 
 CC = cc
 
@@ -22,8 +25,8 @@ CFLAGS = -Wall -Wextra -Werror
 .c.o:
 	${CC} ${CFLAGS} -g -c $< -o ${<:.c=.o}
 
-${NAME}: ${OBJS} ${OBJS_BONUS} ${OBJS_PRINTF}
-	ar rcs ${NAME} ${OBJS} ${OBJS_BONUS} ${OBJS_PRINTF}
+${NAME}: ${OBJS} ${OBJS_BONUS} ${OBJS_PRINTF} ${OBJS_GNL}
+	ar rcs ${NAME} ${OBJS} ${OBJS_BONUS} ${OBJS_PRINTF} ${OBJS_GNL}
 
 clean:
 	${RM} ${OBJS} ${OBJS_BONUS} ${OBJS_PRINTF}
