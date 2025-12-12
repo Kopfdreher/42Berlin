@@ -6,7 +6,7 @@
 /*   By: sgavrilo <sgavrilo@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/12 19:26:15 by sgavrilo          #+#    #+#             */
-/*   Updated: 2025/12/12 19:55:47 by sgavrilo         ###   ########.fr       */
+/*   Updated: 2025/12/12 21:16:54 by sgavrilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,4 +26,5 @@ void	initialize(t_mlx *mlx)
 	mlx->win = NULL;
 	mlx->img = NULL;
 	mlx->addr = NULL;
+	mlx->map = NULL;
 }

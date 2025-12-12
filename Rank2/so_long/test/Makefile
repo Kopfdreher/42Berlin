@@ -25,7 +25,8 @@ LDFLAGS		= -L$(LIBFT_DIR) -lft \
 			  -L/usr/lib -lXext -lX11 -lm -lz
 
 # Source files
-SRCS 		= $(addsuffix .c, main my_mlx draw_helper key_press free_exit)
+SRCS 		= $(addsuffix .c, main my_mlx draw_helper key_press free_exit \
+				map_is_valid )
 
 # Object files
 OBJS		= $(SRCS:.c=.o)
@@ -43,7 +44,7 @@ $(NAME): $(OBJS) $(LIBFT) $(MLX_LIB)
 # Libft
 $(LIBFT):
 		@echo "$(BLUE)|--Building Libft-------------------|$(RESET)"
-		@make -C $(LIBFT_DIR) > /dev/null
+		@make -C $(LIBFT_DIR)
 
 # MLX
 $(MLX_LIB):
