@@ -6,7 +6,7 @@
 /*   By: sgavrilo <sgavrilo@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/12 16:30:01 by sgavrilo          #+#    #+#             */
-/*   Updated: 2025/12/12 21:48:12 by sgavrilo         ###   ########.fr       */
+/*   Updated: 2025/12/12 22:54:54 by sgavrilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,10 @@
 # include <mlx.h>
 # include "libft.h"
 # include <sys/stat.h>
+
+# ifndef MAX_MAP
+#  define MAX_MAP 3
+# endif
 
 typedef struct	s_mlx {
 	void	*mlx;
@@ -39,6 +43,7 @@ void	draw_circle(t_mlx *mlx, int center_x,  int center_y, int radius, int color)
 int		create_trgb(int t, int r, int g, int b);
 
 // Map_Parsing
-int	arg_is_valid(char *map_path);
+int		arg_is_valid(char *map_path);
+char	**get_map_content(int map_fd);
 
 #endif
