@@ -1,26 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_split.c                                       :+:      :+:    :+:   */
+/*   ft_strarrcpy.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sgavrilo <sgavrilo@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/05 16:25:15 by sgavrilo          #+#    #+#             */
-/*   Updated: 2025/12/05 16:26:20 by sgavrilo         ###   ########.fr       */
+/*   Created: 2025/12/13 19:13:50 by sgavrilo          #+#    #+#             */
+/*   Updated: 2025/12/13 20:11:06 by sgavrilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	free_split(char **split)
+char	**ft_strarrcpy(char **strarr)
 {
-	int	i;
+	char	**copy;
+	int		i;
 
+	copy = malloc(sizeof(char *) * (ft_strarrlen(strarr) + 1));
+	if (!copy)
+		return (NULL);
 	i = 0;
-	while (split[i])
+	while (strarr[i])
 	{
-		free(split[i]);
+		copy[i] = ft_strdup(strarr[i]);
+		if (!copy[i])
+			return (free_strarr(copy), NULL);
 		i++;
 	}
-	free(split);
+	copy[i] = NULL;
+	return (copy);
 }
