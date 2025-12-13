@@ -6,7 +6,7 @@
 /*   By: sgavrilo <sgavrilo@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/12 20:36:50 by sgavrilo          #+#    #+#             */
-/*   Updated: 2025/12/12 22:50:49 by sgavrilo         ###   ########.fr       */
+/*   Updated: 2025/12/13 17:42:45 by sgavrilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,42 +24,79 @@ static int	path_is_valid(char *map_path)
 	}
 	return (0);
 }
-/*
-static int	map_no_rectangle(char **map_content)
+
+static int	map_no_rectangle(t_map *map)
 {
+	int		i;
+
+	map->width = (int)get_line_len(map->content[0]);
+	i = 1;
+	while (map->content[i])
+	{
+		if (map->width != (int)get_line_len(map->content[i]))
+		{
+			ft_printf("map_no_rectangle\n");
+			return (1);
+		}
+		i++;
+	}
+	map->height = i;
+	return (0);
 }
 
-static int	missing_walls(char **map_content)
+static int	missing_walls(t_map *map)
 {
+	int	i;
+	int	j;
+
+	i = 0;
+	while (i < map->width)
+	{
+		if (map->content[0][i] != '1')
+			return (1);
+		if (map->content[map->height - 1][i] != '1')
+			return (1);
+		if (i == 0 || i == map->width - '1')
+		{
+			j = 1;
+			while (j < map->height)
+			{
+				if (map->content[j][i] != '1')
+					return (1);
+				j++;
+			}
+		}
+		i++;
+	}
+	return (0);
 }
-*/
-static int	map_is_valid(char *map_path)
+
+static int	map_is_valid(char *map_path, t_map *map)
 {
 	int		map_fd;
-	char	**map_content;
 	int		i;
 
 	map_fd = open(map_path, O_RDONLY);
 	if (map_fd == -1)
 		return (perror(map_path), 0);
-	map_content = get_map_content(map_fd);
-	if (!map_content)
+	map->content = get_map_content(map_fd);
+	close(map_fd);
+	if (!map->content)
 		return (0);
-//	if (map_no_rectangle(map_content) || missing_walls(map_content))
-//		return (0);
+	if (map_no_rectangle(map) || missing_walls(map) || valid_positions(map))
+		return (free_split(map->content), 0);
 	i = 0;
-	while (map_content[i])
+	while (map->content[i])
 	{
-		ft_printf(map_content[i]);
+		ft_printf(map->content[i]);
 		i++;
 	}
 	ft_printf("\n");
-	free_split(map_content);
-	close(map_fd);
+	free_split(map->content);
 	return (1);
 }
 
-int	arg_is_valid(char *map_path)
+int	arg_is_valid(char *map_path, t_map *map)
 {
-	return (path_is_valid(map_path) && map_is_valid(map_path));
+	return (path_is_valid(map_path) && map_is_valid(map_path, map));
 }

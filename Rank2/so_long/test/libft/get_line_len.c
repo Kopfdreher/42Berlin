@@ -1,29 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_exit.c                                        :+:      :+:    :+:   */
+/*   get_line_len.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sgavrilo <sgavrilo@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/12 19:26:15 by sgavrilo          #+#    #+#             */
-/*   Updated: 2025/12/13 16:07:23 by sgavrilo         ###   ########.fr       */
+/*   Created: 2025/12/13 16:44:32 by sgavrilo          #+#    #+#             */
+/*   Updated: 2025/12/13 16:47:57 by sgavrilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "libft.h"
 
-void	free_exit(t_mlx mlx)
+size_t	get_line_len(const char *line)
 {
-	mlx_destroy_image(mlx.mlx, mlx.img);
-	mlx_destroy_display(mlx.mlx);
-	free(mlx.mlx);
-	exit(0);
-}
+	size_t	len;
 
-void	initialize(t_mlx *mlx)
-{
-	mlx->mlx = NULL;
-	mlx->win = NULL;
-	mlx->img = NULL;
-	mlx->addr = NULL;
+	len = 0;
+	while (line[len] && ft_isprint(line[len]))
+		len++;
+	return (len);
 }

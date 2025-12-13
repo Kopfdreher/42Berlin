@@ -6,32 +6,43 @@
 /*   By: sgavrilo <sgavrilo@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/12 22:13:22 by sgavrilo          #+#    #+#             */
-/*   Updated: 2025/12/12 22:54:56 by sgavrilo         ###   ########.fr       */
+/*   Updated: 2025/12/13 16:54:43 by sgavrilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
+static void	set_a_b_to_c(t_list **a, t_list **b, t_list **c)
+{
+	*a = *c;
+	*b = *c;
+}
+
 char	**get_map_content(int map_fd)
 {
-	char	**map_content;
-	int		i;
-	int		map_too_big;
+	t_list	*head;
+	t_list	*tail;
+	t_list	*node;
+	char	*line;
 
-	i = 0;
-	map_too_big = 0;
-	map_content = malloc(sizeof(char *) * MAX_MAP + 1);
-	if (!map_content)
-		return (NULL);
-	while (i < MAX_MAP)
+	head = NULL;
+	while (1)
 	{
-		map_content[i] = get_next_line(map_fd);
-		if (i == (MAX_MAP - 1) && map_content[MAX_MAP - 1] != NULL)
-			map_too_big = 1;
-		i++;
+		line = get_next_line(map_fd);
+		if (!line)
+			break ;
+		node = ft_lstnew(line);
+		if (!node && !head)
+			return (NULL);
+		if (!node)
+			return (ft_lstclear(&head, free), NULL);
+		if (!head)
+			set_a_b_to_c(&head, &tail, &node);
+		else
+		{
+			tail->next = node;
+			tail = node;
+		}
 	}
-	map_content[i] = NULL;
-	if (map_too_big)
-		return (free_split(map_content), NULL);
-	return (map_content);
+	return (ft_lst_to_strarr(&head));
 }

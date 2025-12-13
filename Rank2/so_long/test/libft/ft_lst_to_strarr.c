@@ -1,29 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_exit.c                                        :+:      :+:    :+:   */
+/*   ft_lst_to_strarr.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sgavrilo <sgavrilo@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/12 19:26:15 by sgavrilo          #+#    #+#             */
-/*   Updated: 2025/12/13 16:07:23 by sgavrilo         ###   ########.fr       */
+/*   Created: 2025/12/13 16:48:55 by sgavrilo          #+#    #+#             */
+/*   Updated: 2025/12/13 16:49:11 by sgavrilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "libft.h"
 
-void	free_exit(t_mlx mlx)
+char	**ft_lst_to_strarr(t_list **lst)
 {
-	mlx_destroy_image(mlx.mlx, mlx.img);
-	mlx_destroy_display(mlx.mlx);
-	free(mlx.mlx);
-	exit(0);
-}
+	int		lst_size;
+	t_list	*next;
+	int		i;
+	char	**strarr;
 
-void	initialize(t_mlx *mlx)
-{
-	mlx->mlx = NULL;
-	mlx->win = NULL;
-	mlx->img = NULL;
-	mlx->addr = NULL;
+	lst_size = ft_lstsize(*lst);
+	strarr = malloc(sizeof(char *) * (lst_size + 1));
+	if (!strarr)
+		return (ft_lstclear(lst, free), NULL);
+	i = 0;
+	while (*lst)
+	{
+		next = (*lst)->next;
+		strarr[i] = (*lst)->content;
+		free(*lst);
+		*lst = next;
+		i++;
+	}
+	strarr[i] = NULL;
+	return (strarr);
 }

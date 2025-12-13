@@ -6,7 +6,7 @@
 /*   By: sgavrilo <sgavrilo@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/12 16:26:46 by sgavrilo          #+#    #+#             */
-/*   Updated: 2025/12/12 21:40:26 by sgavrilo         ###   ########.fr       */
+/*   Updated: 2025/12/13 16:56:13 by sgavrilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,14 @@ int	main(int argc, char *argv[])
 {
 	t_mlx	mlx;
 
-	if (argc == 2 && arg_is_valid(argv[1]))
+	if (argc == 2 && arg_is_valid(argv[1], &mlx.map))
 	{
 		initialize(&mlx);
+		ft_printf("Map-Width: %i\n", mlx.map.width);
+		ft_printf("Map-Height: %i\n", mlx.map.height);
 		mlx.mlx = mlx_init();
-		mlx.win = mlx_new_window(mlx.mlx, 1920, 1080, "Hello World!");
-		mlx.img = mlx_new_image(mlx.mlx, 1920, 1080);
+		mlx.win = mlx_new_window(mlx.mlx, 400, 300, "Hello World!");
+		mlx.img = mlx_new_image(mlx.mlx, 400, 300);
 		mlx.addr = mlx_get_data_addr(mlx.img, &mlx.bits_per_pixel, &mlx.line_length,
 							   &mlx.endian);
 		my_mlx_pixel_put(&mlx, 5, 5, 0x00FF0000);
