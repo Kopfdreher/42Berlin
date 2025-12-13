@@ -1,29 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_exit.c                                        :+:      :+:    :+:   */
+/*   valid_positions.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sgavrilo <sgavrilo@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/12 19:26:15 by sgavrilo          #+#    #+#             */
-/*   Updated: 2025/12/13 16:07:23 by sgavrilo         ###   ########.fr       */
+/*   Created: 2025/12/13 17:38:25 by sgavrilo          #+#    #+#             */
+/*   Updated: 2025/12/13 17:42:51 by sgavrilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
-
-void	free_exit(t_mlx mlx)
+static int	wrong_char_count(t_map map)
 {
-	mlx_destroy_image(mlx.mlx, mlx.img);
-	mlx_destroy_display(mlx.mlx);
-	free(mlx.mlx);
-	exit(0);
+	
 }
 
-void	initialize(t_mlx *mlx)
+int valid_positions(t_map map)
 {
-	mlx->mlx = NULL;
-	mlx->win = NULL;
-	mlx->img = NULL;
-	mlx->addr = NULL;
+	if (wrong_char_count(map))
+		return (0);
 }

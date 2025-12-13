@@ -40,6 +40,7 @@ t_list	*ft_lstlast(t_list *lst);
 int		ft_lstsize(t_list *lst);
 void	ft_lstadd_front(t_list **lst, t_list *new);
 t_list	*ft_lstnew(void *content);
+char	**ft_lst_to_strarr(t_list **lst);
 
 /* Original LIBFT */
 int		ft_atoi(const char *nptr);
@@ -95,5 +96,6 @@ char	*ft_strchr_gnl(const char *s, char c);
 size_t	ft_strlen_gnl(const char *str);
 char	*ft_strjoin_gnl(char *stash, char *buffer);
 char	*ft_strpardup_gnl(char *s, size_t end);
+size_t	get_line_len(const char *line);
 
 #endif

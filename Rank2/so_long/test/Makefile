@@ -2,7 +2,7 @@
 
 NAME		= so_long
 CC			= cc
-CFLAGS		= -Wall -Wextra -Werror -O3
+CFLAGS		= -Wall -Wextra -Werror -O3 -g
 
 # Colors
 GREEN		= \033[0;32m
@@ -26,7 +26,7 @@ LDFLAGS		= -L$(LIBFT_DIR) -lft \
 
 # Source files
 SRCS 		= $(addsuffix .c, main my_mlx draw_helper key_press free_exit \
-				map_is_valid map_parsing )
+				map_is_valid map_parsing valid_positions)
 
 # Object files
 OBJS		= $(SRCS:.c=.o)
