@@ -40,7 +40,6 @@ t_list	*ft_lstlast(t_list *lst);
 int		ft_lstsize(t_list *lst);
 void	ft_lstadd_front(t_list **lst, t_list *new);
 t_list	*ft_lstnew(void *content);
-char	**ft_lst_to_strarr(t_list **lst);
 
 /* Original LIBFT */
 int		ft_atoi(const char *nptr);
@@ -63,7 +62,6 @@ void	ft_putendl_fd(char *s, int fd);
 void	ft_putnbr_fd(int n, int fd);
 void	ft_putstr_fd(char *s, int fd);
 char	**ft_split(char const *s, char c);
-void	free_split(char **split);
 char	*ft_strchr(const char *s, char c);
 char	*ft_strdup(const char *s);
 void	ft_striteri(char *s, void (*f)(unsigned int, char*));
@@ -97,5 +95,11 @@ size_t	ft_strlen_gnl(const char *str);
 char	*ft_strjoin_gnl(char *stash, char *buffer);
 char	*ft_strpardup_gnl(char *s, size_t end);
 size_t	get_line_len(const char *line);
+
+/* String Array */
+char	**ft_strarrcpy(char **strarr);
+size_t	ft_strarrlen(char **strarr);
+void	free_strarr(char **strarr);
+char	**ft_lst_to_strarr(t_list **lst);
 
 #endif

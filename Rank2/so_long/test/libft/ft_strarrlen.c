@@ -1,22 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   valid_positions.c                                  :+:      :+:    :+:   */
+/*   ft_strarrlen.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sgavrilo <sgavrilo@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/13 17:38:25 by sgavrilo          #+#    #+#             */
-/*   Updated: 2025/12/13 17:42:51 by sgavrilo         ###   ########.fr       */
+/*   Created: 2025/12/13 19:27:21 by sgavrilo          #+#    #+#             */
+/*   Updated: 2025/12/13 20:11:12 by sgavrilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-static int	wrong_char_count(t_map map)
-{
-	
-}
+#include "libft.h"
 
-int valid_positions(t_map map)
+size_t	ft_strarrlen(char **strarr)
 {
-	if (wrong_char_count(map))
+	size_t	len;
+
+	if (!strarr)
 		return (0);
+	len = 0;
+	while (strarr[len])
+		len++;
+	return (len);
 }

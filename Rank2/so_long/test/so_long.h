@@ -6,7 +6,7 @@
 /*   By: sgavrilo <sgavrilo@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/12 16:30:01 by sgavrilo          #+#    #+#             */
-/*   Updated: 2025/12/13 16:20:52 by sgavrilo         ###   ########.fr       */
+/*   Updated: 2025/12/13 20:33:31 by sgavrilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,11 @@ typedef struct	s_map {
 	char	**content;
 	int		width;
 	int		height;
+	int		p_count;
+	int		e_count;
+	int		c_count;
+	int		p_x;
+	int		p_y;
 }	t_map;
 
 typedef struct	s_mlx {
@@ -47,5 +52,8 @@ int		create_trgb(int t, int r, int g, int b);
 // Map_Parsing
 int		arg_is_valid(char *map_path, t_map *map);
 char	**get_map_content(int map_fd);
+void	init_map(t_map *map);
+int		map_valid_positions(t_map *map);
+int		chars_not_reachable(t_map *map);
 
 #endif

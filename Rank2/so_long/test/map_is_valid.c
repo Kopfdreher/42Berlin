@@ -6,7 +6,7 @@
 /*   By: sgavrilo <sgavrilo@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/12 20:36:50 by sgavrilo          #+#    #+#             */
-/*   Updated: 2025/12/13 17:42:45 by sgavrilo         ###   ########.fr       */
+/*   Updated: 2025/12/13 19:31:21 by sgavrilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static int	path_is_valid(char *map_path)
 		if (ft_strnstr(&map_path[len - 4], ".ber", 4))
 			return (1);
 	}
-	return (0);
+	return (ft_putstr_fd("Not a .ber-file!\n", 2), 0);
 }
 
 static int	map_no_rectangle(t_map *map)
@@ -34,10 +34,7 @@ static int	map_no_rectangle(t_map *map)
 	while (map->content[i])
 	{
 		if (map->width != (int)get_line_len(map->content[i]))
-		{
-			ft_printf("map_no_rectangle\n");
-			return (1);
-		}
+			return (ft_putstr_fd("Map is not a rectangle!\n", 2), 1);
 		i++;
 	}
 	map->height = i;
@@ -53,16 +50,16 @@ static int	missing_walls(t_map *map)
 	while (i < map->width)
 	{
 		if (map->content[0][i] != '1')
-			return (1);
+			return (ft_putstr_fd("Missing upper wall!\n", 2), 1);
 		if (map->content[map->height - 1][i] != '1')
-			return (1);
+			return (ft_putstr_fd("Missing lower wall!\n", 2), 1);
 		if (i == 0 || i == map->width - '1')
 		{
 			j = 1;
 			while (j < map->height)
 			{
 				if (map->content[j][i] != '1')
-					return (1);
+					return (ft_putstr_fd("Missing wall on the side!\n", 2), 1);
 				j++;
 			}
 		}
@@ -76,6 +73,7 @@ static int	map_is_valid(char *map_path, t_map *map)
 	int		map_fd;
 	int		i;
 
+	init_map(map);
 	map_fd = open(map_path, O_RDONLY);
 	if (map_fd == -1)
 		return (perror(map_path), 0);
@@ -83,8 +81,9 @@ static int	map_is_valid(char *map_path, t_map *map)
 	close(map_fd);
 	if (!map->content)
 		return (0);
-	if (map_no_rectangle(map) || missing_walls(map) || valid_positions(map))
-		return (free_split(map->content), 0);
+	if (map_no_rectangle(map) || missing_walls(map)
+		|| !map_valid_positions(map))
+		return (free_strarr(map->content), 0);
 	i = 0;
 	while (map->content[i])
 	{
@@ -92,7 +91,7 @@ static int	map_is_valid(char *map_path, t_map *map)
 		i++;
 	}
 	ft_printf("\n");
-	free_split(map->content);
+	free_strarr(map->content);
 	return (1);
 }
 
