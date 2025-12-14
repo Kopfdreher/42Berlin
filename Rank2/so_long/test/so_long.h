@@ -6,7 +6,7 @@
 /*   By: sgavrilo <sgavrilo@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/12 16:30:01 by sgavrilo          #+#    #+#             */
-/*   Updated: 2025/12/14 16:03:24 by sgavrilo         ###   ########.fr       */
+/*   Updated: 2025/12/14 17:35:21 by sgavrilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,8 @@ void	free_exit(t_mlx mlx, int exitcode);
 void	initialize(t_mlx *mlx);
 
 // Draw_Helper
-void	draw_square(t_mlx *mlx, int x, int y, int size, int color);
-void	draw_circle(t_mlx *mlx, int center_x,  int center_y, int radius, int color);
 void	draw_background(t_mlx *mlx, int color);
-int		create_trgb(int t, int r, int g, int b);
+void	draw_map(t_mlx *mlx);
 
 // Map_Parsing
 int		arg_is_valid(char *map_path, t_map *map);
