@@ -6,40 +6,20 @@
 /*   By: sgavrilo <sgavrilo@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/12 17:30:46 by sgavrilo          #+#    #+#             */
-/*   Updated: 2025/12/14 16:16:56 by sgavrilo         ###   ########.fr       */
+/*   Updated: 2025/12/14 17:38:17 by sgavrilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-
-int	create_trgb(int t, int r, int g, int b)
-{
-	return (t << 24 | r << 16 | g << 8 | b);
-}
-
-void	draw_square(t_mlx *mlx, int x, int y, int size, int color)
-{
-	int	i;
-	int j;
-
-	i = 0;
-	while (i < size)
-	{
-		j = 0;
-		while (j < size)
-		{
-			my_mlx_pixel_put(mlx, x + j, y + i, color);
-			j++;
-		}
-		i++;
-	}
-}
 
 void	draw_background(t_mlx *mlx, int color)
 {
 	int	i;
 	int j;
 
+	mlx->img = mlx_new_image(mlx->mlx, 64 * mlx->map.width, 64 * mlx->map.height);
+	mlx->addr = mlx_get_data_addr(mlx->img, &mlx->bits_per_pixel, &mlx->line_length,
+							   &mlx->endian);
 	i = 0;
 	while (i < mlx->map.height * 64)
 	{
@@ -51,27 +31,16 @@ void	draw_background(t_mlx *mlx, int color)
 		}
 		i++;
 	}
+	mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img, 0, 0);
 }
 
-void	draw_circle(t_mlx *mlx, int center_x, int center_y, int radius, int color)
+void	draw_map(t_mlx *mlx)
 {
-	int	x;
-	int	y;
-	int	dist_sq;
+	char	**map_cpy;
+	int		i;
 
-	x = -radius;
-	while (x <= radius)
-	{
-		y = -radius;
-		while (y <= radius)
-		{
-			dist_sq = (x * x) + (y * y);
-			if (dist_sq <= (radius *radius))
-			{
-				my_mlx_pixel_put(mlx, center_x + x, center_y + y, color);
-			}
-			y++;
-		}
-		x++;
-	}
+	map_cpy = ft_strarrcpy(mlx->map.content);
+	i = 0;
+	while (map_cpy[i])
+		ft_printf(map_cpy[i++]);
 }
