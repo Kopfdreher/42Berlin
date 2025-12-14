@@ -6,7 +6,7 @@
 /*   By: sgavrilo <sgavrilo@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/12 19:13:28 by sgavrilo          #+#    #+#             */
-/*   Updated: 2025/12/12 19:37:03 by sgavrilo         ###   ########.fr       */
+/*   Updated: 2025/12/14 15:32:10 by sgavrilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	handle_keypress(int keycode, t_mlx *mlx)
 	if (keycode == 65307)
 	{
 		mlx_destroy_window(mlx->mlx, mlx->win);
-		free_exit(*mlx);
+		free_exit(*mlx, 0);
 	}
 	if (key_is_left(keycode))
 		ft_printf("LEFT\n");

@@ -6,7 +6,7 @@
 /*   By: sgavrilo <sgavrilo@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/12 17:30:46 by sgavrilo          #+#    #+#             */
-/*   Updated: 2025/12/12 19:31:50 by sgavrilo         ###   ########.fr       */
+/*   Updated: 2025/12/14 16:16:56 by sgavrilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,24 @@ void	draw_square(t_mlx *mlx, int x, int y, int size, int color)
 		while (j < size)
 		{
 			my_mlx_pixel_put(mlx, x + j, y + i, color);
+			j++;
+		}
+		i++;
+	}
+}
+
+void	draw_background(t_mlx *mlx, int color)
+{
+	int	i;
+	int j;
+
+	i = 0;
+	while (i < mlx->map.height * 64)
+	{
+		j = 0;
+		while (j < mlx->map.width * 64)
+		{
+			my_mlx_pixel_put(mlx, j, i, color);
 			j++;
 		}
 		i++;

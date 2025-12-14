@@ -6,18 +6,24 @@
 /*   By: sgavrilo <sgavrilo@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/12 19:26:15 by sgavrilo          #+#    #+#             */
-/*   Updated: 2025/12/13 20:33:55 by sgavrilo         ###   ########.fr       */
+/*   Updated: 2025/12/14 16:11:40 by sgavrilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	free_exit(t_mlx mlx)
+void	free_exit(t_mlx mlx, int exitcode)
 {
-	mlx_destroy_image(mlx.mlx, mlx.img);
-	mlx_destroy_display(mlx.mlx);
-	free(mlx.mlx);
-	exit(0);
+	if (mlx.img)
+		mlx_destroy_image(mlx.mlx, mlx.img);
+	if (mlx.xpm)
+		mlx_destroy_image(mlx.mlx, mlx.xpm);
+	if (mlx.mlx)
+	{
+		mlx_destroy_display(mlx.mlx);
+		free(mlx.mlx);
+	}
+	exit(exitcode);
 }
 
 void	initialize(t_mlx *mlx)
