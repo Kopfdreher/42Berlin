@@ -6,7 +6,7 @@
 /*   By: sgavrilo <sgavrilo@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/12 16:30:01 by sgavrilo          #+#    #+#             */
-/*   Updated: 2025/12/14 17:35:21 by sgavrilo         ###   ########.fr       */
+/*   Updated: 2025/12/16 13:59:10 by sgavrilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,11 @@ typedef struct	s_mlx {
 	int		line_length;
 	int		endian;
 	t_map	map;
-	void	*xpm;
+	void	*wall;
+	void	*player;
+	void	*coin;
+	void	*door1;
+	void	*door2;
 }	t_mlx;
 
 // MLX_Helper
@@ -46,8 +50,8 @@ void	free_exit(t_mlx mlx, int exitcode);
 void	initialize(t_mlx *mlx);
 
 // Draw_Helper
-void	draw_background(t_mlx *mlx, int color);
-void	draw_map(t_mlx *mlx);
+int		draw_map(t_mlx *mlx);
+int		load_sprites(t_mlx *mlx);
 
 // Map_Parsing
 int		arg_is_valid(char *map_path, t_map *map);

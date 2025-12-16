@@ -6,7 +6,7 @@
 /*   By: sgavrilo <sgavrilo@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/12 20:36:50 by sgavrilo          #+#    #+#             */
-/*   Updated: 2025/12/13 19:31:21 by sgavrilo         ###   ########.fr       */
+/*   Updated: 2025/12/16 10:49:12 by sgavrilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,6 @@ static int	map_is_valid(char *map_path, t_map *map)
 		i++;
 	}
 	ft_printf("\n");
-	free_strarr(map->content);
 	return (1);
 }
 

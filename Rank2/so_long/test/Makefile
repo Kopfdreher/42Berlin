@@ -27,7 +27,7 @@ LDFLAGS		= -L$(LIBFT_DIR) -lft \
 # Source files
 SRCS 		= $(addsuffix .c, main my_mlx draw_helper key_press free_exit \
 				map_is_valid map_parsing map_valid_positions \
-				map_chars_not_reachable)
+				map_chars_not_reachable key_movement)
 
 # Object files
 OBJS		= $(SRCS:.c=.o)
