@@ -13,7 +13,7 @@ RESET		= \033[0m
 LIBFT_DIR	= ./libft
 LIBFT		= $(LIBFT_DIR)/libft.a
 
-MLX_DIR		= ./mlx_linux
+MLX_DIR		= ./minilibx-linux
 MLX_LIB		= $(MLX_DIR)/libmlx_Linux.a
 
 HEADERS		= so_long.h

@@ -6,16 +6,14 @@
 /*   By: sgavrilo <sgavrilo@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/12 19:13:28 by sgavrilo          #+#    #+#             */
-/*   Updated: 2025/12/16 16:11:24 by sgavrilo         ###   ########.fr       */
+/*   Updated: 2025/12/16 17:16:19 by sgavrilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-static void key_is_left(t_map *map)
+static void	key_is_left(t_map *map)
 {
-
-	ft_printf("LEFT\n");
 	if (map->content[map->p_y][map->p_x - 1] == '0')
 		move_left(map);
 	else if (map->content[map->p_y][map->p_x - 1] == 'C')
@@ -32,7 +30,6 @@ static void key_is_left(t_map *map)
 
 static void	key_is_up(t_map *map)
 {
-	ft_printf("UP\n");
 	if (map->content[map->p_y - 1][map->p_x] == '0')
 		move_up(map);
 	else if (map->content[map->p_y - 1][map->p_x] == 'C')
@@ -49,7 +46,6 @@ static void	key_is_up(t_map *map)
 
 static void	key_is_right(t_map *map)
 {
-	ft_printf("RIGHT\n");
 	if (map->content[map->p_y][map->p_x + 1] == '0')
 		move_right(map);
 	else if (map->content[map->p_y][map->p_x + 1] == 'C')
@@ -66,7 +62,6 @@ static void	key_is_right(t_map *map)
 
 static void	key_is_down(t_map *map)
 {
-	ft_printf("DOWN\n");
 	if (map->content[map->p_y + 1][map->p_x] == '0')
 		move_down(map);
 	else if (map->content[map->p_y + 1][map->p_x] == 'C')
@@ -91,7 +86,7 @@ int	handle_keypress(int keycode, t_mlx *mlx)
 		key_is_right(&mlx->map);
 	if (keycode == 115 || keycode == 65364)
 		key_is_down(&mlx->map);
-	if (keycode == 65307 || mlx->map.exit)
+	if (keycode == 65307 || keycode == 17 || mlx->map.exit)
 		free_exit(*mlx, 0);
 	ft_printf("Moves: %i\n", mlx->map.moves);
 	draw_map(mlx);

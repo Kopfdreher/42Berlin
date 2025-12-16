@@ -6,7 +6,7 @@
 /*   By: sgavrilo <sgavrilo@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/12 20:36:50 by sgavrilo          #+#    #+#             */
-/*   Updated: 2025/12/16 10:49:12 by sgavrilo         ###   ########.fr       */
+/*   Updated: 2025/12/16 17:17:02 by sgavrilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,12 +85,6 @@ static int	map_is_valid(char *map_path, t_map *map)
 		|| !map_valid_positions(map))
 		return (free_strarr(map->content), 0);
 	i = 0;
-	while (map->content[i])
-	{
-		ft_printf(map->content[i]);
-		i++;
-	}
-	ft_printf("\n");
 	return (1);
 }
 

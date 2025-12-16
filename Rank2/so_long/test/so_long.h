@@ -6,7 +6,7 @@
 /*   By: sgavrilo <sgavrilo@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/12 16:30:01 by sgavrilo          #+#    #+#             */
-/*   Updated: 2025/12/16 16:08:02 by sgavrilo         ###   ########.fr       */
+/*   Updated: 2025/12/16 17:01:36 by sgavrilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include "libft.h"
 # include <sys/stat.h>
 
-typedef struct	s_map {
+typedef struct s_map {
 	char	**content;
 	int		width;
 	int		height;
@@ -29,7 +29,7 @@ typedef struct	s_map {
 	int		exit;
 }	t_map;
 
-typedef struct	s_mlx {
+typedef struct s_mlx {
 	void	*mlx;
 	void	*win;
 	void	*img;
@@ -50,6 +50,7 @@ void	my_mlx_pixel_put(t_mlx *mlx, int x, int y, int color);
 int		handle_keypress(int keycode, t_mlx *mlx);
 void	free_exit(t_mlx mlx, int exitcode);
 void	initialize(t_mlx *mlx);
+int		close_window(t_mlx *mlx);
 
 // Draw_Helper
 int		draw_map(t_mlx *mlx);

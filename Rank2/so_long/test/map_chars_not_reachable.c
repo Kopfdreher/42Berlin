@@ -6,7 +6,7 @@
 /*   By: sgavrilo <sgavrilo@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/13 19:36:24 by sgavrilo          #+#    #+#             */
-/*   Updated: 2025/12/13 21:10:07 by sgavrilo         ###   ########.fr       */
+/*   Updated: 2025/12/16 17:00:48 by sgavrilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ static void	flood_fill(char **map_cpy, int x, int y)
 
 static int	chars_left(char **map_cpy, t_map *map)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 0;
 	while (i < map->width)
