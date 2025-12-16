@@ -6,7 +6,7 @@
 /*   By: sgavrilo <sgavrilo@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/13 17:38:25 by sgavrilo          #+#    #+#             */
-/*   Updated: 2025/12/13 21:00:40 by sgavrilo         ###   ########.fr       */
+/*   Updated: 2025/12/16 17:01:57 by sgavrilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ static void	set_player_position(t_map *map, int x, int y)
 
 static int	wrong_char_count(t_map *map)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 0;
 	while (i < map->width)

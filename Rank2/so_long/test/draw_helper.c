@@ -6,7 +6,7 @@
 /*   By: sgavrilo <sgavrilo@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/12 17:30:46 by sgavrilo          #+#    #+#             */
-/*   Updated: 2025/12/16 16:02:29 by sgavrilo         ###   ########.fr       */
+/*   Updated: 2025/12/16 17:05:02 by sgavrilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,14 @@
 static void	draw_background(t_mlx *mlx, int color)
 {
 	int	i;
-	int j;
+	int	j;
 
 	if (!mlx->img)
 	{
-		mlx->img = mlx_new_image(mlx->mlx, 64 * mlx->map.width, 64 * mlx->map.height);
-		mlx->addr = mlx_get_data_addr(mlx->img, &mlx->bits_per_pixel, &mlx->line_length,
-							   &mlx->endian);
+		mlx->img = mlx_new_image(mlx->mlx, 64 * mlx->map.width,
+				64 * mlx->map.height);
+		mlx->addr = mlx_get_data_addr(mlx->img, &mlx->bits_per_pixel,
+				&mlx->line_length, &mlx->endian);
 	}
 	i = 0;
 	while (i < mlx->map.height * 64)
@@ -37,16 +38,21 @@ static void	draw_background(t_mlx *mlx, int color)
 	mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img, 0, 0);
 }
 
-int		load_sprites(t_mlx *mlx)
+int	load_sprites(t_mlx *mlx)
 {
 	int		width;
 	int		height;
 
-	mlx->wall = mlx_xpm_file_to_image(mlx->mlx, "./sprites/wall_01.xpm", &width, &height);
-	mlx->player = mlx_xpm_file_to_image(mlx->mlx, "./sprites/player_01.xpm", &width, &height);
-	mlx->coin = mlx_xpm_file_to_image(mlx->mlx, "./sprites/plant_01.xpm", &width, &height);
-	mlx->door1 = mlx_xpm_file_to_image(mlx->mlx, "./sprites/door_01.xpm", &width, &height);
-	mlx->door2 = mlx_xpm_file_to_image(mlx->mlx, "./sprites/door_02.xpm", &width, &height);
+	mlx->wall = mlx_xpm_file_to_image(mlx->mlx,
+			"./sprites/wall_01.xpm", &width, &height);
+	mlx->player = mlx_xpm_file_to_image(mlx->mlx,
+			"./sprites/player_01.xpm", &width, &height);
+	mlx->coin = mlx_xpm_file_to_image(mlx->mlx,
+			"./sprites/coin_01.xpm", &width, &height);
+	mlx->door1 = mlx_xpm_file_to_image(mlx->mlx,
+			"./sprites/door_01.xpm", &width, &height);
+	mlx->door2 = mlx_xpm_file_to_image(mlx->mlx,
+			"./sprites/door_02.xpm", &width, &height);
 	if (!mlx->wall || !mlx->player || !mlx->coin || !mlx->door1 || !mlx->door2)
 	{
 		ft_printf("Image not found or corrupted\n");

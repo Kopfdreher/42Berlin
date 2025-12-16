@@ -6,11 +6,17 @@
 /*   By: sgavrilo <sgavrilo@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/12 19:26:15 by sgavrilo          #+#    #+#             */
-/*   Updated: 2025/12/16 16:04:58 by sgavrilo         ###   ########.fr       */
+/*   Updated: 2025/12/16 16:58:01 by sgavrilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+
+int	close_window(t_mlx *mlx)
+{
+	free_exit(*mlx, 0);
+	return (0);
+}
 
 void	free_exit(t_mlx mlx, int exitcode)
 {
