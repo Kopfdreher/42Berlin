@@ -6,7 +6,7 @@
 /*   By: sgavrilo <sgavrilo@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/12 16:30:01 by sgavrilo          #+#    #+#             */
-/*   Updated: 2025/12/16 13:59:10 by sgavrilo         ###   ########.fr       */
+/*   Updated: 2025/12/16 16:08:02 by sgavrilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ typedef struct	s_map {
 	int		c_count;
 	int		p_x;
 	int		p_y;
+	int		moves;
+	int		exit;
 }	t_map;
 
 typedef struct	s_mlx {
@@ -52,6 +54,12 @@ void	initialize(t_mlx *mlx);
 // Draw_Helper
 int		draw_map(t_mlx *mlx);
 int		load_sprites(t_mlx *mlx);
+
+// Movement
+void	move_left(t_map *map);
+void	move_up(t_map *map);
+void	move_right(t_map *map);
+void	move_down(t_map *map);
 
 // Map_Parsing
 int		arg_is_valid(char *map_path, t_map *map);
