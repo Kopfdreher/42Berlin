@@ -6,7 +6,7 @@
 /*   By: sgavrilo <sgavrilo@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/12 17:30:46 by sgavrilo          #+#    #+#             */
-/*   Updated: 2025/12/16 14:02:35 by sgavrilo         ###   ########.fr       */
+/*   Updated: 2025/12/16 16:02:29 by sgavrilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,10 @@ int	draw_map(t_mlx *mlx)
 				put_sprite(mlx, mlx->wall, i, j);
 			if (mlx->map.content[j][i] == 'P')
 				put_sprite(mlx, mlx->player, i, j);
-			if (mlx->map.content[j][i] == 'E')
+			if (mlx->map.content[j][i] == 'E' && mlx->map.c_count)
 				put_sprite(mlx, mlx->door1, i, j);
+			if (mlx->map.content[j][i] == 'E' && !mlx->map.c_count)
+				put_sprite(mlx, mlx->door2, i, j);
 			if (mlx->map.content[j][i] == 'C')
 				put_sprite(mlx, mlx->coin, i, j);
 			j++;

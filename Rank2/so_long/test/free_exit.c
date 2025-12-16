@@ -6,7 +6,7 @@
 /*   By: sgavrilo <sgavrilo@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/12 19:26:15 by sgavrilo          #+#    #+#             */
-/*   Updated: 2025/12/16 13:57:54 by sgavrilo         ###   ########.fr       */
+/*   Updated: 2025/12/16 16:04:58 by sgavrilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,6 @@ void	init_map(t_map *map)
 	map->c_count = 0;
 	map->p_x = 0;
 	map->p_y = 0;
+	map->moves = 0;
+	map->exit = 0;
 }
