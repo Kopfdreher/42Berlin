@@ -6,7 +6,7 @@
 /*   By: sgavrilo <sgavrilo@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/12 19:26:15 by sgavrilo          #+#    #+#             */
-/*   Updated: 2025/12/14 16:11:40 by sgavrilo         ###   ########.fr       */
+/*   Updated: 2025/12/16 13:57:54 by sgavrilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,20 @@ void	free_exit(t_mlx mlx, int exitcode)
 {
 	if (mlx.img)
 		mlx_destroy_image(mlx.mlx, mlx.img);
-	if (mlx.xpm)
-		mlx_destroy_image(mlx.mlx, mlx.xpm);
+	if (mlx.wall)
+		mlx_destroy_image(mlx.mlx, mlx.wall);
+	if (mlx.player)
+		mlx_destroy_image(mlx.mlx, mlx.player);
+	if (mlx.coin)
+		mlx_destroy_image(mlx.mlx, mlx.coin);
+	if (mlx.door1)
+		mlx_destroy_image(mlx.mlx, mlx.door1);
+	if (mlx.door2)
+		mlx_destroy_image(mlx.mlx, mlx.door2);
+	if (mlx.map.content)
+		free_strarr(mlx.map.content);
+	if (mlx.win)
+		mlx_destroy_window(mlx.mlx, mlx.win);
 	if (mlx.mlx)
 	{
 		mlx_destroy_display(mlx.mlx);
@@ -32,6 +44,11 @@ void	initialize(t_mlx *mlx)
 	mlx->win = NULL;
 	mlx->img = NULL;
 	mlx->addr = NULL;
+	mlx->wall = NULL;
+	mlx->coin = NULL;
+	mlx->player = NULL;
+	mlx->door1 = NULL;
+	mlx->door2 = NULL;
 }
 
 void	init_map(t_map *map)
