@@ -12,7 +12,7 @@ OBJS_BONUS = ${BONUS:.c=.o}
 
 OBJS_PRINTF = ${PRINTF:.c=.o}
 
-CC = gcc
+CC = cc
 
 RM = rm -f
 
