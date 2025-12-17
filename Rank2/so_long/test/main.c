@@ -6,7 +6,7 @@
 /*   By: sgavrilo <sgavrilo@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/12 16:26:46 by sgavrilo          #+#    #+#             */
-/*   Updated: 2025/12/16 17:00:28 by sgavrilo         ###   ########.fr       */
+/*   Updated: 2025/12/16 18:27:05 by sgavrilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	main(int argc, char *argv[])
 	{
 		initialize(&mlx);
 		mlx.mlx = mlx_init();
-		mlx.win = mlx_new_window(mlx.mlx, 64 * mlx.map.width, 64 
+		mlx.win = mlx_new_window(mlx.mlx, 64 * mlx.map.width, 64
 				* mlx.map.height, "so_long");
 		mlx_key_hook(mlx.win, &handle_keypress, &mlx);
 		if (load_sprites(&mlx) || draw_map(&mlx))
