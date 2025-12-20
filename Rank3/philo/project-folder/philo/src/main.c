@@ -6,7 +6,7 @@
 /*   By: sgavrilo <sgavrilo@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/17 21:20:27 by sgavrilo          #+#    #+#             */
-/*   Updated: 2025/12/20 12:03:14 by sgavrilo         ###   ########.fr       */
+/*   Updated: 2025/12/20 17:27:01 by sgavrilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,9 @@ int	main(int argc, char *argv[])
 			data.meals_are_counted = true;
 		if (!args_are_valid(argv, &data))
 			error_exit("Error: arguments not valid\n", 1);
+		if (init_simulation(&data))
+			free_exit("Error: initialization failed\n", &data, 1);
+		monitor_routine(&data);
 	}
 	else
 		error_exit("Error: wrong argument count\n", 1);
