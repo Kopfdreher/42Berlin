@@ -6,7 +6,7 @@
 /*   By: sgavrilo <sgavrilo@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/20 17:49:07 by sgavrilo          #+#    #+#             */
-/*   Updated: 2025/12/20 17:49:23 by sgavrilo         ###   ########.fr       */
+/*   Updated: 2025/12/20 20:06:26 by sgavrilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	monitor_routine(t_data *data)
 				pthread_mutex_lock(&data->dead_lock);
 				data->simulation_running = false;
 				pthread_mutex_unlock(&data->dead_lock);
+				return ;
 			}
 			if (data->philo[i].meals_eaten >= data->limit_meals)
 				meals_min++;
@@ -40,13 +41,12 @@ void	monitor_routine(t_data *data)
 			pthread_mutex_lock(&data->dead_lock);
 			data->simulation_running = false;
 			pthread_mutex_unlock(&data->dead_lock);
+			print_debug("Eaten enough\n", data);
+			return ;
 		}
-		pthread_mutex_lock(&data->dead_lock);
-		if (!data->simulation_running)
-		{
-			pthread_mutex_unlock(&data->dead_lock);
-			free_exit("Finished\n", data, 0);
-		}
+		if (!still_running(data, 0))
+			return ;
+		pthread_mutex_unlock(&data->dead_lock);
 		usleep(1000);
 	}
 }

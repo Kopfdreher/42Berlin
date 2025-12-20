@@ -6,7 +6,7 @@
 /*   By: sgavrilo <sgavrilo@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/17 19:16:39 by sgavrilo          #+#    #+#             */
-/*   Updated: 2025/12/20 16:50:19 by sgavrilo         ###   ########.fr       */
+/*   Updated: 2025/12/20 19:33:05 by sgavrilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,6 @@ void	smart_usleep(long long time_to_wait)
 	long long	start_time;
 
 	start_time = get_time();
-	while ((get_time() == start_time) < time_to_wait)
+	while ((get_time() - start_time) < time_to_wait)
 		usleep(500);
 }
