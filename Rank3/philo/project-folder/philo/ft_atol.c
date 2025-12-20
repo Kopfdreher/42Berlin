@@ -6,25 +6,24 @@
 /*   By: sgavrilo <sgavrilo@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/17 22:18:52 by sgavrilo          #+#    #+#             */
-/*   Updated: 2025/12/17 22:18:55 by sgavrilo         ###   ########.fr       */
+/*   Updated: 2025/12/20 12:06:49 by sgavrilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 static int	ft_issign(char c)
 {
-	if (c == '+' || c == '-')
-		return (1);
-	else
-		return (0);
+	return (c == '+' || c == '-');
 }
 
 static int	ft_isspace(char c)
 {
-	if (c == '0' || c == ' ' || c == '\f' || c == '\n'
-		|| c == '\r' || c == '\t' || c == '\v')
-		return (1);
-	else
-		return (0);
+	return (c == '0' || c == ' ' || c == '\f' || c == '\n'
+		|| c == '\r' || c == '\t' || c == '\v');
+}
+
+static int	ft_isdigit(char c)
+{
+	return (c >= '0' && c <= '9');
 }
 
 long	ft_atol(const char *str)
