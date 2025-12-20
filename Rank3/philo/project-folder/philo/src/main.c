@@ -6,7 +6,7 @@
 /*   By: sgavrilo <sgavrilo@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/17 21:20:27 by sgavrilo          #+#    #+#             */
-/*   Updated: 2025/12/20 17:27:01 by sgavrilo         ###   ########.fr       */
+/*   Updated: 2025/12/20 20:17:34 by sgavrilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int	main(int argc, char *argv[])
 		if (init_simulation(&data))
 			free_exit("Error: initialization failed\n", &data, 1);
 		monitor_routine(&data);
+		free_exit(NULL, &data, 0);
 	}
 	else
 		error_exit("Error: wrong argument count\n", 1);

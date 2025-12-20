@@ -6,7 +6,7 @@
 /*   By: sgavrilo <sgavrilo@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/17 21:23:18 by sgavrilo          #+#    #+#             */
-/*   Updated: 2025/12/20 17:55:15 by sgavrilo         ###   ########.fr       */
+/*   Updated: 2025/12/20 20:18:13 by sgavrilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,10 +69,14 @@ void	*philo_routine(void *philo);
 void	monitor_routine(t_data *data);
 
 /* Printing */
-void	print_taken_fork(t_philo *philo);
-void	print_eating(t_philo *philo);
-void	print_sleeping(t_philo *philo);
-void	print_thinking(t_philo *philo);
-void	print_dieing(t_philo *philo);
+int		print_taken_fork(t_philo *philo);
+int		print_eating(t_philo *philo);
+int		print_sleeping(t_philo *philo);
+int		print_thinking(t_philo *philo);
+int		print_dieing(t_philo *philo);
+void	print_debug(char *str, t_data *data);
+
+/* Mutex */
+int	still_running(void *ptr, int mode);
 
 #endif
