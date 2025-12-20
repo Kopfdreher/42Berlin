@@ -1,19 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sgavrilo <sgavrilo@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/17 21:44:40 by sgavrilo          #+#    #+#             */
-/*   Updated: 2025/12/17 21:44:52 by sgavrilo         ###   ########.fr       */
+/*   Created: 2025/12/20 15:44:20 by sgavrilo          #+#    #+#             */
+/*   Updated: 2025/12/20 17:55:58 by sgavrilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	error_exit(char *str, int errorcode)
+void	*philo_routine(void *arg)
 {
-	printf("%s", str);
-	return (errorcode);
+	t_philo	*philo;
+
+	philo = (t_philo *)arg;
+	while (true)
+	{
+		smart_usleep(philo->data.time_to_sleep);
+		pthread_mutex_lock(&philo->data->dead_lock);
+		if (!philo->data->simulation_running)
+		{
+			pthread_mutex_unlock(&philo->data->dead_lock);
+			return (arg);
+		}
+	}
+	return (arg);
 }

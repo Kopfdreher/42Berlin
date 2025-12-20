@@ -15,10 +15,11 @@ OBJ_DIR		= obj
 INC_DIR		= includes
 
 # Includes
-HEADERS		= philo.h
+HEADERS		= $(INC_DIR)/philo.h
 
 # Source files
-SRC_FILES	= $(addsuffix .c, main ft_atol parsing utils)
+SRC_FILES	= $(addsuffix .c, main ft_atol parsing utils time init routine \
+			  monitor print)
 SRCS		= $(addprefix $(SRC_DIR)/, $(SRC_FILES))
 
 # Object files
@@ -30,9 +31,9 @@ all: $(NAME)
 
 # Main Traget
 $(NAME): $(OBJS)
-		@echo "$(BLUE)|--Linking $(NAME)------------------|$(RESET)"
+		@echo "$(BLUE)|--Linking $(NAME)--------------------|$(RESET)"
 		@$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
-		@echo "$(GREEN)|--$(NAME) created successfully!----|$(RESET)"
+		@echo "$(GREEN)|--$(NAME) created successfully!------|$(RESET)"
 
 # Compiling .c to .o
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(HEADERS)
