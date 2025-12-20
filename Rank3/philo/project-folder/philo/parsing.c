@@ -6,7 +6,7 @@
 /*   By: sgavrilo <sgavrilo@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/17 21:45:33 by sgavrilo          #+#    #+#             */
-/*   Updated: 2025/12/17 22:35:04 by sgavrilo         ###   ########.fr       */
+/*   Updated: 2025/12/20 12:02:13 by sgavrilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,12 @@ static int	convert_to_digits(char *argv[], t_data *data)
 	i = -1;
 	while (digits[++i])
 		digits[i] = ft_atol(argv[i + 1]);
-	data->num_of_philos = digit[0];
-	data->time_to_die = digit[1];
-	data->time_to_eat = digit[2];
-	data->time_to_sleep = digit[3];
+	data->num_of_philos = digits[0];
+	data->time_to_die = digits[1];
+	data->time_to_eat = digits[2];
+	data->time_to_sleep = digits[3];
 	if (data->meals_are_counted)
-		data->meal_goal = digit[4];
+		data->meal_goal = digits[4];
 	return (true);
 }
 
