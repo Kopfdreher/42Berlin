@@ -2,7 +2,8 @@
 
 NAME		= philo
 CC			= cc
-CFLAGS		= -Wall -Wextra -Werror -pthread -g -fsanitize=thread
+CFLAGS		= -Wall -Wextra -Werror -pthread -g
+# -fsanitize=thread
 
 # Colors
 GREEN		= \033[0;32m
@@ -19,7 +20,7 @@ HEADERS		= $(INC_DIR)/philo.h
 
 # Source files
 SRC_FILES	= $(addsuffix .c, main ft_atol parsing utils time init routine \
-			  monitor print)
+			  monitor print routine_eating)
 SRCS		= $(addprefix $(SRC_DIR)/, $(SRC_FILES))
 
 # Object files

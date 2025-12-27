@@ -6,7 +6,7 @@
 /*   By: sgavrilo <sgavrilo@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/17 21:23:18 by sgavrilo          #+#    #+#             */
-/*   Updated: 2025/12/20 20:18:13 by sgavrilo         ###   ########.fr       */
+/*   Updated: 2025/12/27 17:44:51 by sgavrilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # include <sys/time.h>
 # include <unistd.h>
 
-typedef struct s_philo t_philo;
+typedef struct s_philo	t_philo;
 
 typedef struct s_data {
 	int				philo_count;
@@ -50,33 +50,33 @@ typedef struct s_philo {
 }	t_philo;
 
 /* Exit */
-int	free_exit(char *str, t_data *data, int exitcode);
-int	error_exit(char *str, int exitcode);
+int			free_exit(char *str, t_data *data, int exitcode);
+int			error_exit(char *str, int exitcode);
 
 /* Parsing */
-int args_are_valid(char *argv[], t_data *data);
-long	ft_atol(const char *str);
+int			args_are_valid(char *argv[], t_data *data);
+long		ft_atol(const char *str);
 
 /* Initialize */
-int	init_simulation(t_data *data);
+int			init_simulation(t_data *data);
 
 /* Time */
 long long	get_time(void);
 void		smart_usleep(long long time_to_wait);
 
 /* Routines */
-void	*philo_routine(void *philo);
-void	monitor_routine(t_data *data);
+void		*philo_routine(void *philo);
+int			monitor_routine(t_data *data);
+int			eating_routine(t_philo *philo);
 
 /* Printing */
-int		print_taken_fork(t_philo *philo);
-int		print_eating(t_philo *philo);
-int		print_sleeping(t_philo *philo);
-int		print_thinking(t_philo *philo);
-int		print_dieing(t_philo *philo);
-void	print_debug(char *str, t_data *data);
+int			print_taken_fork(t_philo *philo);
+int			print_eating(t_philo *philo);
+int			print_sleeping(t_philo *philo);
+int			print_thinking(t_philo *philo);
+void		print_debug(char *str, t_data *data);
 
 /* Mutex */
-int	still_running(void *ptr, int mode);
+int			still_running(void *ptr, int mode);
 
 #endif
