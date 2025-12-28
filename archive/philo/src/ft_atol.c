@@ -5,28 +5,25 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: sgavrilo <sgavrilo@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/23 20:55:20 by sgavrilo          #+#    #+#             */
-/*   Updated: 2025/12/17 22:35:28 by sgavrilo         ###   ########.fr       */
+/*   Created: 2025/12/17 22:18:52 by sgavrilo          #+#    #+#             */
+/*   Updated: 2025/12/27 12:39:23 by sgavrilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
 static int	ft_issign(char c)
 {
-	if (c == '+' || c == '-')
-		return (1);
-	else
-		return (0);
+	return (c == '+' || c == '-');
 }
 
 static int	ft_isspace(char c)
 {
-	if (c == '0' || c == ' ' || c == '\f' || c == '\n'
-		|| c == '\r' || c == '\t' || c == '\v')
-		return (1);
-	else
-		return (0);
+	return (c == '0' || c == ' ' || c == '\f' || c == '\n'
+		|| c == '\r' || c == '\t' || c == '\v');
+}
+
+static int	ft_isdigit(char c)
+{
+	return (c >= '0' && c <= '9');
 }
 
 long	ft_atol(const char *str)
