@@ -6,7 +6,7 @@
 /*   By: sgavrilo <sgavrilo@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/20 15:44:20 by sgavrilo          #+#    #+#             */
-/*   Updated: 2025/12/27 17:29:20 by sgavrilo         ###   ########.fr       */
+/*   Updated: 2025/12/28 15:22:22 by sgavrilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,20 @@ int	sleeping_routine(t_philo *philo)
 
 int	thinking_routine(t_philo *philo)
 {
+	long long	time_to_think;
+
 	if (!print_thinking(philo))
 		return (false);
-	usleep(50);
+	if (philo->data->philo_count % 2)
+	{
+		time_to_think = (philo->data->time_to_eat * 2)
+			- philo->data->time_to_sleep;
+		if (time_to_think < 0)
+			time_to_think = 0;
+		smart_usleep(time_to_think);
+	}
+//	else
+//		usleep(50);
 	return (true);
 }
 

@@ -6,7 +6,7 @@
 /*   By: sgavrilo <sgavrilo@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/20 17:49:07 by sgavrilo          #+#    #+#             */
-/*   Updated: 2025/12/27 17:48:29 by sgavrilo         ###   ########.fr       */
+/*   Updated: 2025/12/28 14:31:05 by sgavrilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,6 @@ int	monitor_routine(t_data *data)
 		}
 		if (data->meals_are_counted && meals_min == data->philo_count)
 			return (stop_simulation(data), 0);
-		usleep(1000);
+		usleep(100);
 	}
 }
