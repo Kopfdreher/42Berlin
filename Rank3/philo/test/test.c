@@ -6,7 +6,7 @@
 /*   By: sgavrilo <sgavrilo@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/17 17:21:01 by sgavrilo          #+#    #+#             */
-/*   Updated: 2025/12/17 20:37:05 by sgavrilo         ###   ########.fr       */
+/*   Updated: 2026/01/04 18:38:33 by sgavrilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,14 +65,14 @@ void	*routine(void *arg) {
 	data->id++;
 	pthread_mutex_unlock(&data->mutexid);
 	i = -1;
-	write_status("Thread %i starting to count at %i.\n", data);
+	//write_status("Thread %i starting to count at %i.\n", data);
 	while (++i < 1000000)
 	{
-		pthread_mutex_lock(&data->mutexmails);
+		//pthread_mutex_lock(&data->mutexmails);
 		data->mails++;
-		pthread_mutex_unlock(&data->mutexmails);
+		//pthread_mutex_unlock(&data->mutexmails);
 	}
-	write_status("Thread %i ended counting at %i.\n", data);
+	//write_status("Thread %i ended counting at %i.\n", data);
 	return (arg);
 }
 
