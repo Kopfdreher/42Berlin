@@ -12,7 +12,7 @@ void Contact::setInfo(Info field, std::string value) {
 std::string Contact::getInfo(Info field) const {
   if (Contact::fieldIsValid(field))
     return (this->_info[field]);
-	return ("");
+  return ("");
 }
 
 int Contact::fieldIsValid(Info field) const {

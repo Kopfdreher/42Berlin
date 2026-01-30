@@ -5,16 +5,18 @@
 #include <string>
 
 class PhoneBook {
-private:
-  Contact::Contact _contacts[8];
-  int _index;
-
 public:
   PhoneBook();
   ~PhoneBook();
 
   void addContact();
   void displayPhoneBook();
-}
+
+private:
+  Contact _contacts[8];
+  int _total;
+
+  void _addInput(Contact::Info field);
+};
 
 #endif
