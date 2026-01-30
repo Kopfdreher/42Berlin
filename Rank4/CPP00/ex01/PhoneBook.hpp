@@ -17,6 +17,8 @@ private:
   int _total;
 
   void _addInput(Contact::Info field);
+  void _printContact(int i);
+	std::string _truncate(std::string str);
 };
 
 #endif
