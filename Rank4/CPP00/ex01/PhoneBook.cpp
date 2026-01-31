@@ -3,6 +3,8 @@
 #include <iostream>
 #include <sstream>
 
+// Constructor / Destructor ----------------------------------------------------
+
 PhoneBook::PhoneBook() {
   _total = 0;
   _fieldNames[0] = "FirstName";
@@ -14,6 +16,8 @@ PhoneBook::PhoneBook() {
 
 PhoneBook::~PhoneBook() {}
 
+// Public ----------------------------------------------------------------------
+
 void PhoneBook::addContact() {
   int i;
 
@@ -22,7 +26,7 @@ void PhoneBook::addContact() {
     std::cout << _fieldNames[i] << ": ";
     _addInput((Contact::Info)i);
   }
-  this->_total++;
+  _total++;
   std::cout << "Contact added!" << std::endl;
 }
 
@@ -41,18 +45,20 @@ void PhoneBook::searchPhoneBook() {
     std::stringstream sStream(input);
     if (sStream >> index && sStream.eof() && index > 0 && index <= 8 &&
         index <= _total) {
-      _printContact(index - 1);
+      _printExpandedContact(index - 1);
       break;
     }
     std::cout << "Index invalid. Try again: ";
   }
 }
 
+// Private ---------------------------------------------------------------------
+
 void PhoneBook::_displayPhoneBook() {
   std::cout << "|----------|----------|----------|----------|" << std::endl;
   std::cout << "|     Index| FirstName|  LastName|  Nickname|" << std::endl;
   std::cout << "|----------|----------|----------|----------|" << std::endl;
-  for (int i = 0; i < 8 && i < this->_total; i++)
+  for (int i = 0; i < 8 && i < _total; i++)
     _printContact(i);
   std::cout << "|----------|----------|----------|----------|" << std::endl;
 }
@@ -63,7 +69,7 @@ void PhoneBook::_addInput(Contact::Info field) {
   while (true) {
     std::getline(std::cin, input);
     if (!input.empty()) {
-      this->_contacts[this->_total % 8].setInfo(field, input);
+      _contacts[_total % 8].setInfo(field, input);
       break;
     }
     std::cout << "Field cannot be empty. Try again: ";
@@ -77,10 +83,21 @@ void PhoneBook::_printContact(int i) {
   std::cout << "|         " << i + 1;
   while ((Contact::Info)field <= Contact::Nickname) {
     std::cout << "|" << std::setw(10)
-              << _truncate(this->_contacts[i].getInfo((Contact::Info)field));
+              << _truncate(_contacts[i].getInfo((Contact::Info)field));
     field++;
   }
   std::cout << "|" << std::endl;
+}
+
+void PhoneBook::_printExpandedContact(int i) {
+  int field;
+
+  field = 0;
+  while ((Contact::Info)field <= Contact::DarkestSecret) {
+    std::cout << _fieldNames[field] << ": "
+              << _contacts[i].getInfo((Contact::Info)field) << std::endl;
+		field++;
+  }
 }
 
 std::string PhoneBook::_truncate(std::string str) {

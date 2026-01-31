@@ -15,12 +15,13 @@ public:
 private:
   Contact _contacts[8];
   int _total;
-	std::string _fieldNames[5];
+  std::string _fieldNames[5];
 
   void _addInput(Contact::Info field);
-	void _displayPhoneBook();
+  void _displayPhoneBook();
+  std::string _truncate(std::string str);
   void _printContact(int i);
-	std::string _truncate(std::string str);
+  void _printExpandedContact(int i);
 };
 
 #endif
