@@ -81,9 +81,8 @@ Recreating the behavior of the shell command: `< infile cmd1 | cmd2 > outfile`.
 
 ## 📬 Contact
 
-* **Intra:** `[your_intra_login]`
-* **LinkedIn:** [Your Name](https://linkedin.com/in/your-profile)
-* **Email:** `[your_email]@student.42berlin.de`
+* [Webseite](sgavrilov.de)
+* [LinkedIn](www.linkedin.com/in/sergej-gavrilov)
 
 ---
 *Created by [Your Name]. All projects are compliant with the 42 Norminette.*
