@@ -1,33 +1,59 @@
 #include "PhoneBook.hpp"
 #include <iomanip>
 #include <iostream>
+#include <sstream>
 
-PhoneBook::PhoneBook() { _total = 0; }
+PhoneBook::PhoneBook() {
+  _total = 0;
+  _fieldNames[0] = "FirstName";
+  _fieldNames[1] = "LastName";
+  _fieldNames[2] = "Nickname";
+  _fieldNames[3] = "PhoneNumber";
+  _fieldNames[4] = "DarkestSecret";
+}
 
 PhoneBook::~PhoneBook() {}
 
 void PhoneBook::addContact() {
-	while (
-  std::cout << "First Name: ";
-  _addInput(Contact::FirstName);
-  std::cout << "Last Name: ";
-  _addInput(Contact::LastName);
-  std::cout << "Nickname: ";
-  _addInput(Contact::Nickname);
-  std::cout << "Phone Number: ";
-  _addInput(Contact::PhoneNumber);
-  std::cout << "Darkest Secret: ";
-  _addInput(Contact::DarkestSecret);
+  int i;
+
+  i = -1;
+  while (++i < 5) {
+    std::cout << _fieldNames[i] << ": ";
+    _addInput((Contact::Info)i);
+  }
   this->_total++;
   std::cout << "Contact added!" << std::endl;
 }
 
-void PhoneBook::displayPhoneBook() {
+void PhoneBook::searchPhoneBook() {
+  std::string input;
+  int index;
+
+  if (_total == 0) {
+    std::cout << "No contacts to display!" << std::endl;
+    return;
+  }
+  _displayPhoneBook();
+  std::cout << "Put an index: ";
+  while (true) {
+    std::getline(std::cin, input);
+    std::stringstream sStream(input);
+    if (sStream >> index && sStream.eof() && index > 0 && index <= 8 &&
+        index <= _total) {
+      _printContact(index - 1);
+      break;
+    }
+    std::cout << "Index invalid. Try again: ";
+  }
+}
+
+void PhoneBook::_displayPhoneBook() {
   std::cout << "|----------|----------|----------|----------|" << std::endl;
   std::cout << "|     Index| FirstName|  LastName|  Nickname|" << std::endl;
   std::cout << "|----------|----------|----------|----------|" << std::endl;
   for (int i = 0; i < 8 && i < this->_total; i++)
-    PhoneBook::_printContact(i);
+    _printContact(i);
   std::cout << "|----------|----------|----------|----------|" << std::endl;
 }
 
@@ -35,8 +61,7 @@ void PhoneBook::_addInput(Contact::Info field) {
   std::string input;
 
   while (true) {
-    if (!std::getline(std::cin, input))
-      break;
+    std::getline(std::cin, input);
     if (!input.empty()) {
       this->_contacts[this->_total % 8].setInfo(field, input);
       break;

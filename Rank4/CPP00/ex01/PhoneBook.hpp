@@ -10,13 +10,15 @@ public:
   ~PhoneBook();
 
   void addContact();
-  void displayPhoneBook();
+  void searchPhoneBook();
 
 private:
   Contact _contacts[8];
   int _total;
+	std::string _fieldNames[5];
 
   void _addInput(Contact::Info field);
+	void _displayPhoneBook();
   void _printContact(int i);
 	std::string _truncate(std::string str);
 };

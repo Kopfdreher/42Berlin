@@ -9,14 +9,12 @@ int main() {
 
   while (1) {
     std::cout << "> ";
-    if (!std::getline(std::cin, input))
-      break;
-
+    std::getline(std::cin, input);
     if (input == "EXIT")
       break;
     else if (input == "ADD")
       phonebook.addContact();
     else if (input == "SEARCH")
-      phonebook.displayPhoneBook();
+      phonebook.searchPhoneBook();
   }
 }
