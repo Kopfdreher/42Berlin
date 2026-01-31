@@ -17,17 +17,17 @@ Currently, I am working on **Rank 4**, focusing on the transition from C to **C+
 
 | Rank | Project | Description | Stack | Status |
 |:---:|:---|:---|:---:|:---:|
-| **0** | **[Libft](./libft)** | Your very first own C library. Re-coding standard C functions. | C, Makefile | ✅ |
-| **1** | **[ft_printf](./ft_printf)** | Recreating the `printf` function. Focus on variadic arguments. | C | ✅ |
-| **1** | **[get_next_line](./get_next_line)** | Reading a line from a file descriptor. Focus on static variables. | C | ✅ |
+| **0** | **[Libft](./Rank0/Libft)** | Your very first own C library. Re-coding standard C functions. | C, Makefile | ✅ |
+| **1** | **[ft_printf](./Rank1/printf)** | Recreating the `printf` function. Focus on variadic arguments. | C | ✅ |
+| **1** | **[get_next_line](./Rank1/get_next_line)** | Reading a line from a file descriptor. Focus on static variables. | C | ✅ |
 | **1** | **Born2beroot** | System Administration. Setting up a secure Debian server (LVM, SSH, UFW). | Bash, VM | ✅ |
-| **2** | **[push_swap](./push_swap)** | Sorting data on a stack with a limited set of instructions using the lowest possible number of moves. | C, Algos | ✅ |
-| **2** | **[so_long](./so_long)** | A small 2D game. Textures, sprites, and event handling. | C, MiniLibX | ✅ |
-| **2** | **[pipex](./pipex)** | Simulating the Unix pipe mechanism `\|`. File descriptors and redirection. | C, Unix | ✅ |
-| **3** | **[minishell](./minishell)** | A functional shell. Parsing, executors, built-ins, and signal handling. | C, Bash | ✅ |
-| **3** | **[philosophers](./philosophers)** | The Dining Philosophers problem. Threads, mutexes, and concurrency. | C, Threads | ✅ |
-| **4** | **[CPP Modules 00-04](./cpp)** | Introduction to OOP: Classes, polymorphism, inheritance, and templates. | C++ | 🚧 |
-| **4** | **[NetPractice](./netpractice)** | Networking exercises (Subnets, TCP/IP, Routing). | Network | ⏳ |
+| **2** | **[push_swap](./Rank2/push_swap)** | Sorting data on a stack with a limited set of instructions using the lowest possible number of moves. | C, Algos | ✅ |
+| **2** | **[so_long](./Rank2/so_long)** | A small 2D game. Textures, sprites, and event handling. | C, MiniLibX | ✅ |
+| **2** | **[pipex](./Rank2/pipex)** | Simulating the Unix pipe mechanism `\|`. File descriptors and redirection. | C, Unix | ✅ |
+| **3** | **[minishell](https://github.com/Kopfdreher/minishell)** | A functional shell. Parsing, executors, built-ins, and signal handling. | C, Bash | ✅ |
+| **3** | **[philosophers](./Rank3/philo)** | The Dining Philosophers problem. Threads, mutexes, and concurrency. | C, Threads | ✅ |
+| **4** | **[CPP Modules 00-04](./Rank4/CPP00)** | Introduction to OOP: Classes, polymorphism, inheritance, and templates. | C++ | 🚧 |
+| **4** | **[NetPractice](./Rank4/NetPractice)** | Networking exercises (Subnets, TCP/IP, Routing). | Network | ⏳ |
 | **5** | **CPP Modules 05-09** | Advanced C++: Exceptions, casting, templates, and containers (STL). | C++ | ⏳ |
 | **5** | **Inception** | System Administration using Docker. Setting up a LEMP stack. | Docker | ⏳ |
 | **5** | **webserv** | Writing an HTTP server from scratch. (Or ft_irc). | C++ | ⏳ |
