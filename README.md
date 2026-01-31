@@ -81,8 +81,8 @@ Recreating the behavior of the shell command: `< infile cmd1 | cmd2 > outfile`.
 
 ## 📬 Contact
 
-* [Webseite](sgavrilov.de)
-* [LinkedIn](www.linkedin.com/in/sergej-gavrilov)
+* [Webseite](https://www.sgavrilov.de)
+* [LinkedIn](https://www.linkedin.com/in/sergej-gavrilov)
 
 ---
 *Created by [Your Name]. All projects are compliant with the 42 Norminette.*
