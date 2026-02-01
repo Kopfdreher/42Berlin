@@ -1,11 +1,11 @@
-NAME		= test
+NAME		= zombies
 
 CC			= c++
 CPPFLAGS	= -Wall -Werror -Wextra -std=c++98
 
-INCS		= $(addsuffix .hpp, )
+INCS		= $(addsuffix .hpp, Zombie)
 
-SRCS		= $(addsuffix .cpp, )
+SRCS		= $(addsuffix .cpp, main Zombie newZombie randomChump)
 
 OBJS		= $(SRCS:.cpp=.o)
 

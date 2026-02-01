@@ -1,11 +1,11 @@
-NAME		= test
+NAME		= zombieHorde
 
 CC			= c++
 CPPFLAGS	= -Wall -Werror -Wextra -std=c++98
 
-INCS		= $(addsuffix .hpp, )
+INCS		= $(addsuffix .hpp, Zombie)
 
-SRCS		= $(addsuffix .cpp, )
+SRCS		= $(addsuffix .cpp, main Zombie zombieHorde)
 
 OBJS		= $(SRCS:.cpp=.o)
 
