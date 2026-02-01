@@ -1,11 +1,9 @@
-NAME		= test
+NAME		= ex02
 
 CC			= c++
 CPPFLAGS	= -Wall -Werror -Wextra -std=c++98
 
-INCS		= $(addsuffix .hpp, )
-
-SRCS		= $(addsuffix .cpp, )
+SRCS		= $(addsuffix .cpp, main)
 
 OBJS		= $(SRCS:.cpp=.o)
 
@@ -16,7 +14,7 @@ all: $(NAME)
 $(NAME): $(OBJS)
 	$(CC) $(CPPFLAGS) $(OBJS) -o $(NAME)
 
-%.o : %.cpp $(INCS)
+%.o : %.cpp
 	$(CC) $(CPPFLAGS) -c $< -o $@
 
 clean:
