@@ -1,4 +1,4 @@
-NAME		= zombies
+NAME		= ex00
 
 CC			= c++
 CPPFLAGS	= -Wall -Werror -Wextra -std=c++98

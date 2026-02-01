@@ -1,11 +1,11 @@
-NAME		= test
+NAME		= ex03
 
 CC			= c++
 CPPFLAGS	= -Wall -Werror -Wextra -std=c++98
 
-INCS		= $(addsuffix .hpp, )
+INCS		= $(addsuffix .hpp, Weapon HumanA HumanB)
 
-SRCS		= $(addsuffix .cpp, )
+SRCS		= $(addsuffix .cpp, main Weapon HumanA HumanB)
 
 OBJS		= $(SRCS:.cpp=.o)
 

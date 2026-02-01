@@ -3,16 +3,12 @@
 
 // public ----------------------------------------------------------------------
 
-Weapon() {}
+Weapon::Weapon(std::string type) : _type(type) {}
 
-~Weapon() {}
+Weapon::~Weapon() {}
 
-std::string getType() const {
-  return (_type);
+std::string Weapon::getType() const & { // change the function it needs a reference return
+  return ((const)_type);
 }
 
-void setType(std::string type) {
-  _type = type;
-}
-
-// private ---------------------------------------------------------------------
+void Weapon::setType(std::string type) { _type = type; }
