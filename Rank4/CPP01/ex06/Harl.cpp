@@ -34,15 +34,31 @@ void Harl::error() {
 void Harl::complain(std::string level) {
 
   std::string levels[] = {"DEBUG", "INFO", "WARNING", "ERROR"};
-  void (Harl::*pointers[])() = {&Harl::debug, &Harl::info, &Harl::warning,
-                                &Harl::error};
-  bool printed = false;
-  for (int i = 0; i <= 4; i++) {
-    if (levels[i] == level) {
-      (this->*pointers[i])();
-      printed = true;
-    }
+
+  int i = 0;
+  while (i < 4 && levels[i] != level) {
+    i++;
   }
-  if (printed == false)
-    std::cerr << "Invalid Level!" << std::endl;
+  switch (i) {
+  case 0:
+    std::cout << "[ DEBUG ]\n";
+    debug();
+    std::cout << "\n";
+  case 1:
+    std::cout << "[ INFO ]\n";
+    info();
+    std::cout << "\n";
+  case 2:
+    std::cout << "[ WARNING ]\n";
+    warning();
+    std::cout << "\n";
+  case 3:
+    std::cout << "[ ERROR ]\n";
+    error();
+    std::cout << "\n";
+    break;
+  default:
+    std::cout << "[ Probably complaining about insignificant problems ]"
+              << std::endl;
+  }
 }
