@@ -1,3 +1,6 @@
+#ifndef HUMANB_H
+#define HUMANB_H
+
 #include "Weapon.hpp"
 #include <string>
 
@@ -14,3 +17,5 @@ private:
   Weapon *_weapon;
   std::string _name;
 };
+
+#endif
