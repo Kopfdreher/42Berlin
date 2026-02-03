@@ -1,11 +1,11 @@
-NAME		= test
+NAME		= ex04
 
 CC			= c++
 CPPFLAGS	= -Wall -Werror -Wextra -std=c++98
 
 INCS		= $(addsuffix .hpp, )
 
-SRCS		= $(addsuffix .cpp, )
+SRCS		= $(addsuffix .cpp, main)
 
 OBJS		= $(SRCS:.cpp=.o)
 
