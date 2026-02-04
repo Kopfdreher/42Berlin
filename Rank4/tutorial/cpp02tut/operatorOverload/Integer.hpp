@@ -12,7 +12,7 @@ public:
   int getValue() const;
 
   Integer &operator=(Integer const &rhs);
-  Integer operator+(Integer const &rhs);
+  Integer operator+(Integer const &rhs) const ;
 
 private:
   int _n;
