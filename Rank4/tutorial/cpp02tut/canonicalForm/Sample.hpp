@@ -6,12 +6,12 @@
 class Sample {
 
 public:
-  Sample(); //Canonical
+  Sample(); //Canonical Constructor
   Sample(int const n);
-  Sample(Sample const & src); //Canonical
-  ~Sample(); //Canonical
+  Sample(Sample const & src); //Canonical Copy Constructor
+  ~Sample(); //Canonical Destructor
 
-  Sample &operator=(Sample const &rhs); //Canonical
+  Sample &operator=(Sample const &rhs); //Canonical Copy Assignment Operator Overload
 
   int getFoo() const;
 
