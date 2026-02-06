@@ -37,7 +37,7 @@ void Harl::complain(std::string level) {
   void (Harl::*pointers[])() = {&Harl::debug, &Harl::info, &Harl::warning,
                                 &Harl::error};
   bool printed = false;
-  for (int i = 0; i <= 4; i++) {
+  for (int i = 0; i < 4; i++) {
     if (levels[i] == level) {
       (this->*pointers[i])();
       printed = true;
