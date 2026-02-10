@@ -5,7 +5,7 @@ class ACharacter {
 
 public:
   virtual void attack(std::string const &target) = 0;
-  void sayHell9(std::string const &target);
+  void sayHello(std::string const &target);
 };
 
 class Warrior : public ACharacter {
