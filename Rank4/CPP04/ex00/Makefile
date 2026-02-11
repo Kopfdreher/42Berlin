@@ -3,9 +3,9 @@ NAME		= ex00
 CC			= c++
 CPPFLAGS	= -Wall -Werror -Wextra -std=c++98
 
-INCS		= $(addsuffix .hpp, Animal Dog Cat WrongAnimal)
+INCS		= $(addsuffix .hpp, Animal Dog Cat WrongAnimal WrongCat)
 
-SRCS		= $(addsuffix .cpp, main Animal Dog Cat WrongAnimal)
+SRCS		= $(addsuffix .cpp, main Animal Dog Cat WrongAnimal WrongCat)
 
 OBJS		= $(SRCS:.cpp=.o)
 

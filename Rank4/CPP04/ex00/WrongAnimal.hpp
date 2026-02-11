@@ -7,11 +7,11 @@ class WrongAnimal {
 
 public:
   WrongAnimal(); // empty constructor
-  WrongAnimal(Animal const &); // copy constructor
-  WrongAnimal &operator=(Animal const &); // copy assignment operator
-  virtual ~WrongAnimal(); // destructor
+  WrongAnimal(WrongAnimal const &); // copy constructor
+  WrongAnimal &operator=(WrongAnimal const &); // copy assignment operator
+  ~WrongAnimal(); // destructor (missing virtual)
 
-  virtual void makeSound() const ;
+  void makeSound() const ; // (missing virtual)
   std::string getType() const ;
 
 protected:
