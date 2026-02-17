@@ -1,6 +1,6 @@
 # NetPractice
 
-*This project has been created as part of the 42 curriculum by [Your Name/Intra Login].*
+*This project has been created as part of the 42 curriculum by [sgavrilo].*
 
 ## Description
 
@@ -52,7 +52,3 @@ AI was utilized in the following capacity for this project:
 ## Technical Choices
 
 * **The "Magic Number" Method:** I opted to use the magic number technique learned from NetworkChuck to solve levels quickly without converting every IP to binary.
-
----
-
-**Would you like me to add a "Tips and Tricks" section with some of the specific subnetting shortcuts you learned?**
