@@ -7,7 +7,12 @@ Form::Form()
 
 Form::Form(std::string const &name, int gradeSign, int gradeExecute)
     : _name(name), _isSigned(false), _gradeSign(gradeSign),
-      _gradeExecute(gradeExecute) {}
+      _gradeExecute(gradeExecute) {
+  if (gradeSign > 150 || gradeExecute > 150)
+    throw GradeTooLowException();
+  if (gradeSign < 1 || gradeExecute < 1)
+    throw GradeTooHighException();
+}
 
 Form &Form::operator=(Form const &rhs) {
   if (this != &rhs) {

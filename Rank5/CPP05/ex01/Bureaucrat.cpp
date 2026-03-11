@@ -17,8 +17,7 @@ Bureaucrat &Bureaucrat::operator=(Bureaucrat const &rhs) {
 }
 
 Bureaucrat::Bureaucrat(Bureaucrat const &src)
-    : _name(src.getName()), _grade(src.getGrade()) {
-}
+    : _name(src.getName()), _grade(src.getGrade()) {}
 
 Bureaucrat::~Bureaucrat() {}
 
@@ -31,11 +30,11 @@ int Bureaucrat::getGrade() const { return _grade; }
 void Bureaucrat::signForm(Form &form) {
   try {
     form.beSigned(*this);
+    std::cout << _name << " signed " << form.getName() << std::endl;
   } catch (Form::GradeTooLowException &e) {
     std::cerr << _name << " couldn't sign " << form.getName() << " because "
               << e.what() << std::endl;
   }
-  std::cout << _name << " signed " << form.getName() << std::endl;
 }
 
 // Insertion Operator

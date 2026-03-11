@@ -25,6 +25,11 @@ public:
 
   void beSigned(Bureaucrat const &signer);
 
+  class GradeTooHighException : public std::exception {
+  public:
+    virtual const char *what() const throw() { return "Error: Grade too high"; }
+  };
+
   class GradeTooLowException : public std::exception {
   public:
     virtual const char *what() const throw() { return "Error: Grade too low"; }
