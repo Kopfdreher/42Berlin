@@ -19,6 +19,8 @@ public:
   // Methods
   std::string const &getName() const;
   int getGrade() const;
+  void incrementGrade();
+  void decrementGrade();
   void signAForm(AForm &form);
   void executeForm(AForm const & form) const;
 

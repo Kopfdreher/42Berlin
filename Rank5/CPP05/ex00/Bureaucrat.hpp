@@ -12,9 +12,11 @@ public:
   Bureaucrat &operator=(Bureaucrat const &); // copy assignment operator
   ~Bureaucrat();                    // destructor
 
-  // Getters
+  // Methods
   std::string const &getName() const;
   int getGrade() const;
+  void incrementGrade();
+  void decrementGrade();
 
   class GradeTooHighException : public std::exception {
   public:

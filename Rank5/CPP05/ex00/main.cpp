@@ -5,6 +5,11 @@ int main() {
   try {
     Bureaucrat employee0("test", 1);
     std::cout << employee0 << std::endl;
+    employee0.decrementGrade();
+    std::cout << employee0 << std::endl;
+    employee0.incrementGrade();
+    //employee0.incrementGrade();
+    std::cout << employee0 << std::endl;
     Bureaucrat employee1("too low", 151);
     Bureaucrat employee2("too high", -1);
   } catch (Bureaucrat::GradeTooLowException &e) {
