@@ -3,9 +3,9 @@ NAME		= ex00
 CC			= c++
 CPPFLAGS	= -Wall -Werror -Wextra -std=c++98
 
-INCS		= $(addsuffix .hpp, )
+INCS		= $(addsuffix .hpp, ScalarConverter)
 
-SRCS		= $(addsuffix .cpp, main )
+SRCS		= $(addsuffix .cpp, ScalarConverter main )
 
 OBJS		= $(SRCS:.cpp=.o)
 

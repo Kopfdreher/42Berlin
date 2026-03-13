@@ -1,25 +1,31 @@
-#include "ScalarConverter.hpp"
+#ifndef SCALARCONVERTER_H
+#define SCALARCONVERTER_H
 
-// public ----------------------------------------------------------------------
+#include <string>
 
-void ScalarConverter::convert(const std::string &literal) {
+class ScalarConverter {
 
-  // is len 1 && isNotDigit -> char
-  // f in the end? -> float
-  // decimal but no f -> double
-  // just digits, and - or + -> int
-  // weird string, "-inf" -> pseudo-literal
-}
+public:
+  static void convert(const std::string &literal);
 
+private:
+  ScalarConverter();                        // empty constructor
+  ScalarConverter(ScalarConverter const &); // copy constructor
+  ScalarConverter &
+  operator=(ScalarConverter const &); // copy assignment operator
+  ~ScalarConverter();                 // destructor
 
-// private ---------------------------------------------------------------------
+  // ENUMS
+  enum eType { CHAR, INT, FLOAT, DOUBLE, PSEUDO, INVALID };
 
-ScalarConverter::ScalarConverter() {}
+  // METHODS
+  static eType setType(const std::string &literal);
+  static bool isPseudo(const std::string &literal);
+  static bool isChar(const std::string &literal);
+  static bool isInt(const std::string &literal);
+  static bool isDecimal(const std::string &literal, unsigned long len);
+  static bool isFloat(const std::string &literal);
+  static bool isDouble(const std::string &literal);
+};
 
-ScalarConverter &ScalarConverter::operator=(ScalarConverter const &rhs) {
-  (void)rhs;
-}
-
-ScalarConverter::ScalarConverter(ScalarConverter const &src) { (void)src; }
-
-ScalarConverter::~ScalarConverter() {}
+#endif
