@@ -5,7 +5,7 @@ CPPFLAGS	= -Wall -Werror -Wextra -std=c++98
 
 INCS		= $(addsuffix .hpp, ScalarConverter)
 
-SRCS		= $(addsuffix .cpp, ScalarConverter main )
+SRCS		= $(addsuffix .cpp, convert ScalarConverter)
 
 OBJS		= $(SRCS:.cpp=.o)
 
