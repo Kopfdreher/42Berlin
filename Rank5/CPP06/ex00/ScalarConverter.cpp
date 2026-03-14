@@ -145,7 +145,7 @@ void ScalarConverter::printConversion(const DataValue &value) {
 }
 
 void ScalarConverter::setPossibility(DataValue &value) {
-  if (value.d < 0.0 || value.d > 255.0)
+  if (value.d < 0.0 || value.d > 128.0)
     value.charIsPossible = false;
   if (value.d > std::numeric_limits<int>::max() ||
       value.d < std::numeric_limits<int>::min())
