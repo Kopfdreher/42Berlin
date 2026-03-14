@@ -8,6 +8,13 @@ class ScalarConverter {
 public:
   static void convert(const std::string &literal);
 
+  // EXCEPTIONS
+
+  class InvalidException : public std::exception {
+  public:
+    virtual const char *what() const throw() { return "Error: Invalid-Input"; }
+  };
+
 private:
   ScalarConverter();                        // empty constructor
   ScalarConverter(ScalarConverter const &); // copy constructor
@@ -21,6 +28,7 @@ private:
     float f;
     int i;
     char c;
+    bool floatIsPossible;
     bool intIsPossible;
     bool charIsPossible;
   };
@@ -29,8 +37,10 @@ private:
   enum eType { CHAR, INT, FLOAT, DOUBLE, PSEUDO, INVALID };
 
   // METHODS
-  static void printInt(const std::string &literal);
-  static void printChar(const std::string &literal);
+  static void printDouble(const std::string &literal, DataValue &value);
+  static void printFloat(const std::string &literal, DataValue &value);
+  static void printInt(const std::string &literal, DataValue &value);
+  static void printChar(const std::string &literal, DataValue &value);
   static void printPseudo(const std::string &literal);
   static void printConversion(const DataValue &value);
 

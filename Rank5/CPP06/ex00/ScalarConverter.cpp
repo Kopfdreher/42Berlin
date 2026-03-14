@@ -1,67 +1,91 @@
 #include "ScalarConverter.hpp"
 #include <cctype>
+#include <cerrno>
+#include <cmath>
+#include <cstdlib>
 #include <iostream>
+#include <limits>
+#include <sstream>
 #include <stdexcept>
 
 // public ----------------------------------------------------------------------
 
-// Todo: rebuild structure around possibility and printConversion
-// rebuild printType-Functions to convertFromType-Functions
 void ScalarConverter::convert(const std::string &literal) {
   eType type = setType(literal);
   DataValue value;
 
-  value.isCharPossible = true;
-  value.isIntPossible = true;
+  value.charIsPossible = true;
+  value.intIsPossible = true;
+  value.floatIsPossible = true;
 
   switch (type) {
   case PSEUDO:
-    std::cout << "PSEUDO" << std::endl;
     printPseudo(literal);
     return;
   case CHAR:
-    std::cout << "CHAR" << std::endl;
-    printChar(literal);
-    break;
-  case INT:
-    std::cout << "INT" << std::endl;
-    printInt(literal);
-    break;
-  case FLOAT:
-    std::cout << "FLOAT" << std::endl;
-    break;
-  case DOUBLE:
-    std::cout << "DOUBLE" << std::endl;
-    break;
-  default:
-    std::cerr << "Error: Invalid-Input" << std::endl;
+    printChar(literal, value);
     return;
+  case INT:
+    printInt(literal, value);
+    return;
+  case FLOAT:
+    printFloat(literal, value);
+    return;
+  case DOUBLE:
+    printDouble(literal, value);
+    return;
+  default:
+    throw InvalidException();
   }
-  setPosibility(value);
-  printConversion(value);
 }
 
 // private ---------------------------------------------------------------------
 
-void ScalarConverter::printInt(const std::string &literal) {
-  DataValue value;
-  long tmp = std::strtol(literal.c_str(), NULL, 10);
-
-  if (tmp > INT_MAX || tmp < INT_MIN) {
-    std::cerr << "Error: Invalid-Input" << std::endl;
-    break;
-  }
-  value.i = static_cast<int>(tmp);
-  value.c = static_cast<char>(tmp);
-  value.f = static_cast<float>(tmp);
-  value.d = static_cast<double>(tmp);
+void ScalarConverter::printDouble(const std::string &literal,
+                                  DataValue &value) {
+  errno = 0;
+  double tmp = std::strtod(literal.c_str(), NULL);
+  if (errno == ERANGE)
+    throw InvalidException();
+  value.d = tmp;
+  value.f = static_cast<float>(value.d);
+  value.c = static_cast<char>(value.d);
+  value.i = static_cast<int>(value.d);
   setPossibility(value);
   printConversion(value);
 }
 
-void ScalarConverter::printChar(const std::string &literal) {
-  DataValue value;
+void ScalarConverter::printFloat(const std::string &literal, DataValue &value) {
+  errno = 0;
+  double tmp = std::strtod(literal.c_str(), NULL);
 
+  if (errno == ERANGE || tmp > std::numeric_limits<float>::max() ||
+      tmp < -std::numeric_limits<float>::max())
+    throw InvalidException();
+  value.f = static_cast<float>(tmp);
+  value.c = static_cast<char>(value.f);
+  value.i = static_cast<int>(value.f);
+  value.d = static_cast<double>(value.f);
+  setPossibility(value);
+  printConversion(value);
+}
+
+void ScalarConverter::printInt(const std::string &literal, DataValue &value) {
+  errno = 0;
+  long tmp = std::strtol(literal.c_str(), NULL, 10);
+
+  if (errno == ERANGE || tmp > std::numeric_limits<int>::max() ||
+      tmp < std::numeric_limits<int>::min())
+    throw InvalidException();
+  value.i = static_cast<int>(tmp);
+  value.c = static_cast<char>(value.i);
+  value.f = static_cast<float>(value.i);
+  value.d = static_cast<double>(value.i);
+  setPossibility(value);
+  printConversion(value);
+}
+
+void ScalarConverter::printChar(const std::string &literal, DataValue &value) {
   value.c = literal[0];
   value.i = static_cast<int>(value.c);
   value.f = static_cast<float>(value.c);
@@ -87,8 +111,9 @@ void ScalarConverter::printPseudo(const std::string &literal) {
 }
 
 void ScalarConverter::printConversion(const DataValue &value) {
+
   // CHAR
-  if (value.isCharPossible) {
+  if (value.charIsPossible) {
     if (value.c >= ' ' && value.c <= '~')
       std::cout << "char: '" << value.c << "'\n";
     else
@@ -96,19 +121,40 @@ void ScalarConverter::printConversion(const DataValue &value) {
   } else {
     std::cout << "char: impossible\n";
   }
+
   // INT
-  if (value.isIntPossible)
+  if (value.intIsPossible)
     std::cout << "int: " << value.i << "\n";
   else
     std::cout << "int: impossible\n";
 
   // FLOAT
-  std::cout << "float: " << value.f << "\n";
+  if (value.floatIsPossible) {
+    std::cout << "float: " << value.f;
+    if (value.f == std::floor(value.f))
+      std::cout << ".0";
+    std::cout << "f\n";
+  } else
+    std::cout << "float: impossible\n";
+
   // DOUBLE
-  std::cout << "double: " << value.d << std::endl;
+  std::cout << "double: " << value.d;
+  if (value.d == std::floor(value.d))
+    std::cout << ".0";
+  std::cout << std::endl;
 }
 
-void ScalarConverter::setPossibility(DataValue &value) {}
+void ScalarConverter::setPossibility(DataValue &value) {
+  if (value.d < 0.0 || value.d > 255.0)
+    value.charIsPossible = false;
+  if (value.d > std::numeric_limits<int>::max() ||
+      value.d < std::numeric_limits<int>::min())
+    value.intIsPossible = false;
+  if (value.d > std::numeric_limits<float>::max() ||
+      value.d < -std::numeric_limits<float>::max())
+    value.floatIsPossible = false;
+  return;
+}
 
 ScalarConverter::eType ScalarConverter::setType(const std::string &literal) {
   if (isPseudo(literal))
