@@ -3,9 +3,9 @@ NAME		= ex01
 CC			= c++
 CPPFLAGS	= -Wall -Werror -Wextra -std=c++98
 
-INCS		= $(addsuffix .hpp, )
+INCS		= $(addsuffix .hpp, Serializer defines )
 
-SRCS		= $(addsuffix .cpp, main)
+SRCS		= $(addsuffix .cpp, Serializer main)
 
 OBJS		= $(SRCS:.cpp=.o)
 
