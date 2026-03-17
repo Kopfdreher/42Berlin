@@ -26,9 +26,9 @@ Currently, I am working on **Rank 4**, focusing on the transition from C to **C+
 | **2** | **[pipex](./Rank2/pipex)** | Simulating the Unix pipe mechanism `\|`. File descriptors and redirection. | C, Unix | ✅ |
 | **3** | **[minishell](https://github.com/Kopfdreher/minishell)** | A functional shell. Parsing, executors, built-ins, and signal handling. | C, Bash | ✅ |
 | **3** | **[philosophers](./Rank3/philo)** | The Dining Philosophers problem. Threads, mutexes, and concurrency. | C, Threads | ✅ |
-| **4** | **[CPP Modules 00-04](./Rank4/CPP00)** | Introduction to OOP: Classes, polymorphism, inheritance, and templates. | C++ | ✅ |
+| **4** | **[CPP Modules 00-04](./Rank4/)** | Introduction to OOP: Classes, polymorphism, inheritance, and templates. | C++ | ✅ |
 | **4** | **[NetPractice](./Rank4/NetPractice)** | Networking exercises (Subnets, TCP/IP, Routing). | Network | ✅ |
-| **5** | **CPP Modules 05-09** | Advanced C++: Exceptions, casting, templates, and containers (STL). | C++ | ✅ |
+| **5** | **[CPP Modules 05-09](./Rank5/)** | Advanced C++: Exceptions, casting, templates, and containers (STL). | C++ | ✅ |
 | **5** | **Inception** | System Administration using Docker. Setting up a LEMP stack. | Docker | ⏳ |
 | **5** | **webserv** | Writing an HTTP server from scratch. (Or ft_irc). | C++ | ⏳ |
 | **6** | **ft_transcendence** | The final project. A full-stack SPA Pong game with chat and multiplayer. | TS, NestJS | ⏳ |
