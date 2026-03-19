@@ -11,18 +11,11 @@ void iter(T *arr, std::size_t const len, F func) {
   }
 }
 
-template <typename T>
-void add(T &x) {
-  x++;
-}
+template <typename T> void add(T &x) { x++; }
 
-template <typename T>
-void print(T const &x) {
-  std::cout << x << " ";
-}
+template <typename T> void print(T const &x) { std::cout << x << " "; }
 
-template <typename T>
-void printArr(T *arr, std::size_t const len) {
+template <typename T> void printArr(T *arr, std::size_t const len) {
   iter<T>(arr, len, print<T>);
   std::cout << std::endl;
 }
