@@ -1,8 +1,8 @@
 #include "Span.hpp"
 #include <algorithm>
+#include <iterator>
 #include <limits>
 #include <numeric>
-#include <iterator>
 
 // public ----------------------------------------------------------------------
 
