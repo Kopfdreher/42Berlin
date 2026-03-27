@@ -153,11 +153,14 @@ The server should be configurable via a text file utilizing Nginx-style syntax.
 * **`return <URI>`**: HTTP redirection.
 * **`client_max_body_size <size>`**: Limits the size of incoming client requests (e.g., `1MB`).
 
----
+
 
 # Sources
-[Webserv: A C++ Webserver by Iaian](https://hackmd.io/@laian/SJZHcOsmT)
-[RFC: Hypertext Transfer Protocol -- HTTP/1.1](https://datatracker.ietf.org/doc/html/rfc2616#section-9.4)
-[socket(2) - Linux man page](https://linux.die.net/man/2/socket)
-[M4nnb3ll on Webserv](https://m4nnb3ll.medium.com/webserv-building-a-non-blocking-web-server-in-c-98-a-42-project-04c7365e4ec7
 
+[Webserv: A C++ Webserver by Iaian](https://hackmd.io/@laian/SJZHcOsmT)
+
+[RFC: Hypertext Transfer Protocol -- HTTP/1.1](https://datatracker.ietf.org/doc/html/rfc2616#section-9.4)
+
+[socket(2) - Linux man page](https://linux.die.net/man/2/socket)
+
+[M4nnb3ll on Webserv](https://m4nnb3ll.medium.com/webserv-building-a-non-blocking-web-server-in-c-98-a-42-project-04c7365e4ec7)
