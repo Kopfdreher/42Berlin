@@ -57,6 +57,20 @@ std::string handleRequest(const HttpRequest &req, const ServerConfig &config,
     return executeCGI(filepath, req, body);
   }
 
+  // NEW: Delete Routing
+  if (req.method == "DELETE") {
+    // std::remove takes a const char * and returns 0 on success
+    if (std::remove(filepath.c_str()) == 0) {
+      // 204 No Content is the standard HTTP response for a successful DELETE
+      // that doesn't return a message body.
+      return "HTTP/1.1 204 No Content\r\nContent-Length: 0\r\n\r\n";
+    } else {
+      // If std::remove returns non-zero, the file didn't exist or we lacked
+      // permission
+      return "HTTP/1.1 404 Not Found\r\nContent-Length: 0\r\n\r\n";
+    }
+  }
+
   // Static File Routing
   if (req.method != "GET") { // Client requests information from the server
     return "HTTP/1.1 405 Method Not Allowed\r\nContent-Length: 0\r\n\r\n";
