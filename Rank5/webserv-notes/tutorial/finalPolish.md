@@ -1,7 +1,5 @@
 ### The "42 Subject" Edge Case Checklist:
 
-
-
 * **1. The `DELETE` Method:** Right now, your server only handles `GET` and `POST`. You need to add a quick block in `handleRequest` that checks for `DELETE`, uses the C++ `std::remove(filepath.c_str())` function to delete the target file, and returns a `204 No Content` or `200 OK` response.
 
 
@@ -20,8 +18,50 @@
 
 * **5. Server Names:** The config parser needs to handle `server_name` (e.g., `server_name example.com;`). This allows you to host two completely different websites on the *exact same port*. You route the request by looking at the `Host: example.com` header the browser sends!
 
+---
 
+## The Diagram
 
-**The Verdict:**
+graph TD
+    subgraph Configuration_Layer [Phase 4 & 5: Config & Virtual Hosts]
+        CFG_File[Config File] --> Parser[Config Parser]
+        Parser --> SrvObj[ServerConfig Objects]
+        SrvObj --> VHost{Host Header Check}
+        note1[Handles server_name & Port Multiplexing] --- VHost
+    end
 
-You are 90% of the way there. The hardest architectural hurdles are completely behind you. Everything left on this list is just adding standard C++ logic to the beautiful framework you've already built.
+    subgraph Event_Loop [Phase 2 & Edge Case 4: The Heartbeat]
+        Epoll[epoll_wait] --> TimeoutCheck[Timeout Monitor]
+        TimeoutCheck -- Idle > 30s --> CloseConn[Close FD & Cleanup]
+        TimeoutCheck -- Active --> NewConn{New Event?}
+    end
+
+    subgraph Request_Processing [Phase 3 & Edge Case 1 & 2]
+        NewConn -- EPOLLIN --> Read[read into Buffer]
+        Read --> RequestParser[HTTP Parser]
+        
+        RequestParser --> MethodSwitch{Method?}
+        MethodSwitch -- GET --> PathCheck{File or Dir?}
+        MethodSwitch -- POST --> CGIEngine
+        MethodSwitch -- DELETE --> DeleteLogic[std::remove file]
+        
+        PathCheck -- Directory & autoindex --> DirListing[dirent.h HTML Gen]
+        PathCheck -- File --> FileReader[Open File Stream]
+    end
+
+    subgraph Response_Management [Edge Case 3: Outbound Chunking]
+        FileReader --> Buffering[Load Response into Outbound Buffer]
+        DirListing --> Buffering
+        CGIEngine --> Buffering
+        DeleteLogic --> Buffering
+        
+        Buffering --> RegisterOut[Modify epoll: EPOLLOUT]
+        RegisterOut --> Epoll
+        
+        NewConn -- EPOLLOUT --> ChunkWrite[write 8KB Chunk]
+        ChunkWrite -- More Data? --> Epoll
+        ChunkWrite -- Finished --> Done[Clear Buffer / Keep-Alive]
+    end
+
+    style Event_Loop fill:#fdd,stroke:#333,stroke-width:2px
+    style Response_Management fill:#fff4dd,stroke:#d4a017,stroke-width:2px
