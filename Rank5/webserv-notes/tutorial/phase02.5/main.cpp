@@ -35,7 +35,7 @@ int main() {
 
   struct epoll_event event;
   struct epoll_event
-      events[MAX_EVENTS]; // Array to hold the eventss triggered by OS
+      events[MAX_EVENTS]; // Array to hold the events triggered by OS
 
   // Add our server (listening) socket to the epoll instance
   event.events = EPOLLIN;    // We want to know when it's ready to read (accept)
@@ -96,7 +96,7 @@ int main() {
           std::cout << "Received data from FD " << client_fd << ":\n" << buffer << std::endl;
 
           std::string http_response = "HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\nContent-Length: 17\r\n\r\nHello from epoll!";
-          write(client_fd, http_response.c_str(), http_response. length());
+          write(client_fd, http_response.c_str(), http_response.length());
 
           close(client_fd);
         }

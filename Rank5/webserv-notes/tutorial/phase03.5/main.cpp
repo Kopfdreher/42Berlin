@@ -31,7 +31,9 @@ HttpRequest parseRequest(const std::string &raw_request) {
 
   // Extract Method, URI, and Version from the start line
   std::istringstream iss(request_line);
-  iss >> req.method >> req.uri >> req.version;
+  if(!(iss >> req.method >> req.uri >> req.version)) {
+    // Handle 400 Bad Request errorconfig 
+  }
 
   return req;
 }
