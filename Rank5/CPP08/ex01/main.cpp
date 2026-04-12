@@ -2,6 +2,7 @@
 #include <cstdlib>
 #include <ctime>
 #include <iostream>
+#include <vector>
 
 int main() {
   std::srand(std::time(NULL));
@@ -13,20 +14,23 @@ int main() {
     sp.addNumber(17);
     sp.addNumber(9);
     sp.addNumber(11);
-    //sp.addNumber(11);
+    // sp.addNumber(11);
     std::cout << "shortestSpan: " << sp.shortestSpan() << std::endl;
     std::cout << "longestSpan: " << sp.longestSpan() << std::endl;
   } catch (std::exception &e) {
     std::cerr << e.what() << std::endl;
   }
-  int amount = 10000;
-  std::cout << "\n--- " << amount << " Number Test ---" << std::endl;
-  {
-    Span sp = Span(amount);
-    for (int i = 0; i < amount; i++) {
-      sp.addNumber(std::rand());
+  try {
+    int amount = 10000;
+    std::vector<int> vec(amount, 42);
+    Span sp(amount);
+    sp.addNumber(vec.begin(), vec.end());
+    std::cout << "\n--- " << amount << " Number Test ---" << std::endl;
+    {
+      std::cout << "shortestSpan: " << sp.shortestSpan() << std::endl;
+      std::cout << "longestSpan: " << sp.longestSpan() << std::endl;
     }
-    std::cout << "shortestSpan: " << sp.shortestSpan() << std::endl;
-    std::cout << "longestSpan: " << sp.longestSpan() << std::endl;
+  } catch (std::exception &e) {
+    std::cerr << e.what() << std::endl;
   }
 }

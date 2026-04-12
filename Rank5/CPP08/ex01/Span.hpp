@@ -1,8 +1,8 @@
 #ifndef SPAN_H
 #define SPAN_H
 
-#include <stdexcept>
 #include <set>
+#include <stdexcept>
 
 class Span {
 
@@ -12,13 +12,21 @@ public:
   Span &operator=(Span const &); // copy assignment operator
   ~Span();                       // destructor
 
-// Methods
+  // Methods
 
   void addNumber(int num);
   unsigned int shortestSpan();
   unsigned int longestSpan();
 
-// Exceptions
+  template <typename InputIterator>
+  void addNumber(InputIterator first, InputIterator last) {
+    if (static_cast<unsigned int>(std::distance(first, last)) >
+        _N - _container.size())
+      throw LimitReachedException();
+    _container.insert(first, last);
+  }
+
+  // Exceptions
 
   class LimitReachedException : public std::exception {
   public:

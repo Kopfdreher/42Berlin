@@ -35,16 +35,18 @@ unsigned int Span::shortestSpan() {
 
   unsigned int shortest;
   unsigned int current;
-  std::multiset<int>::iterator it;
-  std::multiset<int>::iterator next;
-  std::multiset<int>::iterator secondLast = _container.end()--;
+  std::multiset<int>::iterator it = _container.begin();
+  std::multiset<int>::iterator next = it;
+  std::multiset<int>::iterator ite = _container.end();
+  next++;
 
   shortest = std::numeric_limits<unsigned int>::max();
-  for (it = _container.begin(); it != secondLast; it++) {
+  while (next != ite) {
     next = it;
     next++;
     current = *next - *it;
     shortest = std::min(shortest, current);
+    it++;
   }
   return shortest;
 }
