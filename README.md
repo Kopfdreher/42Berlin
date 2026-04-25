@@ -9,7 +9,7 @@ This repository documents my entire journey through the **Common Core** curricul
 
 42 is a global coding school with no teachers, no classes, and a unique peer-to-peer learning model. The curriculum focuses on building deep computer science fundamentals from scratch—starting with recreating the C standard library and moving into advanced algorithms, graphics, system administration, and Object-Oriented Programming.
 
-Currently, I am working on **Rank 4**, focusing on the transition from C to **C++**.
+Currently, I am working on **Rank 5**.
 
 ---
 
@@ -30,7 +30,7 @@ Currently, I am working on **Rank 4**, focusing on the transition from C to **C+
 | **4** | **[NetPractice](./Rank4/NetPractice)** | Networking exercises (Subnets, TCP/IP, Routing). | Network | ✅ |
 | **5** | **[CPP Modules 05-09](./Rank5/)** | Advanced C++: Exceptions, casting, templates, and containers (STL). | C++ | ✅ |
 | **5** | **Inception** | System Administration using Docker. Setting up a LEMP stack. | Docker | ⏳ |
-| **5** | **webserv** | Writing an HTTP server from scratch. (Or ft_irc). | C++ | ⏳ |
+| **5** | **webserv** | Writing an HTTP server from scratch. | C++ | ⏳ |
 | **6** | **ft_transcendence** | The final project. A full-stack SPA Pong game with chat and multiplayer. | TS, NestJS | ⏳ |
 
 ---
