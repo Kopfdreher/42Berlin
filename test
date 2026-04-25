@@ -1,7 +1,0 @@
-constructor(std::string str) {}
-
-object a = "hello";
-
-func(class a, class b);
-
-func("hello", "world");
