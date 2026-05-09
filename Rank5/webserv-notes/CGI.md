@@ -45,13 +45,13 @@ location /cgi-bin {
 ```
 
 ### URL (Uniform Resource Locator)
-URL | http:// | localhost | :8080 | /cgi-bin/ | folder/test.php | /extra/path | ? | name=example
-Component | Protocol | Host | Port | Location | File in root | Path Info |  | Query
-CGI Variable | REQUEST_SCHEME | SERVER_NAME | SERVER_PORT | SCRIPT_NAME | SCRIPT_NAME | PATH_INFO |  | QUERY_STRING
+URL,http://,localhost,:8080,/cgi-bin/,folder/test.php,/extra/path,?,name=example
+Component,Protocol,Host,Port,Location,File in root,Path Info,,Query
+CGI Variable,REQUEST_SCHEME,SERVER_NAME,SERVER_PORT,SCRIPT_NAME,SCRIPT_NAME,PATH_INFO,,QUERY_STRING
 
 ### HTTP Header (Hypertext Transfer Protocol
-HTTP Header | POST | /cgi-bin/ | folder/test.php | /extra/path | ? | name=example | HTTP/1.1
-CGI Variable | REQUEST_METHOD | SCRIPT_NAME | SCRIPT_NAME | PATH_INFO |  | QUERY_STRING | SERVER_PROTOCOL
+HTTP Header,POST,/cgi-bin/,folder/test.php,/extra/path,?,name=example,HTTP/1.1
+CGI Variable,REQUEST_METHOD,SCRIPT_NAME,SCRIPT_NAME,PATH_INFO,,QUERY_STRING,SERVER_PROTOCOL
 
 ### Important "Hidden" Variables
 `CONTENT_LENGTH`: in HTTP-Header as `Content-Length`
