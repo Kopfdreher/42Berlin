@@ -2,14 +2,14 @@
 
 ![42 Berlin](https://img.shields.io/badge/School-42_Berlin-black?style=for-the-badge&logo=42)
 ![Language](https://img.shields.io/badge/Language-C_%2F_C%2B%2B-00599C?style=for-the-badge&logo=c%2B%2B)
-![Status](https://img.shields.io/badge/Status-Rank_4_(In_Progress)-success?style=for-the-badge)
+![Status](https://img.shields.io/badge/Status-Rank_5_(In_Progress)-success?style=for-the-badge)
 
 ## 👋 About
 This repository documents my entire journey through the **Common Core** curriculum at **42 Berlin**. 
 
 42 is a global coding school with no teachers, no classes, and a unique peer-to-peer learning model. The curriculum focuses on building deep computer science fundamentals from scratch—starting with recreating the C standard library and moving into advanced algorithms, graphics, system administration, and Object-Oriented Programming.
 
-Currently, I am working on **Rank 4**, focusing on the transition from C to **C++**.
+Currently, I am working on **Rank 5**.
 
 ---
 
@@ -30,7 +30,7 @@ Currently, I am working on **Rank 4**, focusing on the transition from C to **C+
 | **4** | **[NetPractice](./Rank4/NetPractice)** | Networking exercises (Subnets, TCP/IP, Routing). | Network | ✅ |
 | **5** | **[CPP Modules 05-09](./Rank5/)** | Advanced C++: Exceptions, casting, templates, and containers (STL). | C++ | ✅ |
 | **5** | **Inception** | System Administration using Docker. Setting up a LEMP stack. | Docker | ⏳ |
-| **5** | **webserv** | Writing an HTTP server from scratch. (Or ft_irc). | C++ | ⏳ |
+| **5** | **webserv** | Writing an HTTP server from scratch. | C++ | ⏳ |
 | **6** | **ft_transcendence** | The final project. A full-stack SPA Pong game with chat and multiplayer. | TS, NestJS | ⏳ |
 
 ---
@@ -80,9 +80,7 @@ Recreating the behavior of the shell command: `< infile cmd1 | cmd2 > outfile`.
 ---
 
 ## 📬 Contact
-
-* [Webseite](https://www.sgavrilov.de)
-* [LinkedIn](https://www.linkedin.com/in/sergej-gavrilov)
+[Webseite](https://www.sgavrilov.de) | [LinkedIn](https://www.linkedin.com/in/sergej-gavrilov)
 
 ---
 *Created by Sergej Gavrilov.*
