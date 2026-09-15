@@ -1,41 +1,38 @@
 #include "easyfind.hpp"
 #include <iostream>
-#include <list>
 #include <vector>
+#include <list>
 
 int main() {
-  std::cout << "\nIterate through Int-List" << std::endl;
-  try {
-    std::list<int> lst;
-
-    lst.push_back(10);
-    lst.push_back(23);
-    lst.push_back(3);
-    lst.push_back(17);
-    lst.push_back(20);
-
-    std::list<int>::iterator it1 = easyfind(lst, 3);
-    std::cout << "*it: " << *it1 << std::endl;
-    std::list<int>::iterator it2 = easyfind(lst, 42);
-    std::cout << "*it: " << *it2 << std::endl;
-  } catch (std::exception &e) {
-    std::cerr << e.what() << std::endl;
-  }
-  std::cout << "\nIterate through Vector-List" << std::endl;
-  try {
+    std::cout << "--- Test 1: std::vector<int> (Success & Failure) ---" << std::endl;
     std::vector<int> vec;
-
+    vec.push_back(5);
     vec.push_back(10);
-    vec.push_back(23);
-    vec.push_back(3);
-    vec.push_back(17);
-    vec.push_back(20);
+    vec.push_back(15);
 
-    std::vector<int>::iterator it1 = easyfind(vec, 3);
-    std::cout << "*it: " << *it1 << std::endl;
-    std::vector<int>::iterator it2 = easyfind(vec, 42);
-    std::cout << "*it: " << *it2 << std::endl;
-  } catch (std::exception &e) {
-    std::cerr << e.what() << std::endl;
-  }
+    try {
+        std::vector<int>::iterator it = easyfind(vec, 10);
+        std::cout << "Found in vec: " << *it << std::endl;
+    } catch (const std::exception &e) {
+        std::cerr << e.what() << std::endl;
+    }
+
+    try {
+        easyfind(vec, 99);
+    } catch (const std::exception &e) {
+        std::cout << "Caught expected exception: " << e.what() << std::endl;
+    }
+
+    std::cout << "\n--- Test 2: const std::list<int> (Const Overload) ---" << std::endl;
+    int arr[] = {1, 2, 3, 4};
+    const std::list<int> constLst(arr, arr + 4);
+
+    try {
+        std::list<int>::const_iterator cit = easyfind(constLst, 3);
+        std::cout << "Found in const list: " << *cit << std::endl;
+    } catch (const std::exception &e) {
+        std::cerr << e.what() << std::endl;
+    }
+
+    return 0;
 }
