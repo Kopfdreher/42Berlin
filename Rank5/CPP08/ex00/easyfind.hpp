@@ -1,5 +1,5 @@
-#ifndef EASYFIND_H
-#define EASYFIND_H
+#ifndef EASYFIND_HPP
+#define EASYFIND_HPP
 
 #include <algorithm>
 #include <stdexcept>

@@ -33,20 +33,17 @@ unsigned int Span::shortestSpan() {
   if (_container.size() <= 1)
     throw NoSpanFoundException();
 
-  unsigned int shortest;
-  unsigned int current;
-  std::multiset<int>::iterator it = _container.begin();
-  std::multiset<int>::iterator next = it;
-  std::multiset<int>::iterator ite = _container.end();
-  next++;
+  unsigned int shortest = std::numeric_limits<unsigned int>::max();
 
-  shortest = std::numeric_limits<unsigned int>::max();
-  while (next != ite) {
-    next = it;
-    next++;
-    current = *next - *it;
-    shortest = std::min(shortest, current);
-    it++;
+  std::multiset<int>::iterator current = _container.begin();
+  std::multiset<int>::iterator next = current;
+  ++next;
+
+  while (next != _container.end()) {
+    unsigned int diff = static_cast<unsigned int>(*next - *current);
+    shortest = std::min(shortest, diff);
+    ++current;
+    ++next;
   }
   return shortest;
 }
@@ -54,9 +51,7 @@ unsigned int Span::shortestSpan() {
 unsigned int Span::longestSpan() {
   if (_container.size() <= 1)
     throw NoSpanFoundException();
-
-  return (*(std::max_element(_container.begin(), _container.end())) -
-          *(std::min_element(_container.begin(), _container.end())));
+  return static_cast<unsigned int>(*_container.rbegin() - *_container.begin());
 }
 
 // private ---------------------------------------------------------------------

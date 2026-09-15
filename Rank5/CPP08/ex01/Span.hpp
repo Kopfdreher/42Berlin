@@ -1,5 +1,5 @@
-#ifndef SPAN_H
-#define SPAN_H
+#ifndef SPAN_HPP
+#define SPAN_HPP
 
 #include <set>
 #include <stdexcept>

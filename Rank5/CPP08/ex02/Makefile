@@ -1,7 +1,7 @@
 NAME		= ex02
 
-CC			= c++
-CPPFLAGS	= -Wall -Werror -Wextra -std=c++98
+CXX			= c++
+CXXFLAGS	= -Wall -Werror -Wextra -std=c++98
 
 INCS		= $(addsuffix .hpp, MutantStack )\
 			  $(addsuffix .tpp, MutantStack )
@@ -15,10 +15,10 @@ RM			= rm -f
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	$(CC) $(CPPFLAGS) $(OBJS) -o $(NAME)
+	$(CXX) $(CXXFLAGS) $(OBJS) -o $(NAME)
 
 %.o : %.cpp $(INCS)
-	$(CC) $(CPPFLAGS) -c $< -o $@
+	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 clean:
 	$(RM) $(OBJS)

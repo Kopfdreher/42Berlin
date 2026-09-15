@@ -3,18 +3,15 @@
 #include <ctime>
 #include <iostream>
 #include <vector>
+#include <climits>
 
 int main() {
   std::srand(std::time(NULL));
   std::cout << "\n--- 5 Number Test ---" << std::endl;
   try {
     Span sp = Span(5);
-    sp.addNumber(3);
-    sp.addNumber(3);
-    sp.addNumber(17);
-    sp.addNumber(9);
-    sp.addNumber(11);
-    // sp.addNumber(11);
+    sp.addNumber(INT_MIN);
+    sp.addNumber(INT_MAX);
     std::cout << "shortestSpan: " << sp.shortestSpan() << std::endl;
     std::cout << "longestSpan: " << sp.longestSpan() << std::endl;
   } catch (std::exception &e) {
