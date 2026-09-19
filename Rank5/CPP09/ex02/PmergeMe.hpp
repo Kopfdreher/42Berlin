@@ -15,13 +15,13 @@ public:
   void processInput(int argc, char **argv);
 
 private:
-  std::vector<int> _vec;
-  std::deque<int> _deq;
+  std::vector<int> v;
+  std::deque<int> d;
 
-  void sortVec(std::vector<int> &v);
+  void sortVec();
   std::vector<int> generateJSeqVec(int n);
 
-  void sortDeq(std::deque<int> &d);
+  void sortDeq();
   std::deque<int> generateJSeqDeq(int n);
 
   bool parseInput(int argc, char **argv);

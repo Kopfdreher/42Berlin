@@ -14,8 +14,8 @@ PmergeMe::PmergeMe(PmergeMe const &src) { *this = src; }
 PmergeMe &PmergeMe::operator=(PmergeMe const &rhs) {
 
   if (this != &rhs) {
-    _vec = rhs.vec;
-    _deq = rhs.deq;
+    v = rhs.v;
+    d = rhs.d;
   }
   return *this;
 }
@@ -29,32 +29,32 @@ void PmergeMe::processInput(int argc, char **argv) {
   }
 
   std::cout << "Before: ";
-  for (size_t i = 0; i < _vec.size(); ++i) {
-    std::cout << _vec[i] << (i + 1 < _vec.size() ? " " : "");
+  for (size_t i = 0; i < v.size(); ++i) {
+    std::cout << v[i] << (i + 1 < v.size() ? " " : "");
   }
   std::cout << std::endl;
 
   struct timeval startVec, endVec;
   gettimeofday(&startVec, NULL);
-  sortVec(_vec);
+  sortVec();
   gettimeofday(&endVec, NULL);
   double timeVec = calculateTime(startVec, endVec);
 
   struct timeval startDeq, endDeq;
   gettimeofday(&startDeq, NULL);
-  sortDeq(_deq);
+  sortDeq();
   gettimeofday(&endDeq, NULL);
   double timeDeq = calculateTime(startDeq, endDeq);
 
   std::cout << "After: ";
-  for (size_t i = 0; i < _vec.size(); ++i) {
-    std::cout << _vec[i] << (i + 1 < _vec.size() ? " " : "");
+  for (size_t i = 0; i < v.size(); ++i) {
+    std::cout << v[i] << (i + 1 < v.size() ? " " : "");
   }
   std::cout << std::endl;
 
-  std::cout << "Time to process a range of " << _vec.size()
+  std::cout << "Time to process a range of " << v.size()
             << " elements with std::vector : " << timeVec << " us" << std::endl;
-  std::cout << "Time to process a range of " << _deq.size()
+  std::cout << "Time to process a range of " << d.size()
             << " elements with std::deque : " << timeDeq << " us" << std::endl;
 }
 
@@ -77,10 +77,10 @@ bool PmergeMe::parseInput(int argc, char **argv) {
     if (*endPtr != '\0' || val < 0 || val > INT_MAX)
       return false;
 
-    _vec.push_back(static_cast<int>(val));
-    _deq.push_back(static_cast<int>(val));
+    v.push_back(static_cast<int>(val));
+    d.push_back(static_cast<int>(val));
   }
-  return !_vec.empty();
+  return !v.empty();
 }
 
 // std::vector
@@ -104,9 +104,8 @@ std::vector<int> PmergeMe::generateJSeq(int n) {
   return jSeq;
 }
 
-void PmergeMe::sortVec(std::vector<int> &v) {
-  if (v.size() <= 1)
-    return;
+void PmergeMe::sortVec() {
+  if (v.size() <= 1) return;
 
   bool hasStraggler = (v.size() % 2 != 0);
   int straggler = 0;
@@ -115,57 +114,7 @@ void PmergeMe::sortVec(std::vector<int> &v) {
     v.pop_back();
   }
 
-  std::vector<int> mainChain;
-  std::vector<int> pending;
-
-  for (size_t i = 0; i < v.size(); i += 2) {
-    if (v[i] > v[i + 1]) {
-      mainChain.push_back(v[i]);
-      pending.push_back(v[i + 1]);
-    } else {
-      mainChain.push_back(v[i + 1]);
-      pending.push_back(v[i]);
-    }
-  }
-
-  // sort main chain recursively
-  sortVec(mainChain);
-
-  if (!pending.empty()) {
-    mainChain.insert(mainChain.begin(), pending[0]);
-  }
-
-  std::vector<int> jSeq = generateJSeqVec(pending.size());
-  size_t lastIdx = 1;
-
-  for (size_t i = 0; i < jSeq.size(); ++i) {
-    size_t currIdx = jSeq[i];
-    size_t end = std::min(currIdx, pending.size());
-
-    for (size_t j = end; j > lastIdx; --j) {
-      int val = pending[j - 1];
-      std::vector<int>::iterator pos = std::lower_bound(mainChain.begin(), mainChain.end(), val
-    }
-  }
+  // Setup initial
 }
 
 // std::deque
-
-std::deque<int> PmergeMe::generateJSeq(int n) {
-  std::deque<int> jSeq;
-  if (n <= 0)
-    return jSeq;
-
-  jSeq.push_back(1);
-  if (n == 1)
-    return jSeq;
-
-  jSeq.push_back(3);
-  while (true) {
-    int next = jSeq.back() + 2 * jSeq[jSeq.size() - 2];
-    if (next >= n)
-      break;
-    jSeq.push_back(next);
-  }
-  return jSeq;
-}
