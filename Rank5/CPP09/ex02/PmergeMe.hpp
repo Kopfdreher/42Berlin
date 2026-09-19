@@ -1,8 +1,8 @@
 #ifndef PMERGEME_HPP
 #define PMERGEME_HPP
 
-#include <vector>
 #include <deque>
+#include <vector>
 
 class PmergeMe {
 
@@ -19,10 +19,13 @@ private:
   std::deque<int> _deq;
 
   void sortVec(std::vector<int> &v);
-  void sortDeq(std::deque<int> &d);
+  std::vector<int> generateJSeqVec(int n);
 
-  std::vector<int> generateJSeq(int n);
+  void sortDeq(std::deque<int> &d);
+  std::deque<int> generateJSeqDeq(int n);
+
   bool parseInput(int argc, char **argv);
+  double calculateTime(struct timeval &start, struct timeval &end);
 };
 
 #endif
