@@ -1,11 +1,11 @@
-NAME		= btc
+NAME		= PmergeMe
 
 CXX			= c++
 CXXFLAGS	= -Wall -Werror -Wextra -std=c++98
 
-INCS		= $(addsuffix .hpp, )
+INCS		= $(addsuffix .hpp, PmergeMe)
 
-SRCS		= $(addsuffix .cpp, main )
+SRCS		= $(addsuffix .cpp, PmergeMe main)
 
 OBJS		= $(SRCS:.cpp=.o)
 

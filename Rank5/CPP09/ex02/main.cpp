@@ -6,7 +6,7 @@ int main(int argc, char *argv[]) {
     std::cerr << "Error: too many numbers"<< std::endl;
     return 1;
   }
-  if (argc != 2) {
+  if (argc < 2) {
     std::cerr << "Please declare an input: ./PmergeMe num num ..."<< std::endl;
     return 1;
   }
