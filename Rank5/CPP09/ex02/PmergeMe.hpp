@@ -45,14 +45,15 @@ private:
 
   bool parseInput(int argc, char **argv);
   double calculateTime(struct timeval &start, struct timeval &end);
+  void upperBoundInsert(std::vector<ElementV> &main_chain, ElementV &value);
 
-  // Vector Implementation
-  void sortVecContainer(std::vector<ElementV> &arr);
-  std::vector<size_t> generateJSeqVec(size_t n);
+    // Vector Implementation
+    void sortVecContainer(std::vector<ElementV> & arr);
+    std::vector<size_t> generateJSeqVec(size_t n);
 
-  // Deque Implementation
-  void sortDeqContainer(std::deque<ElementD> &arr);
-  std::deque<size_t> generateJSeqDeq(size_t n);
-};
+    // Deque Implementation
+    void sortDeqContainer(std::deque<ElementD> & arr);
+    std::deque<size_t> generateJSeqDeq(size_t n);
+  };
 
 #endif

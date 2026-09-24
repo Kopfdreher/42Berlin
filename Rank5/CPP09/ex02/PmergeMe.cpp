@@ -78,7 +78,20 @@ void PmergeMe::processInput(int argc, char **argv) {
     v[i] = vecElements[i].value;
   }
 
+  std::cout << "After: ";
+  for (size_t i = 0; i < v.size(); ++i) {
+    std::cout << v[i] << (i + 1 < v.size() ? " " : "");
+  }
+  std::cout << std::endl;
+
+  double timeVec = calculateTime(startVec, endVec);
+
+  std::cout << "Time to process a range of " << v.size()
+            << " elements with std::vector : " << timeVec << " us\n"
+            << "Comparisons: " << getVecCompCount() << std::endl;
+
   // Deque processing
+  /*
   std::deque<ElementD> deqElements;
   for (size_t i = 0; i < d.size(); ++i) {
     ElementD el;
@@ -95,19 +108,12 @@ void PmergeMe::processInput(int argc, char **argv) {
     d[i] = deqElements[i].value;
   }
 
-  double timeVec = calculateTime(startVec, endVec);
   double timeDeq = calculateTime(startDeq, endDeq);
 
-  std::cout << "After: ";
-  for (size_t i = 0; i < v.size(); ++i) {
-    std::cout << v[i] << (i + 1 < v.size() ? " " : "");
-  }
-  std::cout << std::endl;
-
-  std::cout << "Time to process a range of " << v.size()
-            << " elements with std::vector : " << timeVec << " us\n" << "Comparisons: " << getVecCompCount() << std::endl;
   std::cout << "Time to process a range of " << d.size()
-            << " elements with std::deque : " << timeDeq << " us\n" << "Comparisons: " << getDeqCompCount() << std::endl;
+            << " elements with std::deque : " << timeDeq << " us\n" <<
+  "Comparisons: " << getDeqCompCount() << std::endl;
+  */
 }
 
 // VECTOR
@@ -125,9 +131,9 @@ std::vector<size_t> PmergeMe::generateJSeqVec(size_t n) {
     for (size_t i = upper; i > last; --i) {
       seq.push_back(i - 1); // 0-based indexing
     }
-    size_t temp = curr;
-    curr = curr + 2 * last;
-    last = temp;
+    size_t next = curr + 2 * last;
+    last = curr;
+    curr = next;
   }
   return seq;
 }
@@ -163,7 +169,7 @@ void PmergeMe::sortVecContainer(std::vector<ElementV> &arr) {
   // Step 3: Reconstruct Main Chain and Pend
   std::vector<ElementV> main_chain;
   std::vector<ElementV> pend;
-  main_chain.reserve(arr.size() + (has_straggler ? 1 : 0));
+  main_chain.reserve(arr.size() + 1);// (has_straggler ? 1 : 0));
   pend.reserve(pairs.size());
 
   for (size_t i = 0; i < pairs.size(); ++i) {
@@ -184,16 +190,16 @@ void PmergeMe::sortVecContainer(std::vector<ElementV> &arr) {
     size_t pend_idx = jacob_order[i];
     if (pend_idx == 0)
       continue; // pend[0] already inserted
-
     ElementV item = pend[pend_idx];
 
-    // Search bound is position of associated main element a_idx
-    // Since b_1 was inserted, offset is pend_idx + 1 initially
-    size_t search_bound =
-        std::min(pend_idx + main_chain.size(), main_chain.size());
+    std::vector<ElementV>::iterator bound_it = main_chain.end();
+    for (std::vector<ElementV>::iterator it = main_chain.begin(); it != main_chain.end(); ++it) {
+	    if (it->value == pairs[pend_idx].value) {
+		    bound_it = it;
+		    break;
+	    }
+    }
 
-    std::vector<ElementV>::iterator bound_it =
-        main_chain.begin() + search_bound;
     std::vector<ElementV>::iterator pos =
         std::upper_bound(main_chain.begin(), bound_it, item);
 
@@ -211,7 +217,7 @@ void PmergeMe::sortVecContainer(std::vector<ElementV> &arr) {
 }
 
 // DEQUE
-
+/*
 std::deque<size_t> PmergeMe::generateJSeqDeq(size_t n) {
   std::deque<size_t> seq;
   if (n == 0)
@@ -296,3 +302,4 @@ void PmergeMe::sortDeqContainer(std::deque<ElementD> &arr) {
 
   arr = main_chain;
 }
+*/
