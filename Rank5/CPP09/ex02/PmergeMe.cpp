@@ -96,12 +96,12 @@ void PmergeMe::processInput(int argc, char **argv) {
 // VECTOR
 
 void PmergeMe::sortVec(uShort block) {
-  uShort num_blocks = v.size() / block;
-  if (num_blocks < 2)
+  uShort numBlocks = v.size() / block;
+  if (numBlocks < 2)
     return;
 
-  bool has_straggler = (num_blocks % 2 != 0);
-  uShort paired_blocks = num_blocks - (has_straggler ? 1 : 0);
+  bool hasOdd = (numBlocks % 2 != 0);
+  uShort paired_blocks = numBlocks - (hasOdd ? 1 : 0);
 
   // Step 1: Pair up adjacent blocks
   for (size_t i = 0; i < paired_blocks; i += 2) {
@@ -118,20 +118,20 @@ void PmergeMe::sortVec(uShort block) {
   // Step 2: Recursive step with doubled block size
   sortVec(block * 2);
 
-  // Step 3: Reconstruct main_chain and pend using block start indices.
-  // main_chain starts as [b1, a1]. pend[k] is b_{k+2}; pair_pos[k] is the
-  // current index of its pair a_{k+2} in main_chain.
-  std::vector<uShort> main_chain;
+  // Step 3: Reconstruct mainChain and pend using block start indices.
+  // mainChain starts as [b1, a1]. pend[k] is b_{k+2}; pair_pos[k] is the
+  // current index of its pair a_{k+2} in mainChain.
+  std::vector<uShort> mainChain;
   std::vector<uShort> pend;
   std::vector<uShort> pair_pos;
 
-  main_chain.push_back(0 * block); // b1
-  main_chain.push_back(1 * block); // a1
+  mainChain.push_back(0 * block); // b1
+  mainChain.push_back(1 * block); // a1
 
   for (size_t i = 2; i < paired_blocks; i += 2) {
     pend.push_back(i * block); // b_k
-    pair_pos.push_back(static_cast<uShort>(main_chain.size()));
-    main_chain.push_back((i + 1) * block); // a_k
+    pair_pos.push_back(static_cast<uShort>(mainChain.size()));
+    mainChain.push_back((i + 1) * block); // a_k
   }
 
   // Step 4: Jacobsthal insertion. Jacob numbers count b1..b_n; b1 is already
@@ -139,7 +139,7 @@ void PmergeMe::sortVec(uShort block) {
   static const uShort jacob_nums[] = {1,  3,   5,   11,  21,   43,
                                       85, 171, 341, 683, 1365, 2731};
   uShort last_jacob = 1;
-  uShort nb = static_cast<uShort>(pend.size() + 1 + (has_straggler ? 1 : 0));
+  uShort nb = static_cast<uShort>(pend.size() + 1 + (hasOdd ? 1 : 0));
 
   for (size_t k = 1; k < sizeof(jacob_nums) / sizeof(jacob_nums[0]); ++k) {
     uShort curr_jacob = jacob_nums[k];
@@ -152,12 +152,11 @@ void PmergeMe::sortVec(uShort block) {
       if (b < 2)
         continue;
 
-      bool straggler = has_straggler && b == nb;
+      bool straggler = hasOdd && b == nb;
       uShort start = straggler ? paired_blocks * block : pend[b - 2];
-      uShort limit = straggler ? static_cast<uShort>(main_chain.size())
-                               : pair_pos[b - 2];
-      uShort inserted_at =
-          binaryInsertBlock(main_chain, start, block, limit);
+      uShort limit =
+          straggler ? static_cast<uShort>(mainChain.size()) : pair_pos[b - 2];
+      uShort inserted_at = binaryInsertBlock(mainChain, start, block, limit);
 
       for (size_t j = 0; j < pair_pos.size(); ++j) {
         if (pair_pos[j] >= inserted_at)
@@ -169,10 +168,10 @@ void PmergeMe::sortVec(uShort block) {
 
   // Step 5: Reconstruct v for this level
   std::vector<int> cache;
-  cache.reserve(num_blocks * block);
+  cache.reserve(numBlocks * block);
 
-  for (size_t i = 0; i < main_chain.size(); ++i) {
-    uShort src_start = main_chain[i];
+  for (size_t i = 0; i < mainChain.size(); ++i) {
+    uShort src_start = mainChain[i];
     for (size_t j = 0; j < block; ++j) {
       cache.push_back(v[src_start + j]);
     }
@@ -185,20 +184,18 @@ void PmergeMe::sortVec(uShort block) {
   std::copy(cache.begin(), cache.end(), v.begin());
 }
 
-uShort PmergeMe::binaryInsertBlock(std::vector<uShort> &main_chain,
-                                   uShort block_start, uShort block_size,
-                                   uShort search_limit) {
-  int target_val = v[block_start + block_size - 1];
+uShort PmergeMe::binaryInsertBlock(std::vector<uShort> &mainChain, uShort start,
+                                   uShort block, uShort high) {
+  int target_val = v[start + block - 1];
 
   uShort low = 0;
-  uShort high = search_limit;
 
   while (low < high) {
     uShort mid = low + (high - low) / 2;
     comp_count++;
 
-    uShort mid_block_start = main_chain[mid];
-    int mid_val = v[mid_block_start + block_size - 1];
+    uShort mid_start = mainChain[mid];
+    int mid_val = v[mid_start + block - 1];
 
     if (mid_val < target_val) {
       low = mid + 1;
@@ -207,6 +204,6 @@ uShort PmergeMe::binaryInsertBlock(std::vector<uShort> &main_chain,
     }
   }
 
-  main_chain.insert(main_chain.begin() + low, block_start);
+  mainChain.insert(mainChain.begin() + low, start);
   return low;
 }
