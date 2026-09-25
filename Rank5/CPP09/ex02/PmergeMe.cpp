@@ -153,9 +153,8 @@ void PmergeMe::sortVec(uShort block) {
         continue;
 
       uShort pend_idx = b - 2;
-      uShort inserted_at =
-          binaryInsertBlock(v, main_chain, pend[pend_idx], block,
-                            pair_pos[pend_idx], comp_count);
+      uShort inserted_at = binaryInsertBlock(main_chain, pend[pend_idx], block,
+                            pair_pos[pend_idx]);
 
       for (size_t j = 0; j < pair_pos.size(); ++j) {
         if (pair_pos[j] >= inserted_at)
@@ -169,8 +168,7 @@ void PmergeMe::sortVec(uShort block) {
   if (has_straggler) {
     uShort straggler_start = paired_blocks * block;
 
-    binaryInsertBlock(v, main_chain, straggler_start, block, main_chain.size(),
-                      comp_count);
+    binaryInsertBlock(main_chain, straggler_start, block, main_chain.size());
   }
 
   // Step 6: Reconstruct v for this level
@@ -191,11 +189,10 @@ void PmergeMe::sortVec(uShort block) {
   std::copy(cache.begin(), cache.end(), v.begin());
 }
 
-uShort PmergeMe::binaryInsertBlock(std::vector<int> const &arr,
-                                   std::vector<uShort> &main_chain,
+uShort PmergeMe::binaryInsertBlock(std::vector<uShort> &main_chain,
                                    uShort block_start, uShort block_size,
-                                   uShort search_limit, uShort &comp_count) {
-  int target_val = arr[block_start + block_size - 1];
+                                   uShort search_limit) {
+  int target_val = v[block_start + block_size - 1];
 
   uShort low = 0;
   uShort high = search_limit;
@@ -205,7 +202,7 @@ uShort PmergeMe::binaryInsertBlock(std::vector<int> const &arr,
     comp_count++;
 
     uShort mid_block_start = main_chain[mid];
-    int mid_val = arr[mid_block_start + block_size - 1];
+    int mid_val = v[mid_block_start + block_size - 1];
 
     if (mid_val < target_val) {
       low = mid + 1;

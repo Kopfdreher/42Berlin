@@ -25,10 +25,9 @@ private:
   double calculateTime(struct timeval &start, struct timeval &end);
 
   void sortVec(uShort block);
-  uShort binaryInsertBlock(std::vector<int> const &arr,
-                           std::vector<uShort> &main_chain, uShort block_start,
-                           uShort block_size, uShort search_limit,
-                           uShort &comp_count);
+  uShort binaryInsertBlock(std::vector<uShort> &main_chain,
+                                     uShort block_start, uShort block_size,
+                                     uShort search_limit);
   void sortDeq(std::deque<int> &d);
 };
 
