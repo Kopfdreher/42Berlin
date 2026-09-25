@@ -4,12 +4,7 @@
 #include <cstdlib>
 #include <iostream>
 
-size_t PmergeMe::ElementV::comp_count = 0;
-size_t PmergeMe::ElementD::comp_count = 0;
-
-size_t PmergeMe::getVecCompCount() { return ElementV::comp_count; }
-
-size_t PmergeMe::getDeqCompCount() { return ElementD::comp_count; }
+uShort PmergeMe::comp_count = 0;
 
 PmergeMe::PmergeMe() {}
 
@@ -61,22 +56,11 @@ void PmergeMe::processInput(int argc, char **argv) {
   std::cout << std::endl;
 
   // Vector processing
-  std::vector<ElementV> vecElements;
-  vecElements.reserve(v.size());
-  for (size_t i = 0; i < v.size(); ++i) {
-    ElementV el;
-    el.value = v[i];
-    vecElements.push_back(el);
-  }
 
   struct timeval startVec, endVec;
   gettimeofday(&startVec, NULL);
-  sortVecContainer(vecElements);
+  sortVec(1);
   gettimeofday(&endVec, NULL);
-
-  for (size_t i = 0; i < vecElements.size(); ++i) {
-    v[i] = vecElements[i].value;
-  }
 
   std::cout << "After: ";
   for (size_t i = 0; i < v.size(); ++i) {
@@ -88,17 +72,10 @@ void PmergeMe::processInput(int argc, char **argv) {
 
   std::cout << "Time to process a range of " << v.size()
             << " elements with std::vector : " << timeVec << " us\n"
-            << "Comparisons: " << getVecCompCount() << std::endl;
+            << "Comparisons: " << comp_count << std::endl;
 
   // Deque processing
   /*
-  std::deque<ElementD> deqElements;
-  for (size_t i = 0; i < d.size(); ++i) {
-    ElementD el;
-    el.value = d[i];
-    deqElements.push_back(el);
-  }
-
   struct timeval startDeq, endDeq;
   gettimeofday(&startDeq, NULL);
   sortDeqContainer(deqElements);
@@ -118,188 +95,103 @@ void PmergeMe::processInput(int argc, char **argv) {
 
 // VECTOR
 
-std::vector<size_t> PmergeMe::generateJSeqVec(size_t n) {
-  std::vector<size_t> seq;
-  if (n == 0)
-    return seq;
-
-  size_t last = 1;
-  size_t curr = 3;
-
-  while (last < n) {
-    size_t upper = std::min(curr, n);
-    for (size_t i = upper; i > last; --i) {
-      seq.push_back(i - 1); // 0-based indexing
-    }
-    size_t next = curr + 2 * last;
-    last = curr;
-    curr = next;
-  }
-  return seq;
-}
-
-void PmergeMe::sortVecContainer(std::vector<ElementV> &arr) {
-  if (arr.size() <= 1)
+void PmergeMe::sortVec(uShort block) {
+  uShort num_blocks = v.size() / block;
+  if (num_blocks < 2)
     return;
 
-  bool has_straggler = (arr.size() % 2 != 0);
-  ElementV straggler;
-  if (has_straggler) {
-    straggler = arr.back();
-    arr.pop_back();
-  }
+  bool has_straggler = (num_blocks % 2 != 0);
+  uShort paired_blocks = num_blocks - (has_straggler ? 1 : 0);
 
-  // Step 1: Pair up adjacent elements, attach smaller to larger's sub_chain
-  std::vector<ElementV> pairs;
-  pairs.reserve(arr.size() / 2);
+  // Step 1: Pair up adjacent blocks
+  for (size_t i = 0; i < paired_blocks; i += 2) {
+    uShort left_last = (i + 1) * block - 1;
+    uShort right_last = (i + 2) * block - 1;
 
-  for (size_t i = 0; i < arr.size(); i += 2) {
-    if (arr[i].value < arr[i + 1].value) {
-      arr[i + 1].sub_chain.push_back(arr[i]);
-      pairs.push_back(arr[i + 1]);
-    } else {
-      arr[i].sub_chain.push_back(arr[i + 1]);
-      pairs.push_back(arr[i]);
+    comp_count++;
+    if (v[left_last] > v[right_last]) {
+      std::swap_ranges(v.begin() + i * block, v.begin() + (i + 1) * block,
+                       v.begin() + (i + 1) * block);
     }
   }
 
-  // Step 2: Recursively sort main chain pairs
-  sortVecContainer(pairs);
+  // Step 2: Recursive step with doubled block size
+  sortVec(block * 2);
 
-  // Step 3: Reconstruct Main Chain and Pend
-  std::vector<ElementV> main_chain;
-  std::vector<ElementV> pend;
-  main_chain.reserve(arr.size() + 1);// (has_straggler ? 1 : 0));
-  pend.reserve(pairs.size());
+  // Step 3: Reconstruct mainChain and pend using block start indices
+  std::vector<uShort> mainChain;
+  std::vector<uShort> pend;
 
-  for (size_t i = 0; i < pairs.size(); ++i) {
-    ElementV pend_elem = pairs[i].sub_chain.back();
-    pairs[i].sub_chain.pop_back();
+  mainChain.push_back(0 * block); // b1
+  mainChain.push_back(1 * block); // a1
 
-    main_chain.push_back(pairs[i]);
-    pend.push_back(pend_elem);
+  for (size_t i = 2; i < paired_blocks; i += 2) {
+    pend.push_back(i * block);            // b_k
+    mainChain.push_back((i + 1) * block); // a_k
   }
 
-  // b_1 (pend[0]) is guaranteed <= a_1 (main_chain[0]), insert at index 0
-  main_chain.insert(main_chain.begin(), pend[0]);
+  // Step 4: Jacobsthal Insertion using helper function
+  static const uShort jacob_nums[] = {1,  3,   5,   11,  21,   43,
+                                      85, 171, 341, 683, 1365, 2731};
+  uShort last_jacob = 1;
 
-  // Step 4: Jacobsthal Group Insertions
-  std::vector<size_t> jacob_order = generateJSeqVec(pend.size());
+  for (size_t k = 1; k < sizeof(jacob_nums) / sizeof(jacob_nums[0]); ++k) {
+    uShort curr_jacob = jacob_nums[k];
+    if (last_jacob > pend.size())
+      break;
 
-  for (size_t i = 0; i < jacob_order.size(); ++i) {
-    size_t pend_idx = jacob_order[i];
-    if (pend_idx == 0)
-      continue; // pend[0] already inserted
-    ElementV item = pend[pend_idx];
+    uShort upper = std::min(static_cast<uShort>(curr_jacob),
+                            static_cast<uShort>(pend.size()));
 
-    std::vector<ElementV>::iterator bound_it = main_chain.end();
-    for (std::vector<ElementV>::iterator it = main_chain.begin(); it != main_chain.end(); ++it) {
-	    if (it->value == pairs[pend_idx].value) {
-		    bound_it = it;
-		    break;
-	    }
+    for (size_t i = upper; i > last_jacob; --i) {
+
+      uShort search_limit = std::min(static_cast<uShort>(i + last_jacob),
+                                     static_cast<uShort>(mainChain.size()));
+
+      binaryInsert(mainChain, pend[i - 1], block, search_limit);
     }
-
-    std::vector<ElementV>::iterator pos =
-        std::upper_bound(main_chain.begin(), bound_it, item);
-
-    main_chain.insert(pos, item);
+    last_jacob = curr_jacob;
   }
 
-  // Step 5: Insert straggler if odd length
+  // Step 5: Straggler Insertion using the exact same helper
   if (has_straggler) {
-    std::vector<ElementV>::iterator pos =
-        std::upper_bound(main_chain.begin(), main_chain.end(), straggler);
-    main_chain.insert(pos, straggler);
+    uShort straggler_start = paired_blocks * block;
+    binaryInsert(mainChain, straggler_start, block, mainChain.size());
   }
 
-  arr = main_chain;
+  // Step 6: Reconstruct v for this level
+  std::vector<int> cache;
+  cache.reserve(num_blocks * block);
+
+  for (size_t i = 0; i < mainChain.size(); ++i) {
+    uShort src_start = mainChain[i];
+    for (size_t j = 0; j < block; ++j) {
+      cache.push_back(v[src_start + j]);
+    }
+  }
+
+  for (size_t i = cache.size(); i < v.size(); ++i) {
+    cache.push_back(v[i]);
+  }
+
+  std::copy(cache.begin(), cache.end(), v.begin());
 }
 
-// DEQUE
-/*
-std::deque<size_t> PmergeMe::generateJSeqDeq(size_t n) {
-  std::deque<size_t> seq;
-  if (n == 0)
-    return seq;
+void PmergeMe::binaryInsert(std::vector<uShort> &mainChain, uShort start,
+                            uShort block, uShort high) {
+  int target_val = v[start + block - 1];
+  uShort low = 0;
 
-  size_t last = 1;
-  size_t curr = 3;
+  while (low < high) {
+    uShort mid = low + (high - low) / 2;
+    int mid_val = v[mainChain[mid] + block - 1];
 
-  while (last < n) {
-    size_t upper = std::min(curr, n);
-    for (size_t i = upper; i > last; --i) {
-      seq.push_back(i - 1);
-    }
-    size_t temp = curr;
-    curr = curr + 2 * last;
-    last = temp;
+    comp_count++;
+    if (mid_val < target_val)
+      low = mid + 1;
+    else
+      high = mid;
   }
-  return seq;
+
+  mainChain.insert(mainChain.begin() + low, start);
 }
-
-void PmergeMe::sortDeqContainer(std::deque<ElementD> &arr) {
-  if (arr.size() <= 1)
-    return;
-
-  bool has_straggler = (arr.size() % 2 != 0);
-  ElementD straggler;
-  if (has_straggler) {
-    straggler = arr.back();
-    arr.pop_back();
-  }
-
-  std::deque<ElementD> pairs;
-  for (size_t i = 0; i < arr.size(); i += 2) {
-    if (arr[i].value < arr[i + 1].value) {
-      arr[i + 1].sub_chain.push_back(arr[i]);
-      pairs.push_back(arr[i + 1]);
-    } else {
-      arr[i].sub_chain.push_back(arr[i + 1]);
-      pairs.push_back(arr[i]);
-    }
-  }
-
-  sortDeqContainer(pairs);
-
-  std::deque<ElementD> main_chain;
-  std::deque<ElementD> pend;
-
-  for (size_t i = 0; i < pairs.size(); ++i) {
-    ElementD pend_elem = pairs[i].sub_chain.back();
-    pairs[i].sub_chain.pop_back();
-
-    main_chain.push_back(pairs[i]);
-    pend.push_back(pend_elem);
-  }
-
-  main_chain.push_front(pend[0]);
-
-  std::deque<size_t> jacob_order = generateJSeqDeq(pend.size());
-
-  for (size_t i = 0; i < jacob_order.size(); ++i) {
-    size_t pend_idx = jacob_order[i];
-    if (pend_idx == 0)
-      continue;
-
-    ElementD item = pend[pend_idx];
-
-    size_t search_bound =
-        std::min(pend_idx + main_chain.size(), main_chain.size());
-
-    std::deque<ElementD>::iterator bound_it = main_chain.begin() + search_bound;
-    std::deque<ElementD>::iterator pos =
-        std::upper_bound(main_chain.begin(), bound_it, item);
-
-    main_chain.insert(pos, item);
-  }
-
-  if (has_straggler) {
-    std::deque<ElementD>::iterator pos =
-        std::upper_bound(main_chain.begin(), main_chain.end(), straggler);
-    main_chain.insert(pos, straggler);
-  }
-
-  arr = main_chain;
-}
-*/
