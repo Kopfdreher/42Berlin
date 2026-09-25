@@ -139,7 +139,7 @@ void PmergeMe::sortVec(uShort block) {
   static const uShort jacob_nums[] = {1,  3,   5,   11,  21,   43,
                                       85, 171, 341, 683, 1365, 2731};
   uShort last_jacob = 1;
-  uShort nb = static_cast<uShort>(pend.size() + 1);
+  uShort nb = static_cast<uShort>(pend.size() + 1 + (has_straggler ? 1 : 0));
 
   for (size_t k = 1; k < sizeof(jacob_nums) / sizeof(jacob_nums[0]); ++k) {
     uShort curr_jacob = jacob_nums[k];
@@ -152,9 +152,12 @@ void PmergeMe::sortVec(uShort block) {
       if (b < 2)
         continue;
 
-      uShort pend_idx = b - 2;
-      uShort inserted_at = binaryInsertBlock(main_chain, pend[pend_idx], block,
-                            pair_pos[pend_idx]);
+      bool straggler = has_straggler && b == nb;
+      uShort start = straggler ? paired_blocks * block : pend[b - 2];
+      uShort limit = straggler ? static_cast<uShort>(main_chain.size())
+                               : pair_pos[b - 2];
+      uShort inserted_at =
+          binaryInsertBlock(main_chain, start, block, limit);
 
       for (size_t j = 0; j < pair_pos.size(); ++j) {
         if (pair_pos[j] >= inserted_at)
@@ -164,14 +167,7 @@ void PmergeMe::sortVec(uShort block) {
     last_jacob = curr_jacob;
   }
 
-  // Step 5: Straggler Insertion using the exact same helper
-  if (has_straggler) {
-    uShort straggler_start = paired_blocks * block;
-
-    binaryInsertBlock(main_chain, straggler_start, block, main_chain.size());
-  }
-
-  // Step 6: Reconstruct v for this level
+  // Step 5: Reconstruct v for this level
   std::vector<int> cache;
   cache.reserve(num_blocks * block);
 
