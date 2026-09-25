@@ -9,8 +9,6 @@ typedef unsigned short uShort;
 
 class PmergeMe {
 public:
-
-
   PmergeMe();
   PmergeMe(PmergeMe const &src);
   PmergeMe &operator=(PmergeMe const &rhs);
@@ -27,8 +25,10 @@ private:
   double calculateTime(struct timeval &start, struct timeval &end);
 
   void sortVec(uShort block);
-  void binaryInsert(std::vector<uShort> &mainChain, uShort start, uShort block,
-                    uShort high);
+  void binaryInsertBlock(std::vector<int> const &arr,
+                         std::vector<uShort> &main_chain, uShort block_start,
+                         uShort block_size, uShort search_limit,
+                         uShort &comp_count);
   void sortDeq(std::deque<int> &d);
 };
 

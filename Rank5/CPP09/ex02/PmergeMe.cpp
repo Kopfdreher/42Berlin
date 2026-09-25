@@ -118,16 +118,16 @@ void PmergeMe::sortVec(uShort block) {
   // Step 2: Recursive step with doubled block size
   sortVec(block * 2);
 
-  // Step 3: Reconstruct mainChain and pend using block start indices
-  std::vector<uShort> mainChain;
+  // Step 3: Reconstruct main_chain and pend using block start indices
+  std::vector<uShort> main_chain;
   std::vector<uShort> pend;
 
-  mainChain.push_back(0 * block); // b1
-  mainChain.push_back(1 * block); // a1
+  main_chain.push_back(0 * block); // b1
+  main_chain.push_back(1 * block); // a1
 
   for (size_t i = 2; i < paired_blocks; i += 2) {
-    pend.push_back(i * block);            // b_k
-    mainChain.push_back((i + 1) * block); // a_k
+    pend.push_back(i * block);             // b_k
+    main_chain.push_back((i + 1) * block); // a_k
   }
 
   // Step 4: Jacobsthal Insertion using helper function
@@ -144,11 +144,14 @@ void PmergeMe::sortVec(uShort block) {
                             static_cast<uShort>(pend.size()));
 
     for (size_t i = upper; i > last_jacob; --i) {
+      uShort pend_idx = i - 1;
+      uShort pend_block_start = pend[pend_idx];
+      uShort search_limit =
+          std::min(static_cast<uShort>(pend_idx + last_jacob + 1),
+                   static_cast<uShort>(main_chain.size()));
 
-      uShort search_limit = std::min(static_cast<uShort>(i + last_jacob),
-                                     static_cast<uShort>(mainChain.size()));
-
-      binaryInsert(mainChain, pend[i - 1], block, search_limit);
+      binaryInsertBlock(v, main_chain, pend_block_start, block, search_limit,
+                        comp_count);
     }
     last_jacob = curr_jacob;
   }
@@ -156,15 +159,17 @@ void PmergeMe::sortVec(uShort block) {
   // Step 5: Straggler Insertion using the exact same helper
   if (has_straggler) {
     uShort straggler_start = paired_blocks * block;
-    binaryInsert(mainChain, straggler_start, block, mainChain.size());
+
+    binaryInsertBlock(v, main_chain, straggler_start, block, main_chain.size(),
+                      comp_count);
   }
 
   // Step 6: Reconstruct v for this level
   std::vector<int> cache;
   cache.reserve(num_blocks * block);
 
-  for (size_t i = 0; i < mainChain.size(); ++i) {
-    uShort src_start = mainChain[i];
+  for (size_t i = 0; i < main_chain.size(); ++i) {
+    uShort src_start = main_chain[i];
     for (size_t j = 0; j < block; ++j) {
       cache.push_back(v[src_start + j]);
     }
@@ -177,21 +182,28 @@ void PmergeMe::sortVec(uShort block) {
   std::copy(cache.begin(), cache.end(), v.begin());
 }
 
-void PmergeMe::binaryInsert(std::vector<uShort> &mainChain, uShort start,
-                            uShort block, uShort high) {
-  int target_val = v[start + block - 1];
+void PmergeMe::binaryInsertBlock(std::vector<int> const &arr,
+                                 std::vector<uShort> &main_chain,
+                                 uShort block_start, uShort block_size,
+                                 uShort search_limit, uShort &comp_count) {
+  int target_val = arr[block_start + block_size - 1];
+
   uShort low = 0;
+  uShort high = search_limit;
 
   while (low < high) {
     uShort mid = low + (high - low) / 2;
-    int mid_val = v[mainChain[mid] + block - 1];
-
     comp_count++;
-    if (mid_val < target_val)
+
+    uShort mid_block_start = main_chain[mid];
+    int mid_val = arr[mid_block_start + block_size - 1];
+
+    if (mid_val < target_val) {
       low = mid + 1;
-    else
+    } else {
       high = mid;
+    }
   }
 
-  mainChain.insert(mainChain.begin() + low, start);
+  main_chain.insert(main_chain.begin() + low, block_start);
 }
