@@ -118,40 +118,49 @@ void PmergeMe::sortVec(uShort block) {
   // Step 2: Recursive step with doubled block size
   sortVec(block * 2);
 
-  // Step 3: Reconstruct main_chain and pend using block start indices
+  // Step 3: Reconstruct main_chain and pend using block start indices.
+  // main_chain starts as [b1, a1]. pend[k] is b_{k+2}; pair_pos[k] is the
+  // current index of its pair a_{k+2} in main_chain.
   std::vector<uShort> main_chain;
   std::vector<uShort> pend;
+  std::vector<uShort> pair_pos;
 
   main_chain.push_back(0 * block); // b1
   main_chain.push_back(1 * block); // a1
 
   for (size_t i = 2; i < paired_blocks; i += 2) {
-    pend.push_back(i * block);             // b_k
+    pend.push_back(i * block); // b_k
+    pair_pos.push_back(static_cast<uShort>(main_chain.size()));
     main_chain.push_back((i + 1) * block); // a_k
   }
 
-  // Step 4: Jacobsthal Insertion using helper function
+  // Step 4: Jacobsthal insertion. Jacob numbers count b1..b_n; b1 is already
+  // on the main chain, so pend_idx = b - 2.
   static const uShort jacob_nums[] = {1,  3,   5,   11,  21,   43,
                                       85, 171, 341, 683, 1365, 2731};
   uShort last_jacob = 1;
+  uShort nb = static_cast<uShort>(pend.size() + 1);
 
   for (size_t k = 1; k < sizeof(jacob_nums) / sizeof(jacob_nums[0]); ++k) {
     uShort curr_jacob = jacob_nums[k];
-    if (last_jacob > pend.size())
+    if (last_jacob >= nb)
       break;
 
-    uShort upper = std::min(static_cast<uShort>(curr_jacob),
-                            static_cast<uShort>(pend.size()));
+    uShort upper = std::min(curr_jacob, nb);
 
-    for (size_t i = upper; i > last_jacob; --i) {
-      uShort pend_idx = i - 1;
-      uShort pend_block_start = pend[pend_idx];
-      uShort search_limit =
-          std::min(static_cast<uShort>(pend_idx + last_jacob + 1),
-                   static_cast<uShort>(main_chain.size()));
+    for (uShort b = upper; b > last_jacob; --b) {
+      if (b < 2)
+        continue;
 
-      binaryInsertBlock(v, main_chain, pend_block_start, block, search_limit,
-                        comp_count);
+      uShort pend_idx = b - 2;
+      uShort inserted_at =
+          binaryInsertBlock(v, main_chain, pend[pend_idx], block,
+                            pair_pos[pend_idx], comp_count);
+
+      for (size_t j = 0; j < pair_pos.size(); ++j) {
+        if (pair_pos[j] >= inserted_at)
+          ++pair_pos[j];
+      }
     }
     last_jacob = curr_jacob;
   }
@@ -182,10 +191,10 @@ void PmergeMe::sortVec(uShort block) {
   std::copy(cache.begin(), cache.end(), v.begin());
 }
 
-void PmergeMe::binaryInsertBlock(std::vector<int> const &arr,
-                                 std::vector<uShort> &main_chain,
-                                 uShort block_start, uShort block_size,
-                                 uShort search_limit, uShort &comp_count) {
+uShort PmergeMe::binaryInsertBlock(std::vector<int> const &arr,
+                                   std::vector<uShort> &main_chain,
+                                   uShort block_start, uShort block_size,
+                                   uShort search_limit, uShort &comp_count) {
   int target_val = arr[block_start + block_size - 1];
 
   uShort low = 0;
@@ -206,4 +215,5 @@ void PmergeMe::binaryInsertBlock(std::vector<int> const &arr,
   }
 
   main_chain.insert(main_chain.begin() + low, block_start);
+  return low;
 }
