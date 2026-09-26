@@ -5,6 +5,15 @@
 #include <sys/time.h>
 #include <vector>
 
+#ifndef COMPARE
+#define COMPARE false
+#endif
+
+#define COMPARISONS                                                            \
+  if (!COMPARE) {                                                              \
+  } else                                                                       \
+    std::cout << "Comparisons: " << comp_count << std::endl;
+
 typedef unsigned int uInt;
 
 class PmergeMe {
@@ -24,6 +33,12 @@ private:
   bool parseInput(int argc, char **argv);
   double calculateTime(struct timeval &start, struct timeval &end);
 
+  // FenwickTree
+  uInt lowbit(uInt i) const;
+  void addShift(uInt *bit, uInt bitSize, uInt pairIdx) const;
+  uInt getPos(const uInt *bit, uInt pairIdx) const;
+  uInt findPairIndex(const uInt *bit, uInt totalPairs, uInt insertedAt) const;
+
   // Vector
   void sortVec(uInt block);
   void pairBlocksVec(uInt block, uInt numPairs);
@@ -34,13 +49,13 @@ private:
   void reconstructVec(std::vector<uInt> &mainChain, uInt block);
 
   // Deque
-  void sortDeq(std::deque<int> &d);
-
-  // FenwickTree
-  uInt lowbit(uInt i) const;
-  void addShift(uInt *bit, uInt bitSize, uInt pairIdx) const;
-  uInt getPos(const uInt *bit, uInt pairIdx) const;
-  uInt findPairIndex(const uInt *bit, uInt totalPairs, uInt insertedAt) const;
+  void sortDeq(uInt block);
+  void pairBlocksDeq(uInt block, uInt numPairs);
+  uInt binaryInsertDeq(std::deque<uInt> &mainChain, uInt start, uInt block,
+                       uInt high);
+  void buildChainDeq(std::deque<uInt> &mainChain, uInt block, uInt numPairs,
+                     bool hasOdd);
+  void reconstructDeq(std::deque<uInt> &mainChain, uInt block);
 };
 
 #endif

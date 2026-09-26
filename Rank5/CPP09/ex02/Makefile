@@ -3,6 +3,10 @@ NAME		= PmergeMe
 CXX			= c++
 CXXFLAGS	= -Wall -Werror -Wextra -std=c++98
 
+ifeq ($(COMPARE), 1)
+	CXXFLAGS += -D COMPARE=true
+endif
+
 INCS		= $(addsuffix .hpp, PmergeMe)
 
 SRCS		= $(addsuffix .cpp, PmergeMe main)
