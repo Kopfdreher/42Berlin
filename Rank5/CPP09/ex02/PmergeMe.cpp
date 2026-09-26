@@ -121,7 +121,7 @@ void PmergeMe::buildChain(std::vector<uInt> &mainChain, uInt block,
     pairPos.push_back(static_cast<uInt>(mainChain.size()));
     mainChain.push_back((i + 1) * block); // a_k
   }
-  // Step 4: Jacobsthal insertion. Jacob numbers count b1..b_n; b1 is already
+  // Jacobsthal insertion. Jacob numbers count b1..b_n; b1 is already
   // on the main chain, so pend_idx = b - 2.
   static const uInt jNums[] = {1,  3,   5,   11,  21,   43,
                                85, 171, 341, 683, 1365, 2731};
