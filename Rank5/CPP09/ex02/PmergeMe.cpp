@@ -169,7 +169,7 @@ void PmergeMe::buildChainVec(std::vector<uInt> &mainChain, uInt block,
     mainChain.push_back((i + 1) * block); // a_k
   }
 
-  uInt bit[1600] = {0};
+  uInt bit[1800] = {0};
   static const uInt jNums[] = {1,  3,   5,   11,  21,   43,
                                85, 171, 341, 683, 1365, 2731};
   uInt last = 1;
@@ -245,7 +245,7 @@ uInt PmergeMe::binaryInsertVec(std::vector<uInt> &mainChain, uInt start,
 // DEQUE -----------------------------------------------------------------------
 
 void PmergeMe::sortDeq(uInt block) {
-  uInt numBlocks = v.size() / block;
+  uInt numBlocks = d.size() / block;
   if (numBlocks < 2)
     return;
   bool hasOdd = numBlocks % 2;
@@ -271,9 +271,9 @@ void PmergeMe::pairBlocksDeq(uInt block, uInt numPairs) {
     uInt rightLast = (i + 2) * block - 1;
 
     comp_count++;
-    if (v[leftLast] > v[rightLast]) {
-      std::swap_ranges(v.begin() + i * block, v.begin() + (i + 1) * block,
-                       v.begin() + (i + 1) * block);
+    if (d[leftLast] > d[rightLast]) {
+      std::swap_ranges(d.begin() + i * block, d.begin() + (i + 1) * block,
+                       d.begin() + (i + 1) * block);
     }
   }
 }
@@ -291,7 +291,7 @@ void PmergeMe::buildChainDeq(std::deque<uInt> &mainChain, uInt block,
     mainChain.push_back((i + 1) * block); // a_k
   }
 
-  uInt bit[1600] = {0};
+  uInt bit[1800] = {0};
   static const uInt jNums[] = {1,  3,   5,   11,  21,   43,
                                85, 171, 341, 683, 1365, 2731};
   uInt last = 1;
@@ -333,17 +333,17 @@ void PmergeMe::reconstructDeq(std::deque<uInt> &mainChain, uInt block) {
   uInt destIdx = 0;
   for (uInt i = 0; i < mainChain.size(); ++i) {
     uInt srcStart = mainChain[i];
-    std::copy(v.begin() + srcStart, v.begin() + srcStart + block,
+    std::copy(d.begin() + srcStart, d.begin() + srcStart + block,
               cache + destIdx);
     destIdx += block;
   }
-  // Copy back into v
-  std::copy(cache, cache + mainChain.size() * block, v.begin());
+  // Copy back into d
+  std::copy(cache, cache + mainChain.size() * block, d.begin());
 }
 
 uInt PmergeMe::binaryInsertDeq(std::deque<uInt> &mainChain, uInt start,
                                uInt block, uInt high) {
-  int target_val = v[start + block - 1];
+  int target_val = d[start + block - 1];
   uInt low = 0;
 
   while (low < high) {
@@ -351,7 +351,7 @@ uInt PmergeMe::binaryInsertDeq(std::deque<uInt> &mainChain, uInt start,
     comp_count++;
 
     uInt mid_start = mainChain[mid];
-    int mid_val = v[mid_start + block - 1];
+    int mid_val = d[mid_start + block - 1];
 
     if (mid_val < target_val) {
       low = mid + 1;
