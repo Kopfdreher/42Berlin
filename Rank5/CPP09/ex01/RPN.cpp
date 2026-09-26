@@ -55,6 +55,8 @@ void RPN::execOperator(const std::string &op) {
   _nums.pop();
 
   if (op == "*") {
+		if (a == 0 || b == 0)
+			return _nums.push(0);
     if (a > INT_MAX / b)
       throw std::runtime_error("Error");
     _nums.push(b * a);

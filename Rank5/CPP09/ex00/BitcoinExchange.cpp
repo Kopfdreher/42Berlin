@@ -49,6 +49,8 @@ void BitcoinExchange::processInputFile(std::string const &inputPath) {
 
   std::string line;
   std::getline(file, line); // skip header
+  if (line != "date | value")
+    std::cerr << "Error: Invalid Header => " << line << std::endl;
 
   while (std::getline(file, line)) {
     std::size_t pipePos = line.find('|');
@@ -81,24 +83,30 @@ void BitcoinExchange::processInputFile(std::string const &inputPath) {
 // std::map<std::string, float> _database;
 
 bool BitcoinExchange::isValidDate(std::string const &date) const {
-  if (date.length() != 10 || date[4] != '-' || date[7] != '-') return false;
+  if (date.length() != 10 || date[4] != '-' || date[7] != '-')
+    return false;
 
   for (int i = 0; i < 10; ++i) {
-    if (i == 4 || i == 7) continue;
-    if (!std::isdigit(date[i])) return false;
+    if (i == 4 || i == 7)
+      continue;
+    if (!std::isdigit(date[i]))
+      return false;
   }
 
   int year = std::atoi(date.substr(0, 4).c_str());
   int month = std::atoi(date.substr(5, 2).c_str());
   int day = std::atoi(date.substr(8, 2).c_str());
 
-  if (month < 1 || month > 12 || day < 1 || day > 31) return false;
+  if (month < 1 || month > 12 || day < 1 || day > 31)
+    return false;
 
   int daysInMonth[] = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 
   bool isLeap = (year % 4 == 0 && (year % 100 != 0 || year % 400 == 0));
-  if (month == 2 && isLeap) daysInMonth[2] = 29;
-  if (day > daysInMonth[month]) return false;
+  if (month == 2 && isLeap)
+    daysInMonth[2] = 29;
+  if (day > daysInMonth[month])
+    return false;
 
   return true;
 }
@@ -133,7 +141,8 @@ bool BitcoinExchange::isValidValue(std::string const &valStr,
 }
 
 float BitcoinExchange::getExchangeRate(std::string const &date) const {
-  if (_database.empty()) return 0.0f;
+  if (_database.empty())
+    return 0.0f;
 
   std::map<std::string, float>::const_iterator it = _database.find(date);
   if (it != _database.end())
