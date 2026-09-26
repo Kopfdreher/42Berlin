@@ -95,6 +95,23 @@ void PmergeMe::processInput(int argc, char **argv) {
 
 // VECTOR
 
+namespace {
+uInt lowbit(uInt i) { return i & (~i + 1); }
+
+// +1 on every pair index >= idx. Point query is the prefix sum.
+void bitAdd(std::vector<uInt> &bit, uInt idx) {
+  for (uInt i = idx + 1; i < bit.size(); i += lowbit(i))
+    bit[i] += 1;
+}
+
+uInt bitSum(const std::vector<uInt> &bit, uInt idx) {
+  uInt sum = 0;
+  for (uInt i = idx + 1; i > 0; i -= lowbit(i))
+    sum += bit[i];
+  return sum;
+}
+} // namespace
+
 void PmergeMe::pairBlocks(uInt block, uInt numPairs) {
   for (uInt i = 0; i < numPairs; i += 2) {
     uInt leftLast = (i + 1) * block - 1;
@@ -110,17 +127,18 @@ void PmergeMe::pairBlocks(uInt block, uInt numPairs) {
 
 void PmergeMe::buildChain(std::vector<uInt> &mainChain, uInt block,
                           uInt numPairs, bool hasOdd) {
-  // mainChain starts as [b1, a1]. pend[k] is b_{k+2}; pairPos[k] is the
-  // current index of its pair a_{k+2} in mainChain.
+  // mainChain starts as [b1, a1]. pend[k] is b_{k+2}. Its pair a_{k+2}
+  // starts at index k + 2. bit stores later inserts at or before that
+  // index, so the live position is k + 2 + bitSum(bit, k).
   std::vector<uInt> pend;
-  std::vector<uInt> pairPos;
   mainChain.push_back(0 * block); // b1
   mainChain.push_back(1 * block); // a1
   for (uInt i = 2; i < numPairs; i += 2) {
     pend.push_back(i * block); // b_k
-    pairPos.push_back(static_cast<uInt>(mainChain.size()));
     mainChain.push_back((i + 1) * block); // a_k
   }
+  uInt m = static_cast<uInt>(pend.size());
+  std::vector<uInt> bit(m + 1, 0);
   // Step 4: Jacobsthal insertion. Jacob numbers count b1..b_n; b1 is already
   // on the main chain, so pend_idx = b - 2.
   static const uInt jNums[] = {1,  3,   5,   11,  21,   43,
@@ -137,13 +155,20 @@ void PmergeMe::buildChain(std::vector<uInt> &mainChain, uInt block,
         continue;
       bool straggler = hasOdd && b == nb;
       uInt start = straggler ? numPairs * block : pend[b - 2];
-      uInt limit =
-          straggler ? static_cast<uInt>(mainChain.size()) : pairPos[b - 2];
+      uInt limit = straggler ? static_cast<uInt>(mainChain.size())
+                             : (b - 2) + 2 + bitSum(bit, b - 2);
       uInt inserted_at = binaryInsertBlock(mainChain, start, block, limit);
-      for (uInt j = 0; j < pairPos.size(); ++j) {
-        if (pairPos[j] >= inserted_at)
-          ++pairPos[j];
+      uInt lo = 0;
+      uInt hi = m;
+      while (lo < hi) {
+        uInt mid = lo + (hi - lo) / 2;
+        if (mid + 2 + bitSum(bit, mid) < inserted_at)
+          lo = mid + 1;
+        else
+          hi = mid;
       }
+      if (lo < m)
+        bitAdd(bit, lo);
     }
     last = curr;
   }
