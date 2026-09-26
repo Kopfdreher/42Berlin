@@ -93,9 +93,62 @@ void PmergeMe::processInput(int argc, char **argv) {
   */
 }
 
-// VECTOR
+// Fenwick Tree ----------------------------------------------------------------
 
-void PmergeMe::pairBlocks(uInt block, uInt numPairs) {
+uInt PmergeMe::lowbit(uInt i) const { return i & (~i + 1); }
+
+void PmergeMe::addShift(uInt *bit, uInt bitSize, uInt pairIdx) const {
+  for (uInt i = pairIdx + 1; i < bitSize; i += lowbit(i)) {
+    bit[i] += 1;
+  }
+}
+
+uInt PmergeMe::getPos(const uInt *bit, uInt pairIdx) const {
+  uInt shift = 0;
+  for (uInt i = pairIdx + 1; i > 0; i -= lowbit(i)) {
+    shift += bit[i];
+  }
+  return pairIdx + 2 + shift;
+}
+
+uInt PmergeMe::findPairIndex(const uInt *bit, uInt high,
+                             uInt insertedAt) const {
+  uInt low = 0;
+  while (low < high) {
+    uInt mid = low + (high - low) / 2;
+    if (getPos(bit, mid) < insertedAt) {
+      low = mid + 1;
+    } else {
+      high = mid;
+    }
+  }
+  return low;
+}
+
+// VECTOR ----------------------------------------------------------------------
+
+void PmergeMe::sortVec(uInt block) {
+  uInt numBlocks = v.size() / block;
+  if (numBlocks < 2)
+    return;
+  bool hasOdd = numBlocks % 2;
+  uInt numPairs = numBlocks - hasOdd;
+
+  // Step 1: Pair up adjacent blocks
+  pairBlocksVec(block, numPairs);
+
+  // Step 2: Recursive step with doubled block size
+  sortVec(block * 2);
+
+  // Step 3: Build mainChain and pend using block indices
+  std::vector<uInt> mainChain;
+  buildChainVec(mainChain, block, numPairs, hasOdd);
+
+  // Step 4: Reconstruct v for this level
+  reconstructVec(mainChain, block);
+}
+
+void PmergeMe::pairBlocksVec(uInt block, uInt numPairs) {
   for (uInt i = 0; i < numPairs; i += 2) {
     uInt leftLast = (i + 1) * block - 1;
     uInt rightLast = (i + 2) * block - 1;
@@ -108,82 +161,70 @@ void PmergeMe::pairBlocks(uInt block, uInt numPairs) {
   }
 }
 
-void PmergeMe::buildChain(std::vector<uInt> &mainChain, uInt block,
-                          uInt numPairs, bool hasOdd) {
-  // mainChain starts as [b1, a1]. pend[k] is b_{k+2}; pairPos[k] is the
-  // current index of its pair a_{k+2} in mainChain.
+void PmergeMe::buildChainVec(std::vector<uInt> &mainChain, uInt block,
+                             uInt numPairs, bool hasOdd) {
   std::vector<uInt> pend;
-  std::vector<uInt> pairPos;
+
+  // Initialize mainChain with [b1, a1]
   mainChain.push_back(0 * block); // b1
   mainChain.push_back(1 * block); // a1
+  // Populate pend with b_k and mainChain with a_k
   for (uInt i = 2; i < numPairs; i += 2) {
-    pend.push_back(i * block); // b_k
-    pairPos.push_back(static_cast<uInt>(mainChain.size()));
+    pend.push_back(i * block);            // b_k
     mainChain.push_back((i + 1) * block); // a_k
   }
-  // Jacobsthal insertion. Jacob numbers count b1..b_n; b1 is already
-  // on the main chain, so pend_idx = b - 2.
+
+  uInt bit[1600] = {0};
   static const uInt jNums[] = {1,  3,   5,   11,  21,   43,
                                85, 171, 341, 683, 1365, 2731};
   uInt last = 1;
-  uInt nb = static_cast<uInt>(pend.size() + 1 + (hasOdd ? 1 : 0));
-  for (uInt k = 1; k < sizeof(jNums) / sizeof(jNums[0]); ++k) {
+  uInt totalBCount = static_cast<uInt>(pend.size() + 1 + hasOdd);
+
+  for (size_t k = 1; k < sizeof(jNums) / sizeof(jNums[0]); ++k) {
     uInt curr = jNums[k];
-    if (last >= nb)
+    if (last >= totalBCount)
       break;
-    uInt upper = std::min(curr, nb);
+
+    uInt upper = std::min(curr, totalBCount);
     for (uInt b = upper; b > last; --b) {
       if (b < 2)
         continue;
-      bool straggler = hasOdd && b == nb;
-      uInt start = straggler ? numPairs * block : pend[b - 2];
-      uInt limit =
-          straggler ? static_cast<uInt>(mainChain.size()) : pairPos[b - 2];
-      uInt inserted_at = binaryInsertBlock(mainChain, start, block, limit);
-      for (uInt j = 0; j < pairPos.size(); ++j) {
-        if (pairPos[j] >= inserted_at)
-          ++pairPos[j];
+      uInt start;
+      uInt limit;
+      if (hasOdd && b == totalBCount) {
+        start = numPairs * block;
+        limit = mainChain.size();
+      } else {
+        start = pend[b - 2];
+        limit = getPos(bit, b - 2);
       }
+
+      // Perform bounded binary insertion
+      uInt insertedAt = binaryInsertVec(mainChain, start, block, limit);
+
+      // Map inserted position back to a pair index and update insertion offsets
+      uInt pairIdx = findPairIndex(bit, numPairs, insertedAt);
+      if (pairIdx < numPairs)
+        addShift(bit, numPairs, pairIdx);
     }
     last = curr;
   }
 }
 
-void PmergeMe::sortVec(uInt block) {
-  uInt numBlocks = v.size() / block;
-  if (numBlocks < 2)
-    return;
-  bool hasOdd = numBlocks % 2;
-  uInt numPairs = numBlocks - hasOdd;
-
-  // Step 1: Pair up adjacent blocks
-  pairBlocks(block, numPairs);
-
-  // Step 2: Recursive step with doubled block size
-  sortVec(block * 2);
-
-  // Step 3: Build mainChain and pend using block start indices.
-  std::vector<uInt> mainChain;
-  buildChain(mainChain, block, numPairs, hasOdd);
-
-  // Step 4: Reconstruct v for this level
-  reconstructVec(mainChain, block);
-}
-
 void PmergeMe::reconstructVec(std::vector<uInt> &mainChain, uInt block) {
-  uInt scratch[3200];
+  uInt cache[3200];
   uInt destIdx = 0;
   for (uInt i = 0; i < mainChain.size(); ++i) {
     uInt srcStart = mainChain[i];
     std::copy(v.begin() + srcStart, v.begin() + srcStart + block,
-              scratch + destIdx);
+              cache + destIdx);
     destIdx += block;
   }
   // Copy back into v
-  std::copy(scratch, scratch + mainChain.size() * block, v.begin());
+  std::copy(cache, cache + mainChain.size() * block, v.begin());
 }
 
-uInt PmergeMe::binaryInsertBlock(std::vector<uInt> &mainChain, uInt start,
+uInt PmergeMe::binaryInsertVec(std::vector<uInt> &mainChain, uInt start,
                                  uInt block, uInt high) {
   int target_val = v[start + block - 1];
   uInt low = 0;

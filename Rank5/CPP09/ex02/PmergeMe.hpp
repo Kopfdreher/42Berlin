@@ -24,14 +24,23 @@ private:
   bool parseInput(int argc, char **argv);
   double calculateTime(struct timeval &start, struct timeval &end);
 
+  // Vector
   void sortVec(uInt block);
-  void pairBlocks(uInt block, uInt numPairs);
-  uInt binaryInsertBlock(std::vector<uInt> &mainChain, uInt start, uInt block,
-                         uInt high);
-  void buildChain(std::vector<uInt> &mainChain, uInt block, uInt numPairs,
-                  bool hasOdd);
+  void pairBlocksVec(uInt block, uInt numPairs);
+  uInt binaryInsertVec(std::vector<uInt> &mainChain, uInt start, uInt block,
+                       uInt high);
+  void buildChainVec(std::vector<uInt> &mainChain, uInt block, uInt numPairs,
+                     bool hasOdd);
   void reconstructVec(std::vector<uInt> &mainChain, uInt block);
+
+  // Deque
   void sortDeq(std::deque<int> &d);
+
+  // FenwickTree
+  uInt lowbit(uInt i) const;
+  void addShift(uInt *bit, uInt bitSize, uInt pairIdx) const;
+  uInt getPos(const uInt *bit, uInt pairIdx) const;
+  uInt findPairIndex(const uInt *bit, uInt totalPairs, uInt insertedAt) const;
 };
 
 #endif
