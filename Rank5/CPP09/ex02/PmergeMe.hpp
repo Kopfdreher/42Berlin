@@ -5,7 +5,7 @@
 #include <sys/time.h>
 #include <vector>
 
-typedef unsigned short uShort;
+typedef unsigned int uInt;
 
 class PmergeMe {
 public:
@@ -15,7 +15,7 @@ public:
   ~PmergeMe();
 
   void processInput(int argc, char **argv);
-  static uShort comp_count;
+  static uInt comp_count;
 
 private:
   std::vector<int> v;
@@ -24,9 +24,13 @@ private:
   bool parseInput(int argc, char **argv);
   double calculateTime(struct timeval &start, struct timeval &end);
 
-  void sortVec(uShort block);
-  uShort binaryInsertBlock(std::vector<uShort> &mainChain, uShort start,
-                           uShort block, uShort high);
+  void sortVec(uInt block);
+  void pairBlocks(uInt block, uInt numPairs);
+  uInt binaryInsertBlock(std::vector<uInt> &mainChain, uInt start, uInt block,
+                         uInt high);
+  void buildChain(std::vector<uInt> &mainChain, uInt block, uInt numPairs,
+                  bool hasOdd);
+  void reconstructVec(std::vector<uInt> &mainChain, uInt block);
   void sortDeq(std::deque<int> &d);
 };
 
